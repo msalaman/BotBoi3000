@@ -7,7 +7,7 @@ import java.util.Set;
 import bwapi.*;
 import bwta.BWTA;
 import bwta.BaseLocation;
-
+import java.util.*;
 public class TestBot1 extends DefaultBWListener {
 
 	private Mirror mirror = new Mirror();
@@ -226,23 +226,119 @@ public class TestBot1 extends DefaultBWListener {
 					int currY = startingWalk.getY();
 					int targetX = targetWalk.getX();
 					int targetY = targetWalk.getY();
-					
+					int breakingPoint = 100000; //change depending on results
 					int maxDistance = 0;
-					
-					//right check
-					maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs(currY - targetY));
-					if (mapHCopy[currX+1][currY] > maxDistance + mapH[currX+1][currY]) {
-						mapHCopy[currX+1][currY] = maxDistance + mapH[currX+1][currY];
+					int foundDistance = 0;
+					//map coordinates to score and parent
+					//Map<List<int>, List<List<int, int>, int> possiblePath = new HashMap<List<int>, List<int>>();
+					//Map<List<int>, List<List<int, int>, int> chosenPath = new HashMap<List<int>, List<int>>();
+					//List<int> startPoint = {currX, currY};
+					//List<int> startValue = {0, 
+					//possiblePath.put(startPoint);
+					//x, all y values
+					HashMap<Integer, List<Integer>> chosenPath = new HashMap<>();
+					List<Integer> possibleYs = new ArrayList<>();
+					possibleYs.add(currY);
+					chosenPath.put(currX, possibleYs);
+					NmapHeight = 4 * game.mapHeight();
+					NmapWidth  = 4 * game.mapWidth();
+					while(foundDistance < breakingPoint && (currX != targetX || currY != targetY)) {
+						//right
+						if(NmapWidth > currX+1) {
+							//right check
+							maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs(currY - targetY));
+							if (mapHCopy[currX+1][currY] > maxDistance + mapH[currX+1][currY]) {
+								mapHCopy[currX+1][currY] = maxDistance + mapH[currX+1][currY];
+							}
+							//bottom right check
+							if(currY+1<NmapHeight) {
+								maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs((currY+1) - targetY));
+								if (mapHCopy[currX+1][currY+1] > maxDistance + mapH[currX+1][currY+1]) {
+									mapHCopy[currX+1][currY+1] = maxDistance + mapH[currX+1][currY+1];
+								}
+							}
+							//upper right check
+							if(currY-1>=0) {
+								maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs((currY-1) - targetY));
+								if (mapHCopy[currX+1][currY-1] > maxDistance + mapH[currX+1][currY-1]) {
+									mapHCopy[currX+1][currY-1] = maxDistance + mapH[currX+1][currY-1];
+								}
+							}
+						}
+						//left
+						if(currX-1 >= 0) {
+							//left check
+							maxDistance = Math.max(Math.abs((currX-1) - targetX), Math.abs(currY - targetY));
+							if (mapHCopy[currX-1][currY] > maxDistance + mapH[currX-1][currY]) {
+								mapHCopy[currX-1][currY] = maxDistance + mapH[currX-1][currY];
+							}
+							//bottom left check
+							if(currY+1<NmapHeight) {
+								maxDistance = Math.max(Math.abs((currX-1) - targetX), Math.abs((currY+1) - targetY));
+								if (mapHCopy[currX-1][currY+1] > maxDistance + mapH[currX-1][currY+1]) {
+									mapHCopy[currX-1][currY+1] = maxDistance + mapH[currX-1][currY+1];
+								}
+							}
+							//upper left check
+							if(currY-1>=0) {
+								maxDistance = Math.max(Math.abs((currX-1) - targetX), Math.abs((currY-1) - targetY));
+								if (mapHCopy[currX-1][currY-1] > maxDistance + mapH[currX-1][currY-1]) {
+									mapHCopy[currX-1][currY-1] = maxDistance + mapH[currX-1][currY-1];
+								}
+							}
+						}
+						//lower check
+						if(currY+1<NmapHeight) {
+							maxDistance = Math.max(Math.abs((currX) - targetX), Math.abs((currY+1) - targetY));
+							if (mapHCopy[currX][currY+1] > maxDistance + mapH[currX][currY+1]) {
+								mapHCopy[currX][currY+1] = maxDistance + mapH[currX][currY+1];
+							}
+						}
+						//upper check
+						if(currY-1>=0) {
+							maxDistance = Math.max(Math.abs((currX) - targetX), Math.abs((currY-1) - targetY));
+							if (mapHCopy[currX][currY-1] > maxDistance + mapH[currX][currY-1]) {
+								mapHCopy[currX][currY-1] = maxDistance + mapH[currX][currY-1];
+							}
+						}
+						int leftEdge = currX-1;
+						if(leftEdge <0) leftEdge = 0;
+						int upperEdge = currY-1;
+						if(upperEdge <0) upperEdge = 0;
+						int rightEdge = currX+1;
+						if(rightEdge <0) rightEdge = NmapWidth;
+						int lowerEdge = currY+1;
+						if(lowerEdge <0) lowerEdge = NmapHeight;
+						int tempX;
+						int tempY;
+						int tempScore = 10000000000;
+						for(int i=leftEdge; i<=rightEdge;i++) {
+							for(int j=upperEdge; j<=lowerEdge) {
+								if(i==currX && j==currY) continue;
+								if(!chosenPath.containsKey(i) || (chosenPath.containsKey(i) && !chosenPath.get(i).contains(j))) {
+									if(mapHCopy[i][j]<tempScore) {
+										tempX = i;
+										tempY = j;
+										tempScore = mapHCopy[i][j];
+									}
+								}
+							}
+						}
+						currX=tempX;
+						currY=tempY;
+						foundDistance += tempScore;
+						if(chosenPath.containsKey(currX)) {
+							chosenPath.get(currX).add(currY);
+						} else {
+							List<Integer> newY = new ArrayList<>();
+							chosenPath.put(currX, newY);
+						}
+						if(foundDistance > breakingPoint) {
+							skip = true;
+							break;
+						}
+						
 					}
-					//bottom right check
-					maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs((currY+1) - targetY));
-					if (mapHCopy[currX+1][currY+1] > maxDistance + mapH[currX+1][currY+1]) {
-						mapHCopy[currX+1][currY+1] = maxDistance + mapH[currX+1][currY+1];
-					}
-					
-					
-					//Djikstra's algorithm on mapH. Find the path with smallest added number values.
-					
 					
 					
 					if (skip == false) {
