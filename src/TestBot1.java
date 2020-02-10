@@ -81,7 +81,7 @@ public class TestBot1 extends DefaultBWListener {
 		for (int i = 0; i < mapHeight*4; i++) {
 			for (int j = 0; i < mapWidth*4; j++) {
 				if (!game.isWalkable(i, j)) {
-					mapH[i][j] = 100;
+					mapH[i][j] = 1000;
 				}
 				else {
 					mapH[i][j] = 1;
@@ -206,8 +206,39 @@ public class TestBot1 extends DefaultBWListener {
 					WalkPosition startingWalk = new WalkPosition(startingPos.getX()/8,startingPos.getY()/8);
 					WalkPosition targetWalk = new WalkPosition(targetPos.getX()/8,targetPos.getY()/8);
 					
-					int [][] mapHCopy = mapH;
-					// treat mapHCopy as the node values, and mapH as the edge weight
+					int [][] mapHCopy = new int [mapHeight*4][mapWidth*4];
+					for (int i = 0; i < mapHeight*4; i++) {
+						for (int j = 0; i < mapWidth*4; j++) {
+							mapH[i][j] = 1000;
+						}
+					}
+					
+					int [][] mapHVisited = new int [mapHeight*4][mapWidth*4];
+					// treat mapHCopy as the node values, and mapH as the edge weight. Update mapHcopy as needed, but leave mapH as is.
+					// mapHVisited is used to mark which locations, or "nodes" are visited.
+					
+					// 1 is the lowest value, 100 is the highest value a risk can take (a unit is ranked by its risk), and 1000 is the 
+					// highest value and represents "impassable" squares
+					
+					mapHVisited[startingWalk.getX()][startingWalk.getY()] = 1;
+					mapHCopy[startingWalk.getX()][startingWalk.getY()] = 1;
+					int currX = startingWalk.getX();
+					int currY = startingWalk.getY();
+					int targetX = targetWalk.getX();
+					int targetY = targetWalk.getY();
+					
+					int maxDistance = 0;
+					
+					//right check
+					maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs(currY - targetY));
+					if (mapHCopy[currX+1][currY] > maxDistance + mapH[currX+1][currY]) {
+						mapHCopy[currX+1][currY] = maxDistance + mapH[currX+1][currY];
+					}
+					//bottom right check
+					maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs((currY+1) - targetY));
+					if (mapHCopy[currX+1][currY+1] > maxDistance + mapH[currX+1][currY+1]) {
+						mapHCopy[currX+1][currY+1] = maxDistance + mapH[currX+1][currY+1];
+					}
 					
 					
 					//Djikstra's algorithm on mapH. Find the path with smallest added number values.
