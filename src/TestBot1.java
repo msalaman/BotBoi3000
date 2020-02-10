@@ -16,6 +16,10 @@ public class TestBot1 extends DefaultBWListener {
 
 	private Player self;
 
+	private int [][] mapH;
+	private int mapHeight;
+	private int mapWidth;
+
 	private int frameskip = 0;
 	private int cyclesForSearching = 0;
 	private int maxCyclesForSearching = 0;
@@ -44,7 +48,7 @@ public class TestBot1 extends DefaultBWListener {
 
 	@Override
 	public void onUnitCreate(Unit unit) {
-		
+
 	}
 
 	@Override
@@ -69,6 +73,21 @@ public class TestBot1 extends DefaultBWListener {
 
 		BWTA.readMap();
 		BWTA.analyze();
+
+		mapHeight = game.mapHeight();
+		mapWidth = game.mapWidth();
+		mapH = new int [mapHeight*4][mapWidth*4];
+		
+		for (int i = 0; i < mapHeight*4; i++) {
+			for (int j = 0; i < mapWidth*4; j++) {
+				if (!game.isWalkable(i, j)) {
+					mapH[i][j] = 100;
+				}
+				else {
+					mapH[i][j] = 1;
+				}
+			}
+		}
 
 		int i = 0;
 	}
@@ -109,7 +128,7 @@ public class TestBot1 extends DefaultBWListener {
 		List<BaseLocation> allLocations = new ArrayList<>();
 		Unit bunker = null;
 		Position workerAttacked = null;
-		
+
 
 		if (bunkerBuilder != null && bunkerBuilder.exists() == false) {
 			bunkerBuilder = null;
@@ -180,17 +199,32 @@ public class TestBot1 extends DefaultBWListener {
 
 				// if a mineral patch was found, send the worker to gather it
 				if (closestMineral != null) {
+					
+					Position startingPos = myUnit.getPosition();
+					Position targetPos = closestMineral.getPosition();
+					
+					WalkPosition startingWalk = new WalkPosition(startingPos.getX()/8,startingPos.getY()/8);
+					WalkPosition targetWalk = new WalkPosition(targetPos.getX()/8,targetPos.getY()/8);
+					
+					int [][] mapHCopy = mapH;
+					// treat mapHCopy as the node values, and mapH as the edge weight
+					
+					
+					//Djikstra's algorithm on mapH. Find the path with smallest added number values.
+					
+					
+					
 					if (skip == false) {
 						myUnit.gather(closestMineral, false);
 					}
 				}
 			}
-			
+
 			if (myUnit.isUnderAttack() && myUnit.canAttack()) {
 				game.setLocalSpeed(1);
 				myUnit.attack(myUnit.getPosition());
 			}
-			
+
 			if (myUnit.isUnderAttack() && myUnit.isGatheringMinerals()){
 				workerAttacked = myUnit.getPosition();
 			}
@@ -328,7 +362,7 @@ public class TestBot1 extends DefaultBWListener {
 			if (bunker != null && bunker.getLoadedUnits().size() < 4 && k < 5) {
 				marine.load(bunker);
 			}
-			
+
 			if (workerAttacked != null){
 				marine.attack(workerAttacked);
 			}
@@ -354,6 +388,12 @@ public class TestBot1 extends DefaultBWListener {
 				// don't
 				if (!enemyBuildingMemory.contains(u.getPosition()))
 					enemyBuildingMemory.add(u.getPosition());
+			}
+			if (u.getType().canAttack()) {
+				Position pTemp = u.getPosition();
+				int wTileTempX = pTemp.getX()/8;
+				int wTileTempY = pTemp.getY()/8;
+				mapH[wTileTempX][wTileTempY] = 30; // make this set the area of a few tiles around it as 30
 			}
 		}
 
@@ -388,6 +428,7 @@ public class TestBot1 extends DefaultBWListener {
 
 		// draw my units on screen
 		// game.drawTextScreen(10, 25, units.toString());
+		
 	}
 
 	public static void main(String[] args) {
