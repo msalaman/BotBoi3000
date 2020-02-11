@@ -263,6 +263,13 @@ public class TestBot1 extends DefaultBWListener {
 					while(foundDistance < breakingPoint && (currX != targetX || currY != targetY)) {
 						//right
 						game.drawTextScreen(10, 160, "We've entered the while loop");
+						
+						//check to see if the target is within 1 sqare of our current location, leave the loop if found
+						if (Math.abs(currX-targetX)<=1 && Math.abs(currY-targetY)<=1 ) {
+							game.drawTextScreen(10, 70, "found a good path");
+							break;
+						}
+						
 						if(NmapWidth > currX+1) {
 							//right check
 							maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs(currY - targetY));
@@ -363,7 +370,7 @@ public class TestBot1 extends DefaultBWListener {
 							chosenPath.put(currX, newY);
 						}
 						if(foundDistance > breakingPoint) {
-							game.drawTextScreen(200, 70, "Passed the breakingPoint, won't gather resource");
+							game.drawTextScreen(250, 70, "Passed the breakingPoint, won't gather resource");
 							//game.drawTextMap(myUnit.getPosition(), "Passed the breakingPoint, won't gather resource ");
 							skip = true;
 							break;
