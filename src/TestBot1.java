@@ -178,10 +178,12 @@ public class TestBot1 extends DefaultBWListener {
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
+			
 			if (myUnit.getType().isWorker() && myUnit.isIdle()) {
 				boolean skip = false;
 				if (bunker == null && bunkerBuilder != null && myUnit.equals(bunkerBuilder)
 						&& barracks.isEmpty() == false) {
+					game.drawTextScreen(10, 140, "I've just set skip to true for buker related reasons");
 					skip = true;
 				}
 
@@ -200,18 +202,24 @@ public class TestBot1 extends DefaultBWListener {
 				// if a mineral patch was found, send the worker to gather it
 				if (closestMineral != null) {
 					
+					game.drawTextScreen(10, 120, "found a closest mineral field");
+					
 					Position startingPos = myUnit.getPosition();
 					Position targetPos = closestMineral.getPosition();
 					
 					WalkPosition startingWalk = new WalkPosition(startingPos.getX()/8,startingPos.getY()/8);
 					WalkPosition targetWalk = new WalkPosition(targetPos.getX()/8,targetPos.getY()/8);
 					
+					game.drawTextScreen(10, 190, "startingWalk: " + startingWalk.getX() + ", " + startingWalk.getY());
+					game.drawTextScreen(10, 200, "targetWalk: " + targetWalk.getX() + ", " + targetWalk.getY());
+					
 					int [][] mapHCopy = new int [mapHeight*4][mapWidth*4];
 					for (int i = 0; i < mapHeight*4; i++) {
-						for (int j = 0; i < mapWidth*4; j++) {
-							mapH[i][j] = 1000;
+						for (int j = 0; j < mapWidth*4; j++) {
+							mapHCopy[i][j] = 1000;
 						}
 					}
+					game.drawTextScreen(350, 120, "past that for loop?");
 					
 					int [][] mapHVisited = new int [mapHeight*4][mapWidth*4];
 					// treat mapHCopy as the node values, and mapH as the edge weight. Update mapHcopy as needed, but leave mapH as is.
@@ -226,9 +234,10 @@ public class TestBot1 extends DefaultBWListener {
 					int currY = startingWalk.getY();
 					int targetX = targetWalk.getX();
 					int targetY = targetWalk.getY();
-					int breakingPoint = 100000; //change depending on results
+					int breakingPoint = 1000; //change depending on results
 					int maxDistance = 0;
 					int foundDistance = 0;
+					game.drawTextScreen(10, 100, "past the first set of variable declarations");
 					//map coordinates to score and parent
 					//Map<List<int>, List<List<int, int>, int> possiblePath = new HashMap<List<int>, List<int>>();
 					//Map<List<int>, List<List<int, int>, int> chosenPath = new HashMap<List<int>, List<int>>();
@@ -238,12 +247,22 @@ public class TestBot1 extends DefaultBWListener {
 					//x, all y values
 					HashMap<Integer, List<Integer>> chosenPath = new HashMap<>();
 					List<Integer> possibleYs = new ArrayList<>();
+					game.drawTextScreen(10, 110, "past the Hashmap and list declarations");
 					possibleYs.add(currY);
 					chosenPath.put(currX, possibleYs);
-					NmapHeight = 4 * game.mapHeight();
-					NmapWidth  = 4 * game.mapWidth();
+					game.drawTextScreen(250, 110, "past the adding and putting");
+					int NmapHeight = 4 * game.mapHeight();
+					int NmapWidth  = 4 * game.mapWidth();
+					int counter = 0;
+					
+					game.drawTextScreen(10, 210, "currX and Y: " + currX + ", " + currY);
+					game.drawTextScreen(10, 220, "targetX and Y: " + targetX + ", " + targetY);
+					
+					game.drawTextScreen(10, 230, "Value of dis<brk = " + (foundDistance < breakingPoint) + " Value of currXY vs tarXY = " + (currX != targetX || currY != targetY));
+					
 					while(foundDistance < breakingPoint && (currX != targetX || currY != targetY)) {
 						//right
+						game.drawTextScreen(10, 160, "We've entered the while loop");
 						if(NmapWidth > currX+1) {
 							//right check
 							maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs(currY - targetY));
@@ -309,11 +328,11 @@ public class TestBot1 extends DefaultBWListener {
 						if(rightEdge <0) rightEdge = NmapWidth;
 						int lowerEdge = currY+1;
 						if(lowerEdge <0) lowerEdge = NmapHeight;
-						int tempX;
-						int tempY;
-						int tempScore = 10000000000;
+						int tempX = currX;
+						int tempY = currY;
+						int tempScore = 100000000;
 						for(int i=leftEdge; i<=rightEdge;i++) {
-							for(int j=upperEdge; j<=lowerEdge) {
+							for(int j=upperEdge; j<=lowerEdge;j++) {
 								if(i==currX && j==currY) continue;
 								if(!chosenPath.containsKey(i) || (chosenPath.containsKey(i) && !chosenPath.get(i).contains(j))) {
 									if(mapHCopy[i][j]<tempScore) {
@@ -324,8 +343,18 @@ public class TestBot1 extends DefaultBWListener {
 								}
 							}
 						}
-						currX=tempX;
-						currY=tempY;
+						//game.drawTextScreen(10, 150, "We are still in the while loop" + counter);
+						//check if currX and currY are already tempX and tempY, in which case no path was found.
+						if (currX==tempX) {
+							game.drawTextScreen(10, 70, "Couldn't find a good path to resource");
+							//game.drawTextMap(myUnit.getPosition(), "Couldn't find a good path to resource ");
+							skip = true;
+							break;
+						}
+						else {
+							currX=tempX;
+							currY=tempY;		
+						}
 						foundDistance += tempScore;
 						if(chosenPath.containsKey(currX)) {
 							chosenPath.get(currX).add(currY);
@@ -334,14 +363,17 @@ public class TestBot1 extends DefaultBWListener {
 							chosenPath.put(currX, newY);
 						}
 						if(foundDistance > breakingPoint) {
+							game.drawTextScreen(200, 70, "Passed the breakingPoint, won't gather resource");
+							//game.drawTextMap(myUnit.getPosition(), "Passed the breakingPoint, won't gather resource ");
 							skip = true;
 							break;
 						}
 						
 					}
 					
-					
+					game.drawTextScreen(10, 250, "About the enter the skip check where skip = " + skip);
 					if (skip == false) {
+						game.drawTextScreen(200, 250, "Gonna tell it to gather the resource");
 						myUnit.gather(closestMineral, false);
 					}
 				}
@@ -520,7 +552,13 @@ public class TestBot1 extends DefaultBWListener {
 				Position pTemp = u.getPosition();
 				int wTileTempX = pTemp.getX()/8;
 				int wTileTempY = pTemp.getY()/8;
-				mapH[wTileTempX][wTileTempY] = 30; // make this set the area of a few tiles around it as 30
+				for (i=wTileTempX-2; i<wTileTempX+3; i++) {
+					for (int j=wTileTempY; j<wTileTempY+3; j++) {
+						if (i<mapWidth*4 && i>=0 && j<mapHeight*4 && j>=0) {
+							mapH[i][j] = 500; // make this set the area of a few tiles around it as 30
+						}
+					}
+				}
 			}
 		}
 
