@@ -8,6 +8,9 @@ import bwapi.*;
 import bwta.BWTA;
 import bwta.BaseLocation;
 import java.util.*;
+
+//if this comment shows, it means git is working through eclipse
+
 public class TestBot1 extends DefaultBWListener {
 
 	private Mirror mirror = new Mirror();
