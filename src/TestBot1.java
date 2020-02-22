@@ -7,6 +7,8 @@ import java.util.Set;
 import bwapi.*;
 import bwta.BWTA;
 import bwta.BaseLocation;
+import routine.PrintTest;
+
 import java.util.*;
 
 //if this comment shows, it means git is working through eclipse
@@ -110,6 +112,8 @@ public class TestBot1 extends DefaultBWListener {
 		 * 2; if (x == 0) { selectedStrategy = Strategy.FindEnemy; } else {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
+		PrintTest printTest = new PrintTest();
+		printTest.act(game);
 
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
