@@ -17,6 +17,9 @@ public class Blackboard {
 	private List<Boolean> research;
 	private List<Unit> enemyCommandCenters;
 	private int enemyUnitCount;
+	private Boolean EconTreeCompleted;
+	private Boolean StrategyTreeCompleted;
+	private Boolean ResearchTreeCompleted;
 	
 	
 	public void setBuildings(List<Unit> b) {
@@ -112,5 +115,29 @@ public class Blackboard {
 
 	public void setEnemyUnitCount(int enemyUnitCount) {
 		this.enemyUnitCount = enemyUnitCount;
+	}
+
+	public Boolean getEconTreeCompleted() {
+		return EconTreeCompleted;
+	}
+
+	public void setEconTreeCompleted(Boolean econTreeCompleted) {
+		EconTreeCompleted = econTreeCompleted;
+	}
+
+	public Boolean getStrategyTreeCompleted() {
+		return StrategyTreeCompleted;
+	}
+
+	public void setStrategyTreeCompleted(Boolean strategyTreeCompleted) {
+		StrategyTreeCompleted = strategyTreeCompleted;
+	}
+
+	public Boolean getResearchTreeCompleted() {
+		return ResearchTreeCompleted;
+	}
+
+	public void setResearchTreeCompleted(Boolean researchTreeCompleted) {
+		ResearchTreeCompleted = researchTreeCompleted;
 	}
 }
