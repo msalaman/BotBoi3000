@@ -5,6 +5,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import bwapi.Race;
 import bwapi.Unit;
 
 public class Blackboard {
@@ -13,38 +14,45 @@ public class Blackboard {
 	private List<Unit> barracks;
 	private List<Unit> commandCenters;
 	private Dictionary<String, List<Unit>> army = new Hashtable<String, List<Unit>>();
-	private int crystals;
+	private int minerals;
 	private int gas;
+	private int supplyUsed;
+	private int supplyTotal;
 	private List<Boolean> research;
 	private List<Unit> enemyCommandCenters;
 	private int enemyUnitCount;
+  private Boolean EconTreeCompleted;
+	private Boolean StrategyTreeCompleted;
+	private Boolean ResearchTreeCompleted;
+	private Race enemyRace;
 	
-    public Blackboard() {
-    	List<Unit> marines = new ArrayList<>();
-    	army.put("marines", marines);
-    	List<Unit> firebats = new ArrayList<>();
-    	army.put("firebars", firebats);
-    	List<Unit> medics = new ArrayList<>();
-    	army.put("medics", medics);
-    	List<Unit> ghosts = new ArrayList<>();
-    	army.put("ghosts", ghosts);
-    	List<Unit> vultures = new ArrayList<>();
-    	army.put("vultures", vultures);
-    	List<Unit> siegeTanks = new ArrayList<>();
-    	army.put("siegeTanks", siegeTanks);
-    	List<Unit> goliaths = new ArrayList<>();
-    	army.put("goliaths", goliaths);
-    	List<Unit> wraiths = new ArrayList<>();
-    	army.put("wraiths", wraiths);
-    	List<Unit> dropships = new ArrayList<>();
-    	army.put("dropships", dropships);
-    	List<Unit> scienceVessels = new ArrayList<>();
-    	army.put("scienceVessels", scienceVessels);
-    	List<Unit> battleCruisers = new ArrayList<>();
-    	army.put("battleCruisers", battleCruisers);
-    	List<Unit> valkyries = new ArrayList<>();
-    	army.put("valkyries", valkyries);
-	 }
+  public Blackboard() {
+    List<Unit> marines = new ArrayList<>();
+    army.put("marines", marines);
+    List<Unit> firebats = new ArrayList<>();
+    army.put("firebars", firebats);
+    List<Unit> medics = new ArrayList<>();
+    army.put("medics", medics);
+    List<Unit> ghosts = new ArrayList<>();
+    army.put("ghosts", ghosts);
+    List<Unit> vultures = new ArrayList<>();
+    army.put("vultures", vultures);
+    List<Unit> siegeTanks = new ArrayList<>();
+    army.put("siegeTanks", siegeTanks);
+    List<Unit> goliaths = new ArrayList<>();
+    army.put("goliaths", goliaths);
+    List<Unit> wraiths = new ArrayList<>();
+    army.put("wraiths", wraiths);
+    List<Unit> dropships = new ArrayList<>();
+    army.put("dropships", dropships);
+    List<Unit> scienceVessels = new ArrayList<>();
+    army.put("scienceVessels", scienceVessels);
+    List<Unit> battleCruisers = new ArrayList<>();
+    army.put("battleCruisers", battleCruisers);
+    List<Unit> valkyries = new ArrayList<>();
+    army.put("valkyries", valkyries);
+	}
+
 	
 	public void setBuildings(List<Unit> b) {
 		buildings = b;
@@ -92,20 +100,37 @@ public class Blackboard {
 		return army.get(s);
 	}
 	
-	public void setCrystals(int c) {
-		crystals = c;
+	public int getMinerals() {
+		return minerals;
 	}
 	
-	public int getCrystals() {
-		return crystals;
+	public void setMinerals(int m) {
+		minerals = m;
+	}
+
+	public int getGas() {
+		return gas;
 	}
 	
 	public void setGas(int g) {
 		gas = g;
 	}
 	
-	public int getGas() {
-		return gas;
+
+	public int getSupplyUsed() {
+		return supplyUsed;
+	}
+
+	public void setSupplyUsed(int supplyUsed) {
+		this.supplyUsed = supplyUsed;
+	}
+
+	public int getSupplyTotal() {
+		return supplyTotal;
+	}
+
+	public void setSupplyTotal(int supplyTotal) {
+		this.supplyTotal = supplyTotal;
 	}
 
 	public List<Boolean> getResearch() {
@@ -139,5 +164,37 @@ public class Blackboard {
 
 	public void setEnemyUnitCount(int enemyUnitCount) {
 		this.enemyUnitCount = enemyUnitCount;
+	}
+
+	public Boolean getEconTreeCompleted() {
+		return EconTreeCompleted;
+	}
+
+	public void setEconTreeCompleted(Boolean econTreeCompleted) {
+		EconTreeCompleted = econTreeCompleted;
+	}
+
+	public Boolean getStrategyTreeCompleted() {
+		return StrategyTreeCompleted;
+	}
+
+	public void setStrategyTreeCompleted(Boolean strategyTreeCompleted) {
+		StrategyTreeCompleted = strategyTreeCompleted;
+	}
+
+	public Boolean getResearchTreeCompleted() {
+		return ResearchTreeCompleted;
+	}
+
+	public void setResearchTreeCompleted(Boolean researchTreeCompleted) {
+		ResearchTreeCompleted = researchTreeCompleted;
+	}
+
+	public Race getEnemyRace() {
+		return enemyRace;
+	}
+
+	public void setEnemyRace(Race enemyRace) {
+		this.enemyRace = enemyRace;
 	}
 }
