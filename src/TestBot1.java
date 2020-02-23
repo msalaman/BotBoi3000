@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import blackboard.Blackboard;
 import bwapi.*;
 import bwta.BWTA;
 import bwta.BaseLocation;
@@ -18,6 +19,7 @@ public class TestBot1 extends DefaultBWListener {
 	private Mirror mirror = new Mirror();
 
 	private Game game;
+	private Blackboard blackboard;
 
 	private Player self;
 
@@ -72,6 +74,7 @@ public class TestBot1 extends DefaultBWListener {
 		game = mirror.getGame();
 		self = game.self();
 		game.setLocalSpeed(0);
+		blackboard = new Blackboard();
 
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
@@ -113,7 +116,7 @@ public class TestBot1 extends DefaultBWListener {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
 		PrintTest printTest = new PrintTest();
-		printTest.act(game);
+		printTest.act(game, blackboard);
 
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
@@ -181,6 +184,16 @@ public class TestBot1 extends DefaultBWListener {
 			}
 
 		}
+		
+		blackboard.setBarracks(barracks);
+		blackboard.setWorkers(workers);
+		blackboard.addArmyUnits("Marine", marines);
+		blackboard.addCommandCenter(commandCenter); //may need to move this outside the onFrame method for now
+		blackboard.setEnemyRace(self.getRace()); // doesn't need to be updated every frame
+		blackboard.setGas(self.gas());
+		blackboard.setMinerals(self.minerals());
+		blackboard.setSupplyUsed(self.supplyUsed());
+		blackboard.setSupplyTotal(self.supplyTotal());
 
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
