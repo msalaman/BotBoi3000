@@ -1,7 +1,8 @@
 package routine;
 
+import blackboard.Blackboard;
 import bwapi.Game;
 
 public abstract class Routine {
-	public abstract void act(Game game);
+	public abstract int act(Game game, Blackboard blackboard);
 }
