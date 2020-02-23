@@ -203,7 +203,10 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setMinerals(self.minerals());
 		blackboard.setSupplyUsed(self.supplyUsed());
 		blackboard.setSupplyTotal(self.supplyTotal());
-
+		blackboard.setEconTreeCompleted(false);
+		blackboard.setStrategyTreeCompleted(false);
+		blackboard.setResearchTreeCompleted(false);
+		
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
