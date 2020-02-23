@@ -4,6 +4,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import bwapi.Race;
 import bwapi.Unit;
 
 public class Blackboard {
@@ -20,7 +21,7 @@ public class Blackboard {
 	private Boolean EconTreeCompleted;
 	private Boolean StrategyTreeCompleted;
 	private Boolean ResearchTreeCompleted;
-	
+	private Race enemyRace;
 	
 	public void setBuildings(List<Unit> b) {
 		buildings = b;
@@ -139,5 +140,13 @@ public class Blackboard {
 
 	public void setResearchTreeCompleted(Boolean researchTreeCompleted) {
 		ResearchTreeCompleted = researchTreeCompleted;
+	}
+
+	public Race getEnemyRace() {
+		return enemyRace;
+	}
+
+	public void setEnemyRace(Race enemyRace) {
+		this.enemyRace = enemyRace;
 	}
 }
