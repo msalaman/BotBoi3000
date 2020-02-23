@@ -15,6 +15,9 @@ public class Blackboard {
 	private int crystals;
 	private int gas;
 	private List<Boolean> research;
+	private List<Unit> enemyCommandCenters;
+	private int enemyUnitCount;
+	
 	
 	public void setBuildings(List<Unit> b) {
 		buildings = b;
@@ -89,5 +92,25 @@ public class Blackboard {
 	public void addResearch(int i, Boolean r) {
 		research.remove(i);
 		research.add(i, r);
+	}
+
+	public List<Unit> getEnemyCommandCenters() {
+		return enemyCommandCenters;
+	}
+
+	public void setEnemyCommandCenters(List<Unit> enemyCommandCenters) {
+		this.enemyCommandCenters = enemyCommandCenters;
+	}
+	
+	public void addEnemyCommandCenter(Unit u) {
+		enemyCommandCenters.add(u);
+	}
+
+	public int getEnemyUnitCount() {
+		return enemyUnitCount;
+	}
+
+	public void setEnemyUnitCount(int enemyUnitCount) {
+		this.enemyUnitCount = enemyUnitCount;
 	}
 }
