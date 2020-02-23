@@ -1,5 +1,6 @@
 package blackboard;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
@@ -18,6 +19,32 @@ public class Blackboard {
 	private List<Unit> enemyCommandCenters;
 	private int enemyUnitCount;
 	
+    public Blackboard() {
+    	List<Unit> marines = new ArrayList<>();
+    	army.put("marines", marines);
+    	List<Unit> firebats = new ArrayList<>();
+    	army.put("firebars", firebats);
+    	List<Unit> medics = new ArrayList<>();
+    	army.put("medics", medics);
+    	List<Unit> ghosts = new ArrayList<>();
+    	army.put("ghosts", ghosts);
+    	List<Unit> vultures = new ArrayList<>();
+    	army.put("vultures", vultures);
+    	List<Unit> siegeTanks = new ArrayList<>();
+    	army.put("siegeTanks", siegeTanks);
+    	List<Unit> goliaths = new ArrayList<>();
+    	army.put("goliaths", goliaths);
+    	List<Unit> wraiths = new ArrayList<>();
+    	army.put("wraiths", wraiths);
+    	List<Unit> dropships = new ArrayList<>();
+    	army.put("dropships", dropships);
+    	List<Unit> scienceVessels = new ArrayList<>();
+    	army.put("scienceVessels", scienceVessels);
+    	List<Unit> battleCruisers = new ArrayList<>();
+    	army.put("battleCruisers", battleCruisers);
+    	List<Unit> valkyries = new ArrayList<>();
+    	army.put("valkyries", valkyries);
+	 }
 	
 	public void setBuildings(List<Unit> b) {
 		buildings = b;
