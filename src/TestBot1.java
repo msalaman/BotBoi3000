@@ -75,7 +75,18 @@ public class TestBot1 extends DefaultBWListener {
 		self = game.self();
 		game.setLocalSpeed(0);
 		blackboard = new Blackboard();
-
+		
+		Unit commandCenter = null;
+		
+		for (Unit myUnit : self.getUnits()) {
+			if (myUnit.getType() == UnitType.Terran_Command_Center) {
+				commandCenter = myUnit;
+			}
+		}
+		
+		blackboard.addCommandCenter(commandCenter);
+		blackboard.setEnemyRace(self.getRace());
+		
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -188,8 +199,6 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setBarracks(barracks);
 		blackboard.setWorkers(workers);
 		blackboard.addArmyUnits("Marine", marines);
-		blackboard.addCommandCenter(commandCenter); //may need to move this outside the onFrame method for now
-		blackboard.setEnemyRace(self.getRace()); // doesn't need to be updated every frame
 		blackboard.setGas(self.gas());
 		blackboard.setMinerals(self.minerals());
 		blackboard.setSupplyUsed(self.supplyUsed());
