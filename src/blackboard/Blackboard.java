@@ -13,8 +13,10 @@ public class Blackboard {
 	private List<Unit> barracks;
 	private List<Unit> commandCenters;
 	private Dictionary<String, List<Unit>> army = new Hashtable<String, List<Unit>>();
-	private int crystals;
+	private int minerals;
 	private int gas;
+	private int supplyUsed;
+	private int supplyTotal;
 	private List<Boolean> research;
 	private List<Unit> enemyCommandCenters;
 	private int enemyUnitCount;
@@ -69,20 +71,37 @@ public class Blackboard {
 		return army.get(s);
 	}
 	
-	public void setCrystals(int c) {
-		crystals = c;
+	public int getMinerals() {
+		return minerals;
 	}
 	
-	public int getCrystals() {
-		return crystals;
+	public void setMinerals(int m) {
+		minerals = m;
+	}
+
+	public int getGas() {
+		return gas;
 	}
 	
 	public void setGas(int g) {
 		gas = g;
 	}
 	
-	public int getGas() {
-		return gas;
+
+	public int getSupplyUsed() {
+		return supplyUsed;
+	}
+
+	public void setSupplyUsed(int supplyUsed) {
+		this.supplyUsed = supplyUsed;
+	}
+
+	public int getSupplyTotal() {
+		return supplyTotal;
+	}
+
+	public void setSupplyTotal(int supplyTotal) {
+		this.supplyTotal = supplyTotal;
 	}
 
 	public List<Boolean> getResearch() {
