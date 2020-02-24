@@ -23,7 +23,7 @@ If, however, you are inclined to compile the .jar on your own, then please proce
 1. Install Docker using the tutorial found [here](https://github.com/Games-and-Simulations/sc-docker/blob/master/INSTALL.md)
 Note: If you're having trouble try `py -3.6 -m pip install scbw` to make it install scbw with that python version (3.6 in this case) (some machines may default to using the system python 2 so specifying which python to use for the install helped it work for me)
 
-2. After you've installed docker, open a powershell window as administrator and run `docker-machine create -d hyperv --hyperv-virtual-switch "Default Switch" default`. ~~We have no clue what it does, but it seems to work~~ For the sake of readme brevity, we will ommit the thorough explanation of the command which we had prepared (we're super experienced college undergrads tho, so you can obviously trust us to run commands as adminstrator with no explanations needed).
+2. After you've installed docker, open a powershell window as administrator and run `docker-machine create -d hyperv --hyperv-virtual-switch "Default Switch" default`. ~~We have no clue what it does, but it seems to work~~ For the sake of Readme brevity, we will ommit the thorough explanation of the command which we had prepared (we're super experienced college undergrads tho, so you can obviously trust us to run commands as adminstrator with no explanations needed).
 
 # Running the Bot
 
