@@ -10,7 +10,7 @@ public class Node {
 	public Blackboard blackboard;
 	public Game game;
 	public Routine action;
-	private int state;
+	private int state; // 0 - Start, 1 - Done
 	private Node parent;
 	private List<Node> children;
 	

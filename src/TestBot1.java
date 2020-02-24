@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import blackboard.Blackboard;
 import bwapi.*;
 import bwta.BWTA;
 import bwta.BaseLocation;
-import routine.PrintTest;
+import node.SelectorNode;
+import node.*;
+import routine.*;
 
 import java.util.*;
 
@@ -93,6 +96,60 @@ public class TestBot1 extends DefaultBWListener {
 				}
 			}
 		}
+		//Create Economy Tree
+		/*
+		 * 1) Create nodes for different opposing team race
+		 * 2) Connect said nodes to tree
+		 * 2) Create decision nodes for various activities
+		 * 3) Connect said nodes to tree
+		 * 3) Create actions and Sequence/Exec Nodes
+		 */
+		//Set root
+		SelectorNode econRoot = new SelectorNode();
+		CheckOpponent econCheckOpponent = new CheckOpponent();
+		econRoot.setLogic(econCheckOpponent);
+		//Set race selector children nodes
+		SelectorNode econProtossSelector = new SelectorNode();
+		SelectorNode econTerranSelector = new SelectorNode();
+		SelectorNode econZergSelector = new SelectorNode();
+		econRoot.addChild(econZergSelector);
+		econRoot.addChild(econProtossSelector);
+		econRoot.addChild(econTerranSelector);
+		//TODO: Create additional behaviors for terrans and Protoss
+		DefaultRoutine econDefaultRoutine = new DefaultRoutine();
+		econProtossSelector.setLogic(econDefaultRoutine);
+		econTerranSelector.setLogic(econDefaultRoutine);
+		//Set Zerg econ selector
+		SelectorNode econZergSelector01 = new SelectorNode();
+		ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
+		econZergSelector01.setLogic(econZergSupplyCheck);
+		econZergSelector.addChild(econZergSelector01);
+		//Set Zerg econ sequence nodes
+		SequenceNode econZergEarly = new SequenceNode();
+		SequenceNode econZergMid = new SequenceNode();
+		SequenceNode econZergLate = new SequenceNode();
+		econZergSelector01.addChild(econZergEarly);
+		econZergSelector01.addChild(econZergMid);
+		econZergSelector01.addChild(econZergLate);
+		ExecutionNode econZergEarly01 = new ExecutionNode();
+		ExecutionNode econZergEarly02 = new ExecutionNode();
+		ExecutionNode econZergEarly03 = new ExecutionNode();
+		ExecutionNode econZergMid01 = new ExecutionNode();
+		ExecutionNode econZergMid02 = new ExecutionNode();
+		ExecutionNode econZergLate01 = new ExecutionNode();
+		econZergEarly.addChild(econZergEarly01);
+		econZergEarly.addChild(econZergEarly02);
+		econZergEarly.addChild(econZergEarly03);
+		econZergMid.addChild(econZergMid01);
+		econZergMid.addChild(econZergMid02);
+		econZergLate.addChild(econZergLate01);
+		
+		
+		
+		
+		
+
+		//Create Research Tree
 
 		int i = 0;
 	}

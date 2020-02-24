@@ -9,7 +9,9 @@ public class econZergEarlyRoutine01 extends Routine {
 		int supply = blackboard.getSupplyUsed();
 		if(supply < 10) {
 			game.drawTextScreen(100,200, "Early stage 1: focus on SVCs");
+			return 0;
+		} else {
+			return 1;
 		}
-		return 0;
 	}
 }

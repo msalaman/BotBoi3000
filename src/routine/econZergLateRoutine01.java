@@ -6,7 +6,8 @@ import bwapi.Game;
 public class econZergLateRoutine01 extends Routine {
 	@Override
 	public int act(Game game, Blackboard blackboard) {
-		game.drawTextScreen(100, 200, "We've implemented a routine and now go to execution");
+		game.drawTextScreen(100,200, "Late stage 1: Vultures and tanks");
+		game.drawTextScreen(100,200, "This is the last stage and where the econ will stay");
 		return 0;
 	}
 }
