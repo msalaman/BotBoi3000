@@ -10,7 +10,7 @@ If, however, you are inclined to compile the .jar on your own, then please proce
 
 2. Now that you have Windows, download [32-bit JRE](https://www.oracle.com/java/technologies/javase-jre8-downloads.html) (choose the Windows x86 online version). Make sure the install location is listed as the default "Program Files (x86)/Java/name_of_JRE_version" because ~~we don't want to add support for changing from the default install location~~ it's super vitally important for technical reasons you wouldn't understand.
 
-3. Now that you have ~~Confused your computer by giving it 32 bit Java in addition to the 64 bit Java you probably already had~~ successfully installed a 32-bit JRE, please clone our repository to some location on your computer.
+3. Now that you have successfully installed a 32-bit JRE, please clone our repository to some location on your computer.
 
 4. Open ~~Command Prompt~~ Powershell and navigate to the cloned repository.
 
