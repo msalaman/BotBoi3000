@@ -3,6 +3,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import node.*;
+import routine.*;
 
 import blackboard.Blackboard;
 import bwapi.*;
@@ -107,6 +109,34 @@ public class TestBot1 extends DefaultBWListener {
 				}
 			}
 		}
+		
+		// Strategy Behavior Tree
+		
+		// Root node
+		Node stratRoot = new Node(); 
+		
+		// Check opponent
+		SelectorNode stratOpponentCheck = new SelectorNode();
+		stratRoot.addChild(stratOpponentCheck);
+		Node stratZergTree = new Node();
+		Node stratTerranTree = new Node();
+		Node stratProtossTree = new Node();
+		stratOpponentCheck.addChild(stratZergTree);
+		stratOpponentCheck.addChild(stratProtossTree);
+		stratOpponentCheck.addChild(stratTerranTree);
+		CheckOpponent checkOpp = new CheckOpponent();
+		stratOpponentCheck.setLogic(checkOpp);
+		
+		// Zerg Opponent
+		SelectorNode stratTroopCount = new SelectorNode();
+		stratZergTree.addChild(stratTroopCount);
+		ExecutionNode stratCreateMarine = new ExecutionNode();
+		SelectorNode stratOwnBuildingCheck = new SelectorNode();
+		stratTroopCount.addChild(stratCreateMarine);
+		stratTroopCount.addChild(stratOwnBuildingCheck);
+		CheckMarineSize checkMarineSize = new CheckMarineSize();
+		stratTroopCount.setLogic(checkMarineSize);
+		
 
 		int i = 0;
 	}
