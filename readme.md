@@ -1,5 +1,9 @@
 This is a Star Craft: Brood War bot for CSE 40971. This bot is a copy of the Marine Hell bot from the course documnetation that we are building on.
 
+# About Our Bot
+
+Our bot makes use of behavior trees (one for strategy, one for economy, and one for research(coming soon)). The trees will be continuously executed throughout the game in a order that varies throughout gameplay depending on the situation. Our trees make use of a blackboard that keeps track of important up to date game data that determine what decisions will be made. Our trees will behave differently based on the race of our opponent, since good strategies drastically vary depending on the type of opponent. The trees consist of node objects that keep going down until an action(s) is executed. Once the action(s) is executed, the blackboard is informed that the tree has been ran and the tree will be ready to run again from the root. As we continue to grow our trees in detail and complexity we hope to have a bot that will make "BotBoi3000" a household name in the StarCraft universe.
+
 If you would like to run this bot, we *highly* recommend simply downloading the BotBoi3000.jar file from the "executable jar file" folder, which will periodically be updated to our latest compiled build.
 
 If, however, you are inclined to compile the .jar on your own, then please proceed with the following steps:
