@@ -21,7 +21,7 @@ public class Blackboard {
 	private List<Boolean> research;
 	private List<Unit> enemyCommandCenters;
 	private int enemyUnitCount;
-  private Boolean EconTreeCompleted;
+    private Boolean EconTreeCompleted;
 	private Boolean StrategyTreeCompleted;
 	private Boolean ResearchTreeCompleted;
 	private Race enemyRace;
@@ -56,6 +56,10 @@ public class Blackboard {
 	
 	public void setBuildings(List<Unit> b) {
 		buildings = b;
+	}
+	
+	public List<Unit> getBuildings() {
+		return buildings;
 	}
 	
 	public void addBuilding(Unit b) {

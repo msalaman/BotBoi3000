@@ -113,14 +113,16 @@ public class TestBot1 extends DefaultBWListener {
 		// Strategy Behavior Tree
 		
 		// Root node
-		Node stratRoot = new Node(); 
+		SelectorNode stratRoot = new SelectorNode(); 
 		
 		// Check opponent
 		SelectorNode stratOpponentCheck = new SelectorNode();
+		DefaultRoutine defaultRoutine = new DefaultRoutine();
 		stratRoot.addChild(stratOpponentCheck);
-		Node stratZergTree = new Node();
-		Node stratTerranTree = new Node();
-		Node stratProtossTree = new Node();
+		stratRoot.setLogic(defaultRoutine);
+		SelectorNode stratZergTree = new SelectorNode();
+		SelectorNode stratTerranTree = new SelectorNode();
+		SelectorNode stratProtossTree = new SelectorNode();
 		stratOpponentCheck.addChild(stratZergTree);
 		stratOpponentCheck.addChild(stratProtossTree);
 		stratOpponentCheck.addChild(stratTerranTree);
@@ -130,14 +132,47 @@ public class TestBot1 extends DefaultBWListener {
 		// Zerg Opponent
 		SelectorNode stratTroopCount = new SelectorNode();
 		stratZergTree.addChild(stratTroopCount);
+		stratZergTree.setLogic(defaultRoutine);
+		
+		// create marines
 		ExecutionNode stratCreateMarine = new ExecutionNode();
 		SelectorNode stratOwnBuildingCheck = new SelectorNode();
 		stratTroopCount.addChild(stratCreateMarine);
 		stratTroopCount.addChild(stratOwnBuildingCheck);
 		CheckMarineSize checkMarineSize = new CheckMarineSize();
 		stratTroopCount.setLogic(checkMarineSize);
+		CreateMarine createMarine = new CreateMarine();
+		stratCreateMarine.setRoutine(createMarine);
 		
-
+		//defend buildings
+		SelectorNode stratOnlyBuildingUnderAttack = new SelectorNode();
+		SelectorNode stratCheckForMoreMarines = new SelectorNode();
+		SingleBuildingCheck singleBuildingCheck = new SingleBuildingCheck();
+		stratOwnBuildingCheck.setLogic(singleBuildingCheck);
+		stratOwnBuildingCheck.addChild(stratOnlyBuildingUnderAttack);
+		stratOwnBuildingCheck.addChild(stratCheckForMoreMarines);
+		ExecutionNode stratDefendLastBuilding = new ExecutionNode();
+		ExecutionNode stratPatrolLastBuilding = new ExecutionNode();
+		SingleBuildingUnderAttack singleBuildingUnderAttack = new SingleBuildingUnderAttack();
+		stratOnlyBuildingUnderAttack.setLogic(singleBuildingUnderAttack);
+		stratOnlyBuildingUnderAttack.addChild(stratDefendLastBuilding);
+		stratOnlyBuildingUnderAttack.addChild(stratPatrolLastBuilding);
+		DefendLastBuilding defendLastBuilding = new DefendLastBuilding();
+		stratDefendLastBuilding.setRoutine(defendLastBuilding);
+		SingleBuildingPatrol singleBuildingPatrol = new SingleBuildingPatrol();
+		stratPatrolLastBuilding.setRoutine(singleBuildingPatrol);
+		
+		//Build more marines
+		ExecutionNode stratCreateMoreMarines = new ExecutionNode();
+		stratCreateMoreMarines.setRoutine(createMarine);
+		ExecutionNode stratSendSCVScout = new ExecutionNode();
+		SendSCVScout sendSCVScout = new SendSCVScout();
+		stratSendSCVScout.setRoutine(sendSCVScout);
+		stratCheckForMoreMarines.addChild(stratCreateMoreMarines);
+		stratCheckForMoreMarines.addChild(stratSendSCVScout);
+		CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
+		stratCheckForMoreMarines.setLogic(checkBiggerMarineSize);
+		
 		int i = 0;
 	}
 
