@@ -135,6 +135,10 @@ public class TestBot1 extends DefaultBWListener {
 		DefaultRoutine econDefaultRoutine = new DefaultRoutine();
 		econProtossSelector.setLogic(econDefaultRoutine);
 		econTerranSelector.setLogic(econDefaultRoutine);
+		DummyRoutine dummyRoutine = new DummyRoutine();
+		ExecutionNode dummyExecutionNode = new ExecutionNode();
+		econProtossSelector.addChild(dummyExecutionNode);
+		dummyExecutionNode.setRoutine(dummyRoutine);
 		//Set Zerg econ selector
 		SelectorNode econZergSelector01 = new SelectorNode();
 		ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
@@ -159,6 +163,18 @@ public class TestBot1 extends DefaultBWListener {
 		econZergMid.addChild(econZergMid01);
 		econZergMid.addChild(econZergMid02);
 		econZergLate.addChild(econZergLate01);
+		econZergEarlyRoutine01 econZergEarlyRoutine001 = new econZergEarlyRoutine01();
+		econZergEarlyRoutine02 econZergEarlyRoutine002 = new econZergEarlyRoutine02();
+		econZergEarlyRoutine03 econZergEarlyRoutine003 = new econZergEarlyRoutine03();
+		econZergMidRoutine01 econZergMidRoutine001 = new econZergMidRoutine01();
+		econZergMidRoutine02 econZergMidRoutine002 = new econZergMidRoutine02();
+		econZergLateRoutine01 econZergLateRoutine001 = new econZergLateRoutine01();
+		econZergEarly01.setRoutine(econZergEarlyRoutine001);
+		econZergEarly02.setRoutine(econZergEarlyRoutine002);
+		econZergEarly03.setRoutine(econZergEarlyRoutine003);
+		econZergMid01.setRoutine(econZergMidRoutine001);
+		econZergMid02.setRoutine(econZergMidRoutine002);
+		econZergLate01.setRoutine(econZergLateRoutine001);
 		
 		
 		
