@@ -3,6 +3,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import node.*;
+import routine.*;
 
 import blackboard.Blackboard;
 import bwapi.*;
@@ -21,6 +23,7 @@ public class TestBot1 extends DefaultBWListener {
 	private Mirror mirror = new Mirror();
 
 	private Game game;
+	private Blackboard blackboard;
 
 	private Player self;
 
@@ -75,7 +78,19 @@ public class TestBot1 extends DefaultBWListener {
 		game = mirror.getGame();
 		self = game.self();
 		game.setLocalSpeed(0);
-
+		blackboard = new Blackboard();
+		
+		Unit commandCenter = null;
+		
+		for (Unit myUnit : self.getUnits()) {
+			if (myUnit.getType() == UnitType.Terran_Command_Center) {
+				commandCenter = myUnit;
+			}
+		}
+		
+		blackboard.addCommandCenter(commandCenter);
+		blackboard.setEnemyRace(self.getRace());
+		
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -96,6 +111,7 @@ public class TestBot1 extends DefaultBWListener {
 				}
 			}
 		}
+
 		//Create Economy Tree
 		/*
 		 * 1) Create nodes for different opposing team race
@@ -151,6 +167,70 @@ public class TestBot1 extends DefaultBWListener {
 
 		//Create Research Tree
 
+		
+		// Strategy Behavior Tree
+		
+		// Root node
+		SelectorNode stratRoot = new SelectorNode(); 
+		
+		// Check opponent
+		SelectorNode stratOpponentCheck = new SelectorNode();
+		DefaultRoutine defaultRoutine = new DefaultRoutine();
+		stratRoot.addChild(stratOpponentCheck);
+		stratRoot.setLogic(defaultRoutine);
+		SelectorNode stratZergTree = new SelectorNode();
+		SelectorNode stratTerranTree = new SelectorNode();
+		SelectorNode stratProtossTree = new SelectorNode();
+		stratOpponentCheck.addChild(stratZergTree);
+		stratOpponentCheck.addChild(stratProtossTree);
+		stratOpponentCheck.addChild(stratTerranTree);
+		CheckOpponent checkOpp = new CheckOpponent();
+		stratOpponentCheck.setLogic(checkOpp);
+		
+		// Zerg Opponent
+		SelectorNode stratTroopCount = new SelectorNode();
+		stratZergTree.addChild(stratTroopCount);
+		stratZergTree.setLogic(defaultRoutine);
+		
+		// create marines
+		ExecutionNode stratCreateMarine = new ExecutionNode();
+		SelectorNode stratOwnBuildingCheck = new SelectorNode();
+		stratTroopCount.addChild(stratCreateMarine);
+		stratTroopCount.addChild(stratOwnBuildingCheck);
+		CheckMarineSize checkMarineSize = new CheckMarineSize();
+		stratTroopCount.setLogic(checkMarineSize);
+		CreateMarine createMarine = new CreateMarine();
+		stratCreateMarine.setRoutine(createMarine);
+		
+		//defend buildings
+		SelectorNode stratOnlyBuildingUnderAttack = new SelectorNode();
+		SelectorNode stratCheckForMoreMarines = new SelectorNode();
+		SingleBuildingCheck singleBuildingCheck = new SingleBuildingCheck();
+		stratOwnBuildingCheck.setLogic(singleBuildingCheck);
+		stratOwnBuildingCheck.addChild(stratOnlyBuildingUnderAttack);
+		stratOwnBuildingCheck.addChild(stratCheckForMoreMarines);
+		ExecutionNode stratDefendLastBuilding = new ExecutionNode();
+		ExecutionNode stratPatrolLastBuilding = new ExecutionNode();
+		SingleBuildingUnderAttack singleBuildingUnderAttack = new SingleBuildingUnderAttack();
+		stratOnlyBuildingUnderAttack.setLogic(singleBuildingUnderAttack);
+		stratOnlyBuildingUnderAttack.addChild(stratDefendLastBuilding);
+		stratOnlyBuildingUnderAttack.addChild(stratPatrolLastBuilding);
+		DefendLastBuilding defendLastBuilding = new DefendLastBuilding();
+		stratDefendLastBuilding.setRoutine(defendLastBuilding);
+		SingleBuildingPatrol singleBuildingPatrol = new SingleBuildingPatrol();
+		stratPatrolLastBuilding.setRoutine(singleBuildingPatrol);
+		
+		//Build more marines
+		ExecutionNode stratCreateMoreMarines = new ExecutionNode();
+		stratCreateMoreMarines.setRoutine(createMarine);
+		ExecutionNode stratSendSCVScout = new ExecutionNode();
+		SendSCVScout sendSCVScout = new SendSCVScout();
+		stratSendSCVScout.setRoutine(sendSCVScout);
+		stratCheckForMoreMarines.addChild(stratCreateMoreMarines);
+		stratCheckForMoreMarines.addChild(stratSendSCVScout);
+		CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
+		stratCheckForMoreMarines.setLogic(checkBiggerMarineSize);
+
 		int i = 0;
 	}
 
@@ -170,7 +250,7 @@ public class TestBot1 extends DefaultBWListener {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
 		PrintTest printTest = new PrintTest();
-		printTest.act(game);
+		printTest.act(game, blackboard);
 
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
@@ -238,7 +318,18 @@ public class TestBot1 extends DefaultBWListener {
 			}
 
 		}
-
+		
+		blackboard.setBarracks(barracks);
+		blackboard.setWorkers(workers);
+		blackboard.addArmyUnits("Marine", marines);
+		blackboard.setGas(self.gas());
+		blackboard.setMinerals(self.minerals());
+		blackboard.setSupplyUsed(self.supplyUsed());
+		blackboard.setSupplyTotal(self.supplyTotal());
+		blackboard.setEconTreeCompleted(false);
+		blackboard.setStrategyTreeCompleted(false);
+		blackboard.setResearchTreeCompleted(false);
+		
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
