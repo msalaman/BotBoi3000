@@ -7,6 +7,7 @@ import java.util.List;
 
 import bwapi.Race;
 import bwapi.Unit;
+import node.*;
 
 public class Blackboard {
 	private List<Unit> buildings;
@@ -21,10 +22,14 @@ public class Blackboard {
 	private List<Boolean> research;
 	private List<Unit> enemyCommandCenters;
 	private int enemyUnitCount;
-  private Boolean EconTreeCompleted;
+    private Boolean EconTreeCompleted;
 	private Boolean StrategyTreeCompleted;
 	private Boolean ResearchTreeCompleted;
 	private Race enemyRace;
+	private Node stratPtr; 
+	private Node econPtr;
+	private Node stratRoot;
+	private Node econRoot;
 	
   public Blackboard() {
     List<Unit> marines = new ArrayList<>();
@@ -56,6 +61,10 @@ public class Blackboard {
 	
 	public void setBuildings(List<Unit> b) {
 		buildings = b;
+	}
+	
+	public List<Unit> getBuildings() {
+		return buildings;
 	}
 	
 	public void addBuilding(Unit b) {
@@ -196,5 +205,29 @@ public class Blackboard {
 
 	public void setEnemyRace(Race enemyRace) {
 		this.enemyRace = enemyRace;
+	}
+	public void setStratPtr(Node n) {
+		this.stratPtr = n;
+	}
+	public void setEconPtr(Node n) {
+		this.econPtr = n;
+	}
+	public Node getStratPtr() {
+		return stratPtr;
+	}
+	public Node getEconPtr() {
+		return econPtr;
+	}
+	public void setStratRoot(Node n) {
+		this.stratRoot = n;
+	}
+	public void setEconRoot(Node n) {
+		this.econRoot = n;
+	}
+	public Node getStratRoot() {
+		return stratRoot;
+	}
+	public Node getEconRoot() {
+		return econRoot;
 	}
 }

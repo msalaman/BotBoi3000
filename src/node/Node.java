@@ -10,14 +10,32 @@ public class Node {
 	public Blackboard blackboard;
 	public Game game;
 	public Routine action;
-	private int state;
+	private int state=0; // 0 - Start, 1 - Done
 	private Node parent;
 	private List<Node> children;
+	
+	public void setUp(Game game, Blackboard blackboard) {
+		this.game = game;
+		this.blackboard = blackboard;
+	}
+	
+	public Node select(){
+		System.out.println("ERROR: Node.select(). This should never show. overridden parent function of node");
+		return null;
+	}
+	public void executeAll() {
+		System.out.println("ERROR: Node.executeAll"
+				+ "(). This should never show. overridden parent function of node");
+		return;
+	}
 	
 	public void setBlackboard(Blackboard blackboard) {
 		this.blackboard = blackboard;
 	}
 	
+	public void setGame(Game game) {
+		this.game = game;
+	}
 	public void setState(int s) {
 		state = s;
 	}
