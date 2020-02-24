@@ -11,7 +11,7 @@ public class econZergEarlyRoutine03 extends Routine {
 			game.drawTextScreen(100,200, "Early stage 3: build up Barraks and Refinery");
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 
 	}

@@ -11,7 +11,7 @@ public class econZergMidRoutine01 extends Routine {
 			game.drawTextScreen(100,200, "Mid stage 1: Cut SVC production. Make Medics");
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 	}
 }

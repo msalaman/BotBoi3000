@@ -11,7 +11,7 @@ public class econZergEarlyRoutine02 extends Routine {
 			game.drawTextScreen(100,200, "Early stage 2: focus on marines and SVCs");
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 	}
 }

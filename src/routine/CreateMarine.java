@@ -8,6 +8,6 @@ public class CreateMarine extends Routine {
 	public int act(Game game, Blackboard blackboard) {
 		game.drawTextScreen(100, 200, "Create marine");
 		//TODO: Functionality to create marine
-		return 1;
+		return -1;
 	}
 }

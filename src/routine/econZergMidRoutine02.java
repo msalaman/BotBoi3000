@@ -11,7 +11,7 @@ public class econZergMidRoutine02 extends Routine {
 			game.drawTextScreen(100,200, "Mid stage 2: Build turrets and another sim city");
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 	}
 }

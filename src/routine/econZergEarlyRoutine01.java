@@ -11,7 +11,7 @@ public class econZergEarlyRoutine01 extends Routine {
 			game.drawTextScreen(100,200, "Early stage 1: focus on SVCs");
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 	}
 }
