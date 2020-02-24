@@ -9,11 +9,13 @@ public class SequenceNode extends ControlFlowNode {
 				currentChild++;
 				continue;
 			}
-			getChildren().get(i).execute();
+			if(getChildren().get(i).execute() < 0) {
+				getChildren().get(i).setState(-1);
+			}
 			break;
 		}
 		if(currentChild >= getChildren().size()) {
-			this.setState(1);
+			this.setState(-1);
 		}
 	}
 }

@@ -246,7 +246,13 @@ public class TestBot1 extends DefaultBWListener {
 		stratCheckForMoreMarines.addChild(stratSendSCVScout);
 		CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
 		stratCheckForMoreMarines.setLogic(checkBiggerMarineSize);
-
+		
+		
+		//Set initial node ptrs in blackboard
+		blackboard.setStratPtr(stratRoot);
+		blackboard.setEconPtr(econRoot);
+		blackboard.setEconRoot(econRoot);
+		blackboard.setStratRoot(stratRoot);
 		int i = 0;
 	}
 
@@ -346,6 +352,42 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setStrategyTreeCompleted(false);
 		blackboard.setResearchTreeCompleted(false);
 		
+		/*
+		 * TODO:
+		 * Blackboard is now set. Now time to do Tree Traversal
+		 */
+		Node stratPtr = blackboard.getStratPtr();
+		while(stratPtr.getState() >= 0) {
+			if(stratPtr.getClass() == SelectorNode.class) {
+				stratPtr = stratPtr.select();
+			} else if(stratPtr.getClass() == SequenceNode.class) {
+				stratPtr.executeAll();
+				if(stratPtr.getState() == -1) {
+					blackboard.setStratPtr(blackboard.getStratRoot());
+				} else {
+					blackboard.setStratPtr(stratPtr);
+				}
+				break;
+			} else {
+				break;
+			}
+		}
+		Node econPtr = blackboard.getEconPtr();
+		while(econPtr.getState() >= 0) {
+			if(econPtr.getClass() == SelectorNode.class) {
+				econPtr = econPtr.select();
+			} else if(econPtr.getClass() == SequenceNode.class) {
+				econPtr.executeAll();
+				if(econPtr.getState() == -1) {
+					blackboard.setEconPtr(blackboard.getEconRoot());
+				} else {
+					blackboard.setEconPtr(econPtr);
+				}
+				break;
+			} else {
+				break;
+			}
+		}	
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch

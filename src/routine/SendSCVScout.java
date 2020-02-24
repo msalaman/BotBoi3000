@@ -12,6 +12,6 @@ public class SendSCVScout extends Routine {
 	public int act(Game game, Blackboard blackboard) {
 		game.drawTextScreen(100, 200, "Send SCV to scout");
 		//TODO: Send SCV to scout
-		return 1;
+		return -1;
 	}
 }

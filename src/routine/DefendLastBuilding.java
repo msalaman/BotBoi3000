@@ -8,6 +8,6 @@ public class DefendLastBuilding extends Routine {
 	public int act(Game game, Blackboard blackboard) {
 		game.drawTextScreen(100, 200, "Defend last building!");
 		//TODO: Send all troops to defend the last building
-		return 1;
+		return -1;
 	}
 }

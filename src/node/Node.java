@@ -14,6 +14,15 @@ public class Node {
 	private Node parent;
 	private List<Node> children;
 	
+	public Node select(){
+		System.out.println("ERROR: Node.select(). This should never show. overridden parent function of node");
+		return null;
+	}
+	public void executeAll() {
+		System.out.println("ERROR: Node.executeAll(). This should never show. overridden parent function of node");
+		return;
+	}
+	
 	public void setBlackboard(Blackboard blackboard) {
 		this.blackboard = blackboard;
 	}
