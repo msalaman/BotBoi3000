@@ -28,7 +28,7 @@ public class CheckOpponent extends Routine {
 		} else { //assume Protoss for now, however, this should change in the future.
 			game.drawTextScreen(100, 200, "The enemy race is unknown. Assume Protoss");
 			//TODO: CHANGE THE RETURN VALUE!!!!
-			return 2;
+			return 0;
 		}
 	}
 }
