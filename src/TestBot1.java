@@ -415,6 +415,12 @@ public class TestBot1 extends DefaultBWListener {
 		 */
 		PrintTest printTest = new PrintTest();
 		printTest.act(game, blackboard);
+		econRoot.setUp(game, blackboard);
+		if(defaultRoutine == null) {
+			game.drawTextScreen(150, 20, "defaultRoutine is null");
+		} else {
+			game.drawTextScreen(150, 20, "defaultRoutine is NOT null");
+		}
 		if(econRoot == null){
 			game.drawTextScreen(100, 180, "Shit");
 
