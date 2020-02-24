@@ -27,7 +27,7 @@ Note: If you're having trouble try `py -3.6 -m pip install scbw` to make it inst
 
 # Running the Bot
 
-1. Put the .jar file in the AI folder of your Bot (will explain this more in a later README update)
+1. Put the .jar file in the AI folder of the bots folder, which should be located at "Users/Your_User_Folder/AppData/Roaming/scbw/bots/". You will need to create a folder called BotBoi3000, as well as an AI folder, a Read folder, a Write folder, a json, and a BWAPI.dll file (follow the explanation in the Development section of [this github page](https://github.com/Games-and-Simulations/sc-docker/blob/master/USAGE.md#development))
 
 2. `scbw.play --bots "BotBoi3000" "BotBoi3000" --show_all` is to get it to play itself, and `scbw.play --bots "BotBoi3000" --human --show_all` is to get it to play against yourself.
 
