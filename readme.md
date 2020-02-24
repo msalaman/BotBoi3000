@@ -1,6 +1,6 @@
 This is a Star Craft: Brood War bot for CSE 40971. This bot is a copy of the Marine Hell bot from the course documnetation that we are building on.
 
-If you would like to run this bot, we *highly* recommend simply downloading the BotBoi3000.jar file from the "executable jar file" folder, which will periodically be updated to our latest compiled build.
+If you would like to run this bot, we *highly* recommend simply downloading the BotBoi3000.jar file from the "executable jar file" folder, which will periodically be updated to our latest compiled build. I've even linked it for you [here](./executable jar file/BotBoi3000.jar)
 
 If, however, you are inclined to compile the .jar on your own, then please proceed with the following steps:
 
