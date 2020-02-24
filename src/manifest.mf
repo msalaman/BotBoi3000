@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: BotBoi3000 Development Team
+Class-Path: ..\lib\bwmirror_v2_5.jar
+Main-Class: TestBot1
