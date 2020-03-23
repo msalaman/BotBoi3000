@@ -257,6 +257,9 @@ public class TestBot1 extends DefaultBWListener {
 		  3) Connect said nodes to tree
 		  3) Create actions and Sequence/Exec Nodes
 		 */
+		
+		/*
+		
 		//Set root
 		//SelectorNode econRoot = new SelectorNode();
 		econRoot.setUp(game, blackboard);
@@ -398,7 +401,7 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setEconRoot(econRoot);
 		blackboard.setStratRoot(stratRoot);
 		
-		
+		*/
 	}
 
 	@Override
@@ -464,8 +467,10 @@ public class TestBot1 extends DefaultBWListener {
 
 		// econ tree done, moving on to strat
 		stratRoot.setUp(game, blackboard);
+		stratOpponentCheck.setUp(game, blackboard);
 		stratRoot.addChild(stratOpponentCheck);
 		stratRoot.setLogic(defaultRoutine);
+
 		game.drawTextScreen(10, 180, "4oh Shit");
 		game.drawTextScreen(10, 190, "5oh Shit");
 
@@ -476,6 +481,77 @@ public class TestBot1 extends DefaultBWListener {
 		//stratZergTree.setLogic(defaultRoutine);
 
 
+		stratZergTree.setUp(game, blackboard);
+		stratProtossTree.setUp(game, blackboard);
+		stratTerranTree.setUp(game, blackboard);
+		stratOpponentCheck.addChild(stratZergTree);
+		stratOpponentCheck.addChild(stratProtossTree);
+		stratOpponentCheck.addChild(stratTerranTree);
+		//CheckOpponent checkOpp = new CheckOpponent();
+		stratOpponentCheck.setLogic(checkOpp);
+		
+		// Zerg Opponent
+		//SelectorNode stratTroopCount = new SelectorNode();
+		
+		stratTroopCount.setUp(game, blackboard);
+		stratZergTree.addChild(stratTroopCount);
+		stratZergTree.setLogic(defaultRoutine);
+		
+		// create marines
+		//ExecutionNode stratCreateMarine = new ExecutionNode();
+		//SelectorNode stratOwnBuildingCheck = new SelectorNode();
+		stratCreateMarine.setUp(game, blackboard);
+		stratOwnBuildingCheck.setUp(game, blackboard);
+		stratTroopCount.addChild(stratCreateMarine);
+		stratTroopCount.addChild(stratOwnBuildingCheck);
+		//CheckMarineSize checkMarineSize = new CheckMarineSize();
+		stratTroopCount.setLogic(checkMarineSize);
+		//CreateMarine createMarine = new CreateMarine();
+		stratCreateMarine.setRoutine(createMarine);
+		
+		//defend buildings
+		//SelectorNode stratOnlyBuildingUnderAttack = new SelectorNode();
+		//SelectorNode stratCheckForMoreMarines = new SelectorNode();
+		//SingleBuildingCheck singleBuildingCheck = new SingleBuildingCheck();
+		
+		stratOwnBuildingCheck.setLogic(singleBuildingCheck);
+		stratOnlyBuildingUnderAttack.setUp(game, blackboard);
+		stratCheckForMoreMarines.setUp(game, blackboard);
+		stratOwnBuildingCheck.addChild(stratOnlyBuildingUnderAttack);
+		stratOwnBuildingCheck.addChild(stratCheckForMoreMarines);
+		//ExecutionNode stratDefendLastBuilding = new ExecutionNode();
+		//ExecutionNode stratPatrolLastBuilding = new ExecutionNode();
+		//SingleBuildingUnderAttack singleBuildingUnderAttack = new SingleBuildingUnderAttack();
+		stratOnlyBuildingUnderAttack.setLogic(singleBuildingUnderAttack);
+		stratDefendLastBuilding.setUp(game, blackboard);
+		stratPatrolLastBuilding.setUp(game, blackboard);
+		stratOnlyBuildingUnderAttack.addChild(stratDefendLastBuilding);
+		stratOnlyBuildingUnderAttack.addChild(stratPatrolLastBuilding);
+		//DefendLastBuilding defendLastBuilding = new DefendLastBuilding();
+		stratDefendLastBuilding.setRoutine(defendLastBuilding);
+		//SingleBuildingPatrol singleBuildingPatrol = new SingleBuildingPatrol();
+		stratPatrolLastBuilding.setRoutine(singleBuildingPatrol);
+		
+		//Build more marines
+		//ExecutionNode stratCreateMoreMarines = new ExecutionNode();
+		stratCreateMoreMarines.setUp(game, blackboard);
+		stratCreateMoreMarines.setRoutine(createMarine);
+		//ExecutionNode stratSendSCVScout = new ExecutionNode();
+		//SendSCVScout sendSCVScout = new SendSCVScout();
+		stratSendSCVScout.setUp(game, blackboard);
+		stratSendSCVScout.setRoutine(sendSCVScout);
+		stratCheckForMoreMarines.addChild(stratCreateMoreMarines);
+		stratCheckForMoreMarines.addChild(stratSendSCVScout);
+		//CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
+		stratCheckForMoreMarines.setLogic(checkBiggerMarineSize);
+		
+		//Set initial node ptrs in blackboard
+		blackboard.setStratPtr(stratRoot);
+		blackboard.setEconPtr(econRoot);
+		blackboard.setEconRoot(econRoot);
+		blackboard.setStratRoot(stratRoot);
+		
+	
 		
 		if(defaultRoutine == null) {
 			game.drawTextScreen(180, 20, "defaultRoutine is null");
