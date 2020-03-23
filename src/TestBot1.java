@@ -257,6 +257,9 @@ public class TestBot1 extends DefaultBWListener {
 		  3) Connect said nodes to tree
 		  3) Create actions and Sequence/Exec Nodes
 		 */
+		
+		/*
+		
 		//Set root
 		//SelectorNode econRoot = new SelectorNode();
 		econRoot.setUp(game, blackboard);
@@ -398,7 +401,7 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setEconRoot(econRoot);
 		blackboard.setStratRoot(stratRoot);
 		
-		
+		*/
 	}
 
 	@Override
@@ -527,6 +530,13 @@ public class TestBot1 extends DefaultBWListener {
 		stratCheckForMoreMarines.addChild(stratSendSCVScout);
 		//CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
 		stratCheckForMoreMarines.setLogic(checkBiggerMarineSize);
+		
+		//Set initial node ptrs in blackboard
+		blackboard.setStratPtr(stratRoot);
+		blackboard.setEconPtr(econRoot);
+		blackboard.setEconRoot(econRoot);
+		blackboard.setStratRoot(stratRoot);
+		
 		
 		
 		if(defaultRoutine == null) {
