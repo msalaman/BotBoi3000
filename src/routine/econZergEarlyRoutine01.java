@@ -8,7 +8,7 @@ public class econZergEarlyRoutine01 extends Routine {
 	public int act(Game game, Blackboard blackboard) {
 		int supply = blackboard.getSupplyUsed();
 		if(supply < 10) {
-			game.drawTextScreen(100,200, "Early stage 1: focus on SVCs");
+			game.drawTextScreen(50,300, "Early stage 1: focus on SVCs");
 			return 0;
 		} else {
 			return -1;
