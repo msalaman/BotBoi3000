@@ -6,7 +6,7 @@ import bwapi.Game;
 public class DefaultRoutine extends Routine {
 	@Override
 	public int act(Game game, Blackboard blackboard) {
-		game.drawTextScreen(100, 200, "We've implemented a routine and now go to execution");
+		game.drawTextScreen(10, 200, "We've implemented a routine and now go to execution");
 		return 0;
 	}
 }

@@ -8,6 +8,7 @@ public class SelectorNode extends ControlFlowNode {
 		game.drawTextScreen(100, 180, "2This means that there is hope!");
 		if (logicResult < this.getChildren().size()) {
 			game.drawTextScreen(100, 190, "3This means that there is hope!");
+			game.drawTextScreen(10, 120, "3This means that there is hope!");
 			return this.getChildren().get(logicResult);
 		}
 		else {

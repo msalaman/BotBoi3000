@@ -5,13 +5,14 @@ import bwapi.Game;
 import bwapi.Race;
 
 public class CheckOpponent extends Routine {
-	@Override
+	
 	/*
 	 * For future development, make sure to have enemy race as a element on blackboard. This
 	 * will allow us to check in the case that the opposing bot is a given race
 	 * 
 	 * TODO: MAKE SURE TO CHANGE IT SO IT ISN'T JUST CHOOSING ZERG!!!!
 	 */
+	@Override
 	public int act(Game game, Blackboard blackboard) {
 		Race enemyRace = game.enemy().getRace();
 		if(enemyRace == Race.Zerg) {
