@@ -443,6 +443,12 @@ public class TestBot1 extends DefaultBWListener {
 		//SequenceNode econZergEarly = new SequenceNode();
 		//SequenceNode econZergMid = new SequenceNode();
 		//SequenceNode econZergLate = new SequenceNode();
+		econZergEarly.setUp(game, blackboard);
+		econZergMid.setUp(game, blackboard);
+		econZergLate.setUp(game, blackboard);
+		econZergEarly01.setUp(game, blackboard);
+		econZergEarly02.setUp(game, blackboard);
+		econZergEarly03.setUp(game, blackboard);
 		econZergSelector01.addChild(econZergEarly);
 		econZergSelector01.addChild(econZergMid);
 		econZergSelector01.addChild(econZergLate);
