@@ -1,5 +1,6 @@
 package node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import blackboard.Blackboard;
@@ -10,9 +11,9 @@ public class Node {
 	public Blackboard blackboard;
 	public Game game;
 	public Routine action;
-	private int state=0; // 0 - Start, 1 - Done
-	private Node parent;
-	private List<Node> children;
+	protected int state=0; // 0 - Start, 1 - Done
+	protected Node parent;
+	protected List<Node> children = new ArrayList<Node>();
 	
 	public void setUp(Game game, Blackboard blackboard) {
 		this.game = game;
@@ -57,7 +58,7 @@ public class Node {
 	}
 	
 	public void addChild(Node n) {
-		getChildren().add(n);
+		children.add(n);
 	}
 
 	public List<Node> getChildren() {

@@ -46,55 +46,55 @@ public class TestBot1 extends DefaultBWListener {
 		WaitFor50, AttackAtAllCost
 	};
 	
-	private SelectorNode econRoot = new SelectorNode();
-	private CheckOpponent econCheckOpponent = new CheckOpponent();
+	public SelectorNode econRoot = new SelectorNode();
+	public Routine econCheckOpponent = new CheckOpponent();
 	//econRoot.setLogic(econCheckOpponent);
 	//Set race selector children nodes
-	private SelectorNode econProtossSelector = new SelectorNode();
-	private SelectorNode econTerranSelector = new SelectorNode();
-	private SelectorNode econZergSelector = new SelectorNode();
+	public SelectorNode econProtossSelector = new SelectorNode();
+	public SelectorNode econTerranSelector = new SelectorNode();
+	public SelectorNode econZergSelector = new SelectorNode();
 	//econRoot.addChild(econZergSelector);
 	//econRoot.addChild(econProtossSelector);
 	//econRoot.addChild(econTerranSelector);
 	//TODO: Create additional behaviors for terrans and Protoss
-	private DefaultRoutine econDefaultRoutine = new DefaultRoutine();
+	public DefaultRoutine econDefaultRoutine = new DefaultRoutine();
 	//econProtossSelector.setLogic(econDefaultRoutine);
 	//econTerranSelector.setLogic(econDefaultRoutine);
-	private DummyRoutine dummyRoutine = new DummyRoutine();
-	private ExecutionNode dummyExecutionNode = new ExecutionNode();
+	public DummyRoutine dummyRoutine = new DummyRoutine();
+	public ExecutionNode dummyExecutionNode = new ExecutionNode();
 	//econProtossSelector.addChild(dummyExecutionNode);
 	//dummyExecutionNode.setRoutine(dummyRoutine);
 	//econTerranSelector.addChild(dummyExecutionNode);
 	//Set Zerg econ selector
-	private SelectorNode econZergSelector01 = new SelectorNode();
-	private ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
+	public SelectorNode econZergSelector01 = new SelectorNode();
+	public ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
 	//econZergSelector01.setLogic(econZergSupplyCheck);
 	//econZergSelector.addChild(econZergSelector01);
 	//Set Zerg econ sequence nodes
-	private SequenceNode econZergEarly = new SequenceNode();
-	private SequenceNode econZergMid = new SequenceNode();
-	private SequenceNode econZergLate = new SequenceNode();
+	public SequenceNode econZergEarly = new SequenceNode();
+	public SequenceNode econZergMid = new SequenceNode();
+	public SequenceNode econZergLate = new SequenceNode();
 	//econZergSelector01.addChild(econZergEarly);
 	//econZergSelector01.addChild(econZergMid);
 	//econZergSelector01.addChild(econZergLate);
-	private ExecutionNode econZergEarly01 = new ExecutionNode();
-	private ExecutionNode econZergEarly02 = new ExecutionNode();
-	private ExecutionNode econZergEarly03 = new ExecutionNode();
-	private ExecutionNode econZergMid01 = new ExecutionNode();
-	private ExecutionNode econZergMid02 = new ExecutionNode();
-	private ExecutionNode econZergLate01 = new ExecutionNode();
+	public ExecutionNode econZergEarly01 = new ExecutionNode();
+	public ExecutionNode econZergEarly02 = new ExecutionNode();
+	public ExecutionNode econZergEarly03 = new ExecutionNode();
+	public ExecutionNode econZergMid01 = new ExecutionNode();
+	public ExecutionNode econZergMid02 = new ExecutionNode();
+	public ExecutionNode econZergLate01 = new ExecutionNode();
 	//econZergEarly.addChild(econZergEarly01);
 	//econZergEarly.addChild(econZergEarly02);
 	//econZergEarly.addChild(econZergEarly03);
 	//econZergMid.addChild(econZergMid01);
 	//econZergMid.addChild(econZergMid02);
 	//econZergLate.addChild(econZergLate01);
-	private econZergEarlyRoutine01 econZergEarlyRoutine001 = new econZergEarlyRoutine01();
-	private econZergEarlyRoutine02 econZergEarlyRoutine002 = new econZergEarlyRoutine02();
-	private econZergEarlyRoutine03 econZergEarlyRoutine003 = new econZergEarlyRoutine03();
-	private econZergMidRoutine01 econZergMidRoutine001 = new econZergMidRoutine01();
-	private econZergMidRoutine02 econZergMidRoutine002 = new econZergMidRoutine02();
-	private econZergLateRoutine01 econZergLateRoutine001 = new econZergLateRoutine01();
+	public econZergEarlyRoutine01 econZergEarlyRoutine001 = new econZergEarlyRoutine01();
+	public econZergEarlyRoutine02 econZergEarlyRoutine002 = new econZergEarlyRoutine02();
+	public econZergEarlyRoutine03 econZergEarlyRoutine003 = new econZergEarlyRoutine03();
+	public econZergMidRoutine01 econZergMidRoutine001 = new econZergMidRoutine01();
+	public econZergMidRoutine02 econZergMidRoutine002 = new econZergMidRoutine02();
+	public econZergLateRoutine01 econZergLateRoutine001 = new econZergLateRoutine01();
 	//econZergEarly01.setRoutine(econZergEarlyRoutine001);
 	//econZergEarly02.setRoutine(econZergEarlyRoutine002);
 	//econZergEarly03.setRoutine(econZergEarlyRoutine003);
@@ -113,64 +113,64 @@ public class TestBot1 extends DefaultBWListener {
 	// Strategy Behavior Tree
 	
 	// Root node
-	private SelectorNode stratRoot = new SelectorNode(); 
+	public SelectorNode stratRoot = new SelectorNode(); 
 	
 	// Check opponent
-	private SelectorNode stratOpponentCheck = new SelectorNode();
-	private DefaultRoutine defaultRoutine = new DefaultRoutine();
+	public SelectorNode stratOpponentCheck = new SelectorNode();
+	public DefaultRoutine defaultRoutine = new DefaultRoutine();
 	//stratRoot.addChild(stratOpponentCheck);
 	//stratRoot.setLogic(defaultRoutine);
-	private SelectorNode stratZergTree = new SelectorNode();
-	private SelectorNode stratTerranTree = new SelectorNode();
-	private SelectorNode stratProtossTree = new SelectorNode();
+	public SelectorNode stratZergTree = new SelectorNode();
+	public SelectorNode stratTerranTree = new SelectorNode();
+	public SelectorNode stratProtossTree = new SelectorNode();
 	//stratOpponentCheck.addChild(stratZergTree);
 	//stratOpponentCheck.addChild(stratProtossTree);
 	//stratOpponentCheck.addChild(stratTerranTree);
-	private CheckOpponent checkOpp = new CheckOpponent();
+	public CheckOpponent checkOpp = new CheckOpponent();
 	//stratOpponentCheck.setLogic(checkOpp);
 	
 	// Zerg Opponent
-	private SelectorNode stratTroopCount = new SelectorNode();
+	public SelectorNode stratTroopCount = new SelectorNode();
 	//stratZergTree.addChild(stratTroopCount);
 	//stratZergTree.setLogic(defaultRoutine);
 	
 	// create marines
-	private ExecutionNode stratCreateMarine = new ExecutionNode();
-	private SelectorNode stratOwnBuildingCheck = new SelectorNode();
+	public ExecutionNode stratCreateMarine = new ExecutionNode();
+	public SelectorNode stratOwnBuildingCheck = new SelectorNode();
 	//stratTroopCount.addChild(stratCreateMarine);
 	//stratTroopCount.addChild(stratOwnBuildingCheck);
-	private CheckMarineSize checkMarineSize = new CheckMarineSize();
+	public CheckMarineSize checkMarineSize = new CheckMarineSize();
 	//stratTroopCount.setLogic(checkMarineSize);
-	private CreateMarine createMarine = new CreateMarine();
+	public CreateMarine createMarine = new CreateMarine();
 	//stratCreateMarine.setRoutine(createMarine);
 	
 	//defend buildings
-	private SelectorNode stratOnlyBuildingUnderAttack = new SelectorNode();
-	private SelectorNode stratCheckForMoreMarines = new SelectorNode();
-	private SingleBuildingCheck singleBuildingCheck = new SingleBuildingCheck();
+	public SelectorNode stratOnlyBuildingUnderAttack = new SelectorNode();
+	public SelectorNode stratCheckForMoreMarines = new SelectorNode();
+	public SingleBuildingCheck singleBuildingCheck = new SingleBuildingCheck();
 	//stratOwnBuildingCheck.setLogic(singleBuildingCheck);
 	//stratOwnBuildingCheck.addChild(stratOnlyBuildingUnderAttack);
 	//stratOwnBuildingCheck.addChild(stratCheckForMoreMarines);
-	private ExecutionNode stratDefendLastBuilding = new ExecutionNode();
-	private ExecutionNode stratPatrolLastBuilding = new ExecutionNode();
-	private SingleBuildingUnderAttack singleBuildingUnderAttack = new SingleBuildingUnderAttack();
+	public ExecutionNode stratDefendLastBuilding = new ExecutionNode();
+	public ExecutionNode stratPatrolLastBuilding = new ExecutionNode();
+	public SingleBuildingUnderAttack singleBuildingUnderAttack = new SingleBuildingUnderAttack();
 	//stratOnlyBuildingUnderAttack.setLogic(singleBuildingUnderAttack);
 	//stratOnlyBuildingUnderAttack.addChild(stratDefendLastBuilding);
 	//stratOnlyBuildingUnderAttack.addChild(stratPatrolLastBuilding);
-	private DefendLastBuilding defendLastBuilding = new DefendLastBuilding();
+	public DefendLastBuilding defendLastBuilding = new DefendLastBuilding();
 	//stratDefendLastBuilding.setRoutine(defendLastBuilding);
-	private SingleBuildingPatrol singleBuildingPatrol = new SingleBuildingPatrol();
+	public SingleBuildingPatrol singleBuildingPatrol = new SingleBuildingPatrol();
 	//stratPatrolLastBuilding.setRoutine(singleBuildingPatrol);
 	
 	//Build more marines
-	private ExecutionNode stratCreateMoreMarines = new ExecutionNode();
+	public ExecutionNode stratCreateMoreMarines = new ExecutionNode();
 	//stratCreateMoreMarines.setRoutine(createMarine);
-	private ExecutionNode stratSendSCVScout = new ExecutionNode();
-	private SendSCVScout sendSCVScout = new SendSCVScout();
+	public ExecutionNode stratSendSCVScout = new ExecutionNode();
+	public SendSCVScout sendSCVScout = new SendSCVScout();
 	//stratSendSCVScout.setRoutine(sendSCVScout);
 	//stratCheckForMoreMarines.addChild(stratCreateMoreMarines);
 	//stratCheckForMoreMarines.addChild(stratSendSCVScout);
-	private CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
+	public CheckBiggerMarineSize checkBiggerMarineSize = new CheckBiggerMarineSize();
 	//stratCheckForMoreMarines.setLogic(checkBiggerMarineSize);
 	
 	
@@ -234,10 +234,12 @@ public class TestBot1 extends DefaultBWListener {
 
 		mapHeight = game.mapHeight();
 		mapWidth = game.mapWidth();
-		mapH = new int [mapHeight*4][mapWidth*4];
+		mapH = new int [mapWidth*4][mapHeight*4];
 		
-		for (int i = 0; i < mapHeight*4; i++) {
-			for (int j = 0; i < mapWidth*4; j++) {
+		// height and width might be switched?
+
+		for (int i = 0; i < mapWidth*4; i++) {
+			for (int j = 0; j < mapHeight*4; j++) {
 				if (!game.isWalkable(i, j)) {
 					mapH[i][j] = 1000;
 				}
@@ -249,11 +251,11 @@ public class TestBot1 extends DefaultBWListener {
 
 		//Create Economy Tree
 		/*
-		 * 1) Create nodes for different opposing team race
-		 * 2) Connect said nodes to tree
-		 * 2) Create decision nodes for various activities
-		 * 3) Connect said nodes to tree
-		 * 3) Create actions and Sequence/Exec Nodes
+		  1) Create nodes for different opposing team race
+		  2) Connect said nodes to tree
+		  2) Create decision nodes for various activities
+		  3) Connect said nodes to tree
+		  3) Create actions and Sequence/Exec Nodes
 		 */
 		//Set root
 		//SelectorNode econRoot = new SelectorNode();
@@ -395,7 +397,8 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setEconPtr(econRoot);
 		blackboard.setEconRoot(econRoot);
 		blackboard.setStratRoot(stratRoot);
-		int i = 0;
+		
+		
 	}
 
 	@Override
@@ -413,13 +416,20 @@ public class TestBot1 extends DefaultBWListener {
 		 * 2; if (x == 0) { selectedStrategy = Strategy.FindEnemy; } else {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
-		PrintTest printTest = new PrintTest();
+		Routine printTest = new PrintTest();
 		printTest.act(game, blackboard);
+		
 		econRoot.setUp(game, blackboard);
+		econRoot.setLogic(econCheckOpponent);
+		econProtossSelector.setUp(game, blackboard);
+		econTerranSelector.setUp(game, blackboard);
+		econZergSelector.setUp(game, blackboard);
+		
+		
 		if(defaultRoutine == null) {
-			game.drawTextScreen(150, 20, "defaultRoutine is null");
+			game.drawTextScreen(180, 20, "defaultRoutine is null");
 		} else {
-			game.drawTextScreen(150, 20, "defaultRoutine is NOT null");
+			game.drawTextScreen(180, 20, "defaultRoutine is NOT null");
 		}
 		if(econRoot == null){
 			game.drawTextScreen(100, 180, "Shit");
@@ -430,7 +440,7 @@ public class TestBot1 extends DefaultBWListener {
 		}
 		game.drawTextScreen(100, 160, "oh Shit");
 		Node holdmeclose = econRoot.select();
-		game.drawTextScreen(100, 170, "naw Shit");
+		game.drawTextScreen(40, 160, "naw Shit");
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
 		}
