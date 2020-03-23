@@ -39,62 +39,63 @@ public class TestBot1 extends DefaultBWListener {
 	private int timeout = 0;
 	Unit bunkerBuilder;
 	Unit searcher;
-
+	
+	
 	private String debugText = "";
 
 	private enum Strategy {
 		WaitFor50, AttackAtAllCost
 	};
 	
-	public SelectorNode econRoot = new SelectorNode();
-	public Routine econCheckOpponent = new CheckOpponent();
+	static public SelectorNode econRoot = new SelectorNode();
+	static public Routine econCheckOpponent = new CheckOpponent();
 	//econRoot.setLogic(econCheckOpponent);
 	//Set race selector children nodes
-	public SelectorNode econProtossSelector = new SelectorNode();
-	public SelectorNode econTerranSelector = new SelectorNode();
-	public SelectorNode econZergSelector = new SelectorNode();
+	static public SelectorNode econProtossSelector = new SelectorNode();
+	static public SelectorNode econTerranSelector = new SelectorNode();
+	static public SelectorNode econZergSelector = new SelectorNode();
 	//econRoot.addChild(econZergSelector);
 	//econRoot.addChild(econProtossSelector);
 	//econRoot.addChild(econTerranSelector);
 	//TODO: Create additional behaviors for terrans and Protoss
-	public DefaultRoutine econDefaultRoutine = new DefaultRoutine();
+	static public DefaultRoutine econDefaultRoutine = new DefaultRoutine();
 	//econProtossSelector.setLogic(econDefaultRoutine);
 	//econTerranSelector.setLogic(econDefaultRoutine);
-	public DummyRoutine dummyRoutine = new DummyRoutine();
-	public ExecutionNode dummyExecutionNode = new ExecutionNode();
+	static public DummyRoutine dummyRoutine = new DummyRoutine();
+	static public ExecutionNode dummyExecutionNode = new ExecutionNode();
 	//econProtossSelector.addChild(dummyExecutionNode);
 	//dummyExecutionNode.setRoutine(dummyRoutine);
 	//econTerranSelector.addChild(dummyExecutionNode);
 	//Set Zerg econ selector
-	public SelectorNode econZergSelector01 = new SelectorNode();
-	public ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
+	static public SelectorNode econZergSelector01 = new SelectorNode();
+	static public ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
 	//econZergSelector01.setLogic(econZergSupplyCheck);
 	//econZergSelector.addChild(econZergSelector01);
 	//Set Zerg econ sequence nodes
-	public SequenceNode econZergEarly = new SequenceNode();
-	public SequenceNode econZergMid = new SequenceNode();
-	public SequenceNode econZergLate = new SequenceNode();
+	static public SequenceNode econZergEarly = new SequenceNode();
+	static public SequenceNode econZergMid = new SequenceNode();
+	static public SequenceNode econZergLate = new SequenceNode();
 	//econZergSelector01.addChild(econZergEarly);
 	//econZergSelector01.addChild(econZergMid);
 	//econZergSelector01.addChild(econZergLate);
-	public ExecutionNode econZergEarly01 = new ExecutionNode();
-	public ExecutionNode econZergEarly02 = new ExecutionNode();
-	public ExecutionNode econZergEarly03 = new ExecutionNode();
-	public ExecutionNode econZergMid01 = new ExecutionNode();
-	public ExecutionNode econZergMid02 = new ExecutionNode();
-	public ExecutionNode econZergLate01 = new ExecutionNode();
+	static public ExecutionNode econZergEarly01 = new ExecutionNode();
+	static public ExecutionNode econZergEarly02 = new ExecutionNode();
+	static public ExecutionNode econZergEarly03 = new ExecutionNode();
+	static public ExecutionNode econZergMid01 = new ExecutionNode();
+	static public ExecutionNode econZergMid02 = new ExecutionNode();
+	static public ExecutionNode econZergLate01 = new ExecutionNode();
 	//econZergEarly.addChild(econZergEarly01);
 	//econZergEarly.addChild(econZergEarly02);
 	//econZergEarly.addChild(econZergEarly03);
 	//econZergMid.addChild(econZergMid01);
 	//econZergMid.addChild(econZergMid02);
 	//econZergLate.addChild(econZergLate01);
-	public econZergEarlyRoutine01 econZergEarlyRoutine001 = new econZergEarlyRoutine01();
-	public econZergEarlyRoutine02 econZergEarlyRoutine002 = new econZergEarlyRoutine02();
-	public econZergEarlyRoutine03 econZergEarlyRoutine003 = new econZergEarlyRoutine03();
-	public econZergMidRoutine01 econZergMidRoutine001 = new econZergMidRoutine01();
-	public econZergMidRoutine02 econZergMidRoutine002 = new econZergMidRoutine02();
-	public econZergLateRoutine01 econZergLateRoutine001 = new econZergLateRoutine01();
+	static public econZergEarlyRoutine01 econZergEarlyRoutine001 = new econZergEarlyRoutine01();
+	static public econZergEarlyRoutine02 econZergEarlyRoutine002 = new econZergEarlyRoutine02();
+	static public econZergEarlyRoutine03 econZergEarlyRoutine003 = new econZergEarlyRoutine03();
+	static public econZergMidRoutine01 econZergMidRoutine001 = new econZergMidRoutine01();
+	static public econZergMidRoutine02 econZergMidRoutine002 = new econZergMidRoutine02();
+	static public econZergLateRoutine01 econZergLateRoutine001 = new econZergLateRoutine01();
 	//econZergEarly01.setRoutine(econZergEarlyRoutine001);
 	//econZergEarly02.setRoutine(econZergEarlyRoutine002);
 	//econZergEarly03.setRoutine(econZergEarlyRoutine003);
@@ -271,10 +272,14 @@ public class TestBot1 extends DefaultBWListener {
 		//SelectorNode econTerranSelector = new SelectorNode();
 		econTerranSelector.setUp(game, blackboard);
 		//SelectorNode econZergSelector = new SelectorNode();
+		econZergSelector.setUp(game, blackboard);*/
 		econZergSelector.setUp(game, blackboard);
+		econRoot.setUp(game, blackboard);
+		econTerranSelector.setUp(game, blackboard);
+		econProtossSelector.setUp(game, blackboard);
 		econRoot.addChild(econZergSelector);
 		econRoot.addChild(econProtossSelector);
-		econRoot.addChild(econTerranSelector);
+		econRoot.addChild(econTerranSelector);/*
 		//TODO: Create additional behaviors for terrans and Protoss
 		//DefaultRoutine econDefaultRoutine = new DefaultRoutine();
 		econProtossSelector.setLogic(econDefaultRoutine);
@@ -419,66 +424,24 @@ public class TestBot1 extends DefaultBWListener {
 		 * 2; if (x == 0) { selectedStrategy = Strategy.FindEnemy; } else {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
-		game.drawTextScreen(10, 150, "1oh Shit");
-		
 		econRoot.setUp(game, blackboard);
-		econRoot.setLogic(econCheckOpponent);
 		econProtossSelector.setUp(game, blackboard);
 		econTerranSelector.setUp(game, blackboard);
 		econZergSelector.setUp(game, blackboard);
-		econRoot.addChild(econZergSelector);
-		econRoot.addChild(econProtossSelector);
-		econRoot.addChild(econTerranSelector);
-		econProtossSelector.setLogic(econDefaultRoutine);
-		econTerranSelector.setLogic(econDefaultRoutine);
-		dummyExecutionNode.setUp(game, blackboard);
-		econProtossSelector.addChild(dummyExecutionNode);
-		dummyExecutionNode.setRoutine(dummyRoutine);
-		econTerranSelector.addChild(dummyExecutionNode);
-		econZergSelector.setLogic(dummyRoutine);
-		game.drawTextScreen(10, 160, "2oh Shit");
-		
 		econZergSelector01.setUp(game, blackboard);
-		//ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
-		econZergSelector01.setLogic(econZergSupplyCheck);
-		econZergSelector.addChild(econZergSelector01);
-		//Set Zerg econ sequence nodes
-		//SequenceNode econZergEarly = new SequenceNode();
-		//SequenceNode econZergMid = new SequenceNode();
-		//SequenceNode econZergLate = new SequenceNode();
 		econZergEarly.setUp(game, blackboard);
 		econZergMid.setUp(game, blackboard);
 		econZergLate.setUp(game, blackboard);
 		econZergEarly01.setUp(game, blackboard);
 		econZergEarly02.setUp(game, blackboard);
 		econZergEarly03.setUp(game, blackboard);
-		econZergSelector01.addChild(econZergEarly);
-		econZergSelector01.addChild(econZergMid);
-		econZergSelector01.addChild(econZergLate);
-		econZergEarly.addChild(econZergEarly01);
-		econZergEarly.addChild(econZergEarly02);
-		econZergEarly.addChild(econZergEarly03);
-		econZergMid.addChild(econZergMid01);
-		econZergMid.addChild(econZergMid02);
-		econZergLate.addChild(econZergLate01);
-		
-		econZergEarly01.setRoutine(econZergEarlyRoutine001);
-		econZergEarly02.setRoutine(econZergEarlyRoutine002);
-		econZergEarly03.setRoutine(econZergEarlyRoutine003);
-		econZergMid01.setRoutine(econZergMidRoutine001);
-		econZergMid02.setRoutine(econZergMidRoutine002);
-		econZergLate01.setRoutine(econZergLateRoutine001);
-		
-		game.drawTextScreen(10, 170, "3oh Shit");
 
+		
 		// econ tree done, moving on to strat
 		stratRoot.setUp(game, blackboard);
 		stratOpponentCheck.setUp(game, blackboard);
 		stratRoot.addChild(stratOpponentCheck);
 		stratRoot.setLogic(defaultRoutine);
-
-		game.drawTextScreen(10, 180, "4oh Shit");
-		game.drawTextScreen(10, 190, "5oh Shit");
 
 		
 		// Zerg Opponent
@@ -564,16 +527,8 @@ public class TestBot1 extends DefaultBWListener {
 		} else {
 			game.drawTextScreen(180, 20, "defaultRoutine is NOT null");
 		}
-		if(econRoot == null){
-			game.drawTextScreen(100, 180, "Shit");
 
-		} else {
-			game.drawTextScreen(100, 180, "Double Shit");
-
-		}
-		game.drawTextScreen(10, 200, "6oh Shit");
 		Node holdmeclose = econRoot.select();
-		game.drawTextScreen(40, 160, "naw Shit");
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
 		}
@@ -651,7 +606,6 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setEconTreeCompleted(false);
 		blackboard.setStrategyTreeCompleted(false);
 		blackboard.setResearchTreeCompleted(false);
-		game.drawTextScreen(100,230, "Here? 01");
 		/*
 		 * TODO:
 		 * Blackboard is now set. Now time to do Tree Traversal
@@ -659,7 +613,6 @@ public class TestBot1 extends DefaultBWListener {
 		
 		
 		Node stratPtr = blackboard.getStratPtr();
-		game.drawTextScreen(100,240, "Here? 02");
 		/*
 		while(stratPtr.getState() >= 0) {
 			game.drawTextScreen(100,250, "Strat Cycle");
@@ -678,22 +631,18 @@ public class TestBot1 extends DefaultBWListener {
 			}
 		}
 		*/
-		game.drawTextScreen(100,250, "Here? 03");
+
 		Node econPtr = econRoot;
-		game.drawTextScreen(100,260, "Here? 04");
 		int nummm = 0;
 		while(econPtr.getState() >= 0) {
 			nummm++;
-			game.drawTextScreen(100,270, "Here? 0" + nummm);
 			if(econPtr.getClass() == SelectorNode.class) {
-				game.drawTextScreen(50,250, "Here# 0" + nummm);
+				game.drawTextScreen(150,220, "Here# " + nummm);
 				econPtr = econPtr.select();
 			} else if(econPtr.getClass() == SequenceNode.class) {
-				game.drawTextScreen(50,260, "Here# 00" + nummm);
 				econPtr.executeAll();
-				game.drawTextScreen(50,270, "Past Exec");
 				if(econPtr.getState() == -1) {
-					blackboard.setEconPtr(blackboard.getEconRoot());
+					blackboard.setEconPtr(econRoot);
 				} else {
 					blackboard.setEconPtr(econPtr);
 				}
@@ -702,7 +651,7 @@ public class TestBot1 extends DefaultBWListener {
 				break;
 			}
 		}
-		game.drawTextScreen(150,200, "Here? DONE/THROUGH");
+		game.drawTextScreen(150,220, "Here? DONE/THROUGH");
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
@@ -729,191 +678,13 @@ public class TestBot1 extends DefaultBWListener {
 
 				// if a mineral patch was found, send the worker to gather it
 				if (closestMineral != null) {
-					
-					game.drawTextScreen(10, 120, "found a closest mineral field");
-					
-					Position startingPos = myUnit.getPosition();
-					Position targetPos = closestMineral.getPosition();
-					
-					WalkPosition startingWalk = new WalkPosition(startingPos.getX()/8,startingPos.getY()/8);
-					WalkPosition targetWalk = new WalkPosition(targetPos.getX()/8,targetPos.getY()/8);
-					
-					game.drawTextScreen(10, 190, "startingWalk: " + startingWalk.getX() + ", " + startingWalk.getY());
-					game.drawTextScreen(10, 200, "targetWalk: " + targetWalk.getX() + ", " + targetWalk.getY());
-					
-					int [][] mapHCopy = new int [mapHeight*4][mapWidth*4];
-					for (int i = 0; i < mapHeight*4; i++) {
-						for (int j = 0; j < mapWidth*4; j++) {
-							mapHCopy[i][j] = 1000;
-						}
-					}
-					game.drawTextScreen(350, 120, "past that for loop?");
-					
-					int [][] mapHVisited = new int [mapHeight*4][mapWidth*4];
-					// treat mapHCopy as the node values, and mapH as the edge weight. Update mapHcopy as needed, but leave mapH as is.
-					// mapHVisited is used to mark which locations, or "nodes" are visited.
-					
-					// 1 is the lowest value, 100 is the highest value a risk can take (a unit is ranked by its risk), and 1000 is the 
-					// highest value and represents "impassable" squares
-					
-					mapHVisited[startingWalk.getX()][startingWalk.getY()] = 1;
-					mapHCopy[startingWalk.getX()][startingWalk.getY()] = 1;
-					int currX = startingWalk.getX();
-					int currY = startingWalk.getY();
-					int targetX = targetWalk.getX();
-					int targetY = targetWalk.getY();
-					int breakingPoint = 1000; //change depending on results
-					int maxDistance = 0;
-					int foundDistance = 0;
-					game.drawTextScreen(10, 100, "past the first set of variable declarations");
-					//map coordinates to score and parent
-					//Map<List<int>, List<List<int, int>, int> possiblePath = new HashMap<List<int>, List<int>>();
-					//Map<List<int>, List<List<int, int>, int> chosenPath = new HashMap<List<int>, List<int>>();
-					//List<int> startPoint = {currX, currY};
-					//List<int> startValue = {0, 
-					//possiblePath.put(startPoint);
-					//x, all y values
-					HashMap<Integer, List<Integer>> chosenPath = new HashMap<>();
-					List<Integer> possibleYs = new ArrayList<>();
-					game.drawTextScreen(10, 110, "past the Hashmap and list declarations");
-					possibleYs.add(currY);
-					chosenPath.put(currX, possibleYs);
-					game.drawTextScreen(250, 110, "past the adding and putting");
-					int NmapHeight = 4 * game.mapHeight();
-					int NmapWidth  = 4 * game.mapWidth();
-					int counter = 0;
-					
-					game.drawTextScreen(10, 210, "currX and Y: " + currX + ", " + currY);
-					game.drawTextScreen(10, 220, "targetX and Y: " + targetX + ", " + targetY);
-					
-					game.drawTextScreen(10, 230, "Value of dis<brk = " + (foundDistance < breakingPoint) + " Value of currXY vs tarXY = " + (currX != targetX || currY != targetY));
-					
-					while(foundDistance < breakingPoint && (currX != targetX || currY != targetY)) {
-						//right
-						game.drawTextScreen(10, 160, "We've entered the while loop");
-						
-						//check to see if the target is within 1 sqare of our current location, leave the loop if found
-						if (Math.abs(currX-targetX)<=1 && Math.abs(currY-targetY)<=1 ) {
-							game.drawTextScreen(10, 70, "found a good path");
-							break;
-						}
-						
-						if(NmapWidth > currX+1) {
-							//right check
-							maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs(currY - targetY));
-							if (mapHCopy[currX+1][currY] > maxDistance + mapH[currX+1][currY]) {
-								mapHCopy[currX+1][currY] = maxDistance + mapH[currX+1][currY];
-							}
-							//bottom right check
-							if(currY+1<NmapHeight) {
-								maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs((currY+1) - targetY));
-								if (mapHCopy[currX+1][currY+1] > maxDistance + mapH[currX+1][currY+1]) {
-									mapHCopy[currX+1][currY+1] = maxDistance + mapH[currX+1][currY+1];
-								}
-							}
-							//upper right check
-							if(currY-1>=0) {
-								maxDistance = Math.max(Math.abs((currX+1) - targetX), Math.abs((currY-1) - targetY));
-								if (mapHCopy[currX+1][currY-1] > maxDistance + mapH[currX+1][currY-1]) {
-									mapHCopy[currX+1][currY-1] = maxDistance + mapH[currX+1][currY-1];
-								}
-							}
-						}
-						//left
-						if(currX-1 >= 0) {
-							//left check
-							maxDistance = Math.max(Math.abs((currX-1) - targetX), Math.abs(currY - targetY));
-							if (mapHCopy[currX-1][currY] > maxDistance + mapH[currX-1][currY]) {
-								mapHCopy[currX-1][currY] = maxDistance + mapH[currX-1][currY];
-							}
-							//bottom left check
-							if(currY+1<NmapHeight) {
-								maxDistance = Math.max(Math.abs((currX-1) - targetX), Math.abs((currY+1) - targetY));
-								if (mapHCopy[currX-1][currY+1] > maxDistance + mapH[currX-1][currY+1]) {
-									mapHCopy[currX-1][currY+1] = maxDistance + mapH[currX-1][currY+1];
-								}
-							}
-							//upper left check
-							if(currY-1>=0) {
-								maxDistance = Math.max(Math.abs((currX-1) - targetX), Math.abs((currY-1) - targetY));
-								if (mapHCopy[currX-1][currY-1] > maxDistance + mapH[currX-1][currY-1]) {
-									mapHCopy[currX-1][currY-1] = maxDistance + mapH[currX-1][currY-1];
-								}
-							}
-						}
-						//lower check
-						if(currY+1<NmapHeight) {
-							maxDistance = Math.max(Math.abs((currX) - targetX), Math.abs((currY+1) - targetY));
-							if (mapHCopy[currX][currY+1] > maxDistance + mapH[currX][currY+1]) {
-								mapHCopy[currX][currY+1] = maxDistance + mapH[currX][currY+1];
-							}
-						}
-						//upper check
-						if(currY-1>=0) {
-							maxDistance = Math.max(Math.abs((currX) - targetX), Math.abs((currY-1) - targetY));
-							if (mapHCopy[currX][currY-1] > maxDistance + mapH[currX][currY-1]) {
-								mapHCopy[currX][currY-1] = maxDistance + mapH[currX][currY-1];
-							}
-						}
-						int leftEdge = currX-1;
-						if(leftEdge <0) leftEdge = 0;
-						int upperEdge = currY-1;
-						if(upperEdge <0) upperEdge = 0;
-						int rightEdge = currX+1;
-						if(rightEdge <0) rightEdge = NmapWidth;
-						int lowerEdge = currY+1;
-						if(lowerEdge <0) lowerEdge = NmapHeight;
-						int tempX = currX;
-						int tempY = currY;
-						int tempScore = 100000000;
-						for(int i=leftEdge; i<=rightEdge;i++) {
-							for(int j=upperEdge; j<=lowerEdge;j++) {
-								if(i==currX && j==currY) continue;
-								if(!chosenPath.containsKey(i) || (chosenPath.containsKey(i) && !chosenPath.get(i).contains(j))) {
-									if(mapHCopy[i][j]<tempScore) {
-										tempX = i;
-										tempY = j;
-										tempScore = mapHCopy[i][j];
-									}
-								}
-							}
-						}
-						//game.drawTextScreen(10, 150, "We are still in the while loop" + counter);
-						//check if currX and currY are already tempX and tempY, in which case no path was found.
-						if (currX==tempX) {
-							game.drawTextScreen(10, 70, "Couldn't find a good path to resource");
-							//game.drawTextMap(myUnit.getPosition(), "Couldn't find a good path to resource ");
-							skip = true;
-							break;
-						}
-						else {
-							currX=tempX;
-							currY=tempY;		
-						}
-						foundDistance += tempScore;
-						if(chosenPath.containsKey(currX)) {
-							chosenPath.get(currX).add(currY);
-						} else {
-							List<Integer> newY = new ArrayList<>();
-							chosenPath.put(currX, newY);
-						}
-						if(foundDistance > breakingPoint) {
-							game.drawTextScreen(250, 70, "Passed the breakingPoint, won't gather resource");
-							//game.drawTextMap(myUnit.getPosition(), "Passed the breakingPoint, won't gather resource ");
-							skip = true;
-							break;
-						}
-						
-					}
-					
-					game.drawTextScreen(10, 250, "About the enter the skip check where skip = " + skip);
 					if (skip == false) {
-						game.drawTextScreen(200, 250, "Gonna tell it to gather the resource");
 						myUnit.gather(closestMineral, false);
 					}
+					
 				}
 			}
-
+			
 			if (myUnit.isUnderAttack() && myUnit.canAttack()) {
 				game.setLocalSpeed(1);
 				myUnit.attack(myUnit.getPosition());
@@ -923,7 +694,7 @@ public class TestBot1 extends DefaultBWListener {
 				workerAttacked = myUnit.getPosition();
 			}
 		}
-
+		game.drawTextScreen(150,230, "Here? DONE/THROUGH!!!!!");
 		if (bunkerBuilder == null && workers.size() > 10) {
 			bunkerBuilder = workers.get(10);
 		}
@@ -993,12 +764,13 @@ public class TestBot1 extends DefaultBWListener {
 
 			i++;
 		}
-
+		game.drawTextScreen(150,250, "Barracks");
 		for (Unit barrack : barracks) {
 			if (barrack.getTrainingQueue().isEmpty()) {
 				barrack.build(UnitType.AllUnits.Terran_Marine);
 			}
 		}
+		game.drawTextScreen(150,260, "Barracks");
 
 		for (BaseLocation b : BWTA.getBaseLocations()) {
 			// If this is a possible start location,
@@ -1125,13 +897,41 @@ public class TestBot1 extends DefaultBWListener {
 				}
 			}
 		}
-
+		game.drawTextScreen(150,240, "Here? DONE/THROUGH");
 		// draw my units on screen
 		// game.drawTextScreen(10, 25, units.toString());
 		
 	}
 
 	public static void main(String[] args) {
+		econRoot.setLogic(econCheckOpponent);
+		econRoot.addChild(econZergSelector);
+		econRoot.addChild(econProtossSelector);
+		econRoot.addChild(econTerranSelector);
+		econProtossSelector.setLogic(econDefaultRoutine);
+		econTerranSelector.setLogic(econDefaultRoutine);
+		econProtossSelector.addChild(dummyExecutionNode);
+		dummyExecutionNode.setRoutine(dummyRoutine);
+		econTerranSelector.addChild(dummyExecutionNode);
+		econZergSelector.setLogic(dummyRoutine);
+		econZergSelector01.setLogic(econZergSupplyCheck);
+		econZergSelector.addChild(econZergSelector01);
+		econZergSelector01.addChild(econZergEarly);
+		econZergSelector01.addChild(econZergMid);
+		econZergSelector01.addChild(econZergLate);
+		econZergEarly.addChild(econZergEarly01);
+		econZergEarly.addChild(econZergEarly02);
+		econZergEarly.addChild(econZergEarly03);
+		econZergMid.addChild(econZergMid01);
+		econZergMid.addChild(econZergMid02);
+		econZergLate.addChild(econZergLate01);
+		
+		econZergEarly01.setRoutine(econZergEarlyRoutine001);
+		econZergEarly02.setRoutine(econZergEarlyRoutine002);
+		econZergEarly03.setRoutine(econZergEarlyRoutine003);
+		econZergMid01.setRoutine(econZergMidRoutine001);
+		econZergMid02.setRoutine(econZergMidRoutine002);
+		econZergLate01.setRoutine(econZergLateRoutine001);
 		new TestBot1().run();
 	}
 
