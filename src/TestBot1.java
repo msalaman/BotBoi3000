@@ -416,8 +416,7 @@ public class TestBot1 extends DefaultBWListener {
 		 * 2; if (x == 0) { selectedStrategy = Strategy.FindEnemy; } else {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
-		Routine printTest = new PrintTest();
-		printTest.act(game, blackboard);
+		game.drawTextScreen(10, 150, "1oh Shit");
 		
 		econRoot.setUp(game, blackboard);
 		econRoot.setLogic(econCheckOpponent);
@@ -433,6 +432,8 @@ public class TestBot1 extends DefaultBWListener {
 		econProtossSelector.addChild(dummyExecutionNode);
 		dummyExecutionNode.setRoutine(dummyRoutine);
 		econTerranSelector.addChild(dummyExecutionNode);
+		econZergSelector.setLogic(dummyRoutine);
+		game.drawTextScreen(10, 160, "2oh Shit");
 		
 		econZergSelector01.setUp(game, blackboard);
 		//ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
@@ -459,17 +460,22 @@ public class TestBot1 extends DefaultBWListener {
 		econZergMid02.setRoutine(econZergMidRoutine002);
 		econZergLate01.setRoutine(econZergLateRoutine001);
 		
+		game.drawTextScreen(10, 170, "3oh Shit");
+
 		// econ tree done, moving on to strat
 		stratRoot.setUp(game, blackboard);
 		stratRoot.addChild(stratOpponentCheck);
 		stratRoot.setLogic(defaultRoutine);
-		
+		game.drawTextScreen(10, 180, "4oh Shit");
+		game.drawTextScreen(10, 190, "5oh Shit");
+
 		
 		// Zerg Opponent
 		//SelectorNode stratTroopCount = new SelectorNode();
-		stratZergTree.addChild(stratTroopCount);
-		stratZergTree.setLogic(defaultRoutine);
-		
+		//stratZergTree.addChild(stratTroopCount);
+		//stratZergTree.setLogic(defaultRoutine);
+
+
 		
 		if(defaultRoutine == null) {
 			game.drawTextScreen(180, 20, "defaultRoutine is null");
@@ -483,7 +489,7 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextScreen(100, 180, "Double Shit");
 
 		}
-		game.drawTextScreen(100, 160, "oh Shit");
+		game.drawTextScreen(10, 200, "6oh Shit");
 		Node holdmeclose = econRoot.select();
 		game.drawTextScreen(40, 160, "naw Shit");
 		if (maxCyclesForSearching > 300000) {
@@ -591,12 +597,19 @@ public class TestBot1 extends DefaultBWListener {
 		}
 		*/
 		game.drawTextScreen(100,250, "Here? 03");
-		Node econPtr = blackboard.getEconPtr();
+		Node econPtr = econRoot;
+		game.drawTextScreen(100,260, "Here? 04");
+		int nummm = 0;
 		while(econPtr.getState() >= 0) {
+			nummm++;
+			game.drawTextScreen(100,270, "Here? 0" + nummm);
 			if(econPtr.getClass() == SelectorNode.class) {
+				game.drawTextScreen(50,250, "Here# 0" + nummm);
 				econPtr = econPtr.select();
 			} else if(econPtr.getClass() == SequenceNode.class) {
+				game.drawTextScreen(50,260, "Here# 00" + nummm);
 				econPtr.executeAll();
+				game.drawTextScreen(50,270, "Past Exec");
 				if(econPtr.getState() == -1) {
 					blackboard.setEconPtr(blackboard.getEconRoot());
 				} else {
@@ -607,7 +620,7 @@ public class TestBot1 extends DefaultBWListener {
 				break;
 			}
 		}
-		game.drawTextScreen(100,260, "Here? 04");
+		game.drawTextScreen(150,200, "Here? DONE/THROUGH");
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch

@@ -4,9 +4,9 @@ public class SequenceNode extends ControlFlowNode {
 	private int currentChild = 0;
 	public void executeAll() {
 		
-		for (int i=currentChild; i < getChildren().size(); i++) {
+		for (int i=this.currentChild; i < getChildren().size(); i++) {
 			if(getChildren().get(i).getState() != 0) {
-				currentChild++;
+				this.currentChild++;
 				continue;
 			}
 			if(getChildren().get(i).execute() < 0) {
@@ -14,8 +14,8 @@ public class SequenceNode extends ControlFlowNode {
 			}
 			break;
 		}
-		if(currentChild >= getChildren().size()) {
-			this.setState(-1);
+		if(this.currentChild >= getChildren().size()) {
+			setState(-1);
 		}
 	}
 }
