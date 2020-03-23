@@ -424,6 +424,51 @@ public class TestBot1 extends DefaultBWListener {
 		econProtossSelector.setUp(game, blackboard);
 		econTerranSelector.setUp(game, blackboard);
 		econZergSelector.setUp(game, blackboard);
+		econRoot.addChild(econZergSelector);
+		econRoot.addChild(econProtossSelector);
+		econRoot.addChild(econTerranSelector);
+		econProtossSelector.setLogic(econDefaultRoutine);
+		econTerranSelector.setLogic(econDefaultRoutine);
+		dummyExecutionNode.setUp(game, blackboard);
+		econProtossSelector.addChild(dummyExecutionNode);
+		dummyExecutionNode.setRoutine(dummyRoutine);
+		econTerranSelector.addChild(dummyExecutionNode);
+		
+		econZergSelector01.setUp(game, blackboard);
+		//ZergSupplyCheck econZergSupplyCheck = new ZergSupplyCheck();
+		econZergSelector01.setLogic(econZergSupplyCheck);
+		econZergSelector.addChild(econZergSelector01);
+		//Set Zerg econ sequence nodes
+		//SequenceNode econZergEarly = new SequenceNode();
+		//SequenceNode econZergMid = new SequenceNode();
+		//SequenceNode econZergLate = new SequenceNode();
+		econZergSelector01.addChild(econZergEarly);
+		econZergSelector01.addChild(econZergMid);
+		econZergSelector01.addChild(econZergLate);
+		econZergEarly.addChild(econZergEarly01);
+		econZergEarly.addChild(econZergEarly02);
+		econZergEarly.addChild(econZergEarly03);
+		econZergMid.addChild(econZergMid01);
+		econZergMid.addChild(econZergMid02);
+		econZergLate.addChild(econZergLate01);
+		
+		econZergEarly01.setRoutine(econZergEarlyRoutine001);
+		econZergEarly02.setRoutine(econZergEarlyRoutine002);
+		econZergEarly03.setRoutine(econZergEarlyRoutine003);
+		econZergMid01.setRoutine(econZergMidRoutine001);
+		econZergMid02.setRoutine(econZergMidRoutine002);
+		econZergLate01.setRoutine(econZergLateRoutine001);
+		
+		// econ tree done, moving on to strat
+		stratRoot.setUp(game, blackboard);
+		stratRoot.addChild(stratOpponentCheck);
+		stratRoot.setLogic(defaultRoutine);
+		
+		
+		// Zerg Opponent
+		//SelectorNode stratTroopCount = new SelectorNode();
+		stratZergTree.addChild(stratTroopCount);
+		stratZergTree.setLogic(defaultRoutine);
 		
 		
 		if(defaultRoutine == null) {
@@ -523,8 +568,11 @@ public class TestBot1 extends DefaultBWListener {
 		 * TODO:
 		 * Blackboard is now set. Now time to do Tree Traversal
 		 */
+		
+		
 		Node stratPtr = blackboard.getStratPtr();
 		game.drawTextScreen(100,240, "Here? 02");
+		/*
 		while(stratPtr.getState() >= 0) {
 			game.drawTextScreen(100,250, "Strat Cycle");
 			if(stratPtr.getClass() == SelectorNode.class) {
@@ -541,7 +589,8 @@ public class TestBot1 extends DefaultBWListener {
 				break;
 			}
 		}
-		game.drawTextScreen(100,190, "Here? 03");
+		*/
+		game.drawTextScreen(100,250, "Here? 03");
 		Node econPtr = blackboard.getEconPtr();
 		while(econPtr.getState() >= 0) {
 			if(econPtr.getClass() == SelectorNode.class) {
@@ -557,7 +606,8 @@ public class TestBot1 extends DefaultBWListener {
 			} else {
 				break;
 			}
-		}	
+		}
+		game.drawTextScreen(100,260, "Here? 04");
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
