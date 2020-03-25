@@ -83,8 +83,8 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.mirror = mirror;
 		blackboard.self = self;
 		blackboard.game = game;
-		//blackboard.addCommandCenter(commandCenter);
-		//blackboard.setEnemyRace(self.getRace());
+		blackboard.addCommandCenter(commandCenter);
+		blackboard.setEnemyRace(self.getRace());
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -95,6 +95,7 @@ public class TestBot1 extends DefaultBWListener {
 		
 		econRoot = new Repeater(new EconRoot());
 		econRoot.start();
+		
 	}
 
 	@Override
@@ -127,6 +128,7 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextScreen(10, 90, "Please be somewhat relieved");
 		}
 		
+		/*
 		if (econRoot.isRunning()) {
 			game.drawTextScreen(10, 100, "econRoot is currently Running");
 			econRoot.act(blackboard);
@@ -143,7 +145,7 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextScreen(10, 100, "econRoot has no state");
 			econRoot.start();
 		}
-		
+		*/
 		
 		
 
@@ -279,6 +281,25 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setStrategyTreeCompleted(false);
 		blackboard.setResearchTreeCompleted(false);
 		
+
+		if (econRoot.isRunning()) {
+			game.drawTextScreen(10, 100, "econRoot is currently Running");
+			econRoot.act(blackboard);
+		}
+		else if (econRoot.isFailure()) {
+			game.drawTextScreen(10, 100, "econRoot has Failed");
+			econRoot.start();
+		}
+		else if (econRoot.isSuccess()) {
+			game.drawTextScreen(10, 100, "econRoot has Succeeded.");
+			econRoot.start();
+		}
+		else {
+			game.drawTextScreen(10, 100, "econRoot has no state");
+			econRoot.start();
+		}
+		
+		
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
@@ -347,11 +368,11 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextMap(bunkerBuilder.getPosition(), "Reparing bunker");
 			bunkerBuilder.repair(bunker);
 		}
-
+/*
 		if (commandCenter.getTrainingQueue().isEmpty() && workers.size() < 20 && self.minerals() >= 50) {
 			commandCenter.build(UnitType.AllUnits.Terran_SCV);
 		}
-
+*/
 		frameskip++;
 		if (frameskip == 20) {
 			frameskip = 0;
@@ -389,12 +410,13 @@ public class TestBot1 extends DefaultBWListener {
 			i++;
 		}
 
+		/*
 		for (Unit barrack : barracks) {
 			if (barrack.getTrainingQueue().isEmpty()) {
 				barrack.build(UnitType.AllUnits.Terran_Marine);
 			}
 		}
-
+*/
 		for (BaseLocation b : BWTA.getBaseLocations()) {
 			// If this is a possible start location,
 			if (b.isStartLocation()) {

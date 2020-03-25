@@ -18,11 +18,11 @@ public class EconZergEarly extends Routine{
 	}
 	
 	public void act(Blackboard blackboard) {
-		/*if(The ratio of troops is wrong) {
+		if(blackboard.getSupplyTotal() >= 100) {
 			succeed(); //TODO: change if not early
 			//If ratio wrong in early, then it means that early is completed
 			return;
-		} */
+		}
 		//TODO: Logic and exec of building stuff and troops
 		int supply = blackboard.getSupplyUsed();
 		if(supply < 10) {

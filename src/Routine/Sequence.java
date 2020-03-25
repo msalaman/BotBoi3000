@@ -22,7 +22,7 @@ public class Sequence extends Routine {
     @Override
     public void start() {
         super.start();
-        if(routine_list == null) {
+        if(routine_list.size() == 0) {
         	//TODO: this means that there is no list and the Sequence fails to do anything
         	fail();
         	return;

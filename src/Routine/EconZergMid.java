@@ -18,14 +18,14 @@ public class EconZergMid extends Routine {
 	}
 	
 	public void act(Blackboard blackboard) {
-		/*if(The ratio of troops is high) {
-			succeed(); //TODO: change if not early
-			//If ratio wrong in early, then it means that early is completed
+		if(blackboard.getSupplyTotal() >= 500) {
+			succeed(); //TODO: change if not mid
+			//If ratio wrong in mid, then it means that mid is completed
 			return;
-		} else if(The ratio of troops is low){
+		} else if (blackboard.getSupplyTotal() < 100){
 			fail();
 			//This means that the supply depots were destroyed and econ must start again
-		}*/
+		}
 		//TODO: Logic and exec of building stuff and troops
 		int supply = blackboard.getSupplyUsed();
 		if(supply < 44) {

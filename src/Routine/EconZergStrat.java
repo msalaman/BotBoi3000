@@ -22,10 +22,10 @@ public class EconZergStrat extends Routine {
 		if(sequence == null) {
 			sequence = new Sequence();
 			//TODO: add stuff to sequence
-			//sequence.addRoutine(new econZergEarly());
-			//sequence.addRoutine(new econZergMid());
-			//sequence.addRoutine(new econZergLate());
-			//sequence.start();
+			sequence.addRoutine(new EconZergEarly(blackboard));
+			sequence.addRoutine(new EconZergMid(blackboard));
+			sequence.addRoutine(new EconZergLate(blackboard));
+			sequence.start();
 			return;
 		} else if(sequence.getState() == null) {
 			sequence.start();
