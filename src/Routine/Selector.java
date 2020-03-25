@@ -22,9 +22,9 @@ public class Selector extends Routine {
     @Override
     public void start() {
         super.start();
-        if(routine_list == null) {
+        if(routine_list.size() == 0) {
         	//TODO: this means that there is no list and the selector fails to do anything
-        	fail();
+        	this.fail();
         	return;
         }
         routine_q.clear();
@@ -47,7 +47,7 @@ public class Selector extends Routine {
     @Override
     public void act(Blackboard blackboard) {
     	if(routine_curr == null) {
-    		start();
+    		this.start();
     		return;
     	}
     	if(routine_curr.getState() == null) {
