@@ -10,7 +10,7 @@ import bwapi.Unit;
 import node.*;
 
 public class Blackboard {
-	private List<Unit> buildings;
+	public List<Unit> buildings;
 	public List<Unit> workers;
 	public List<Unit> barracks;
 	public List<Unit> commandCenters;
