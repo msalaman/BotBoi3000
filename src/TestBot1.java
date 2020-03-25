@@ -339,7 +339,7 @@ public class TestBot1 extends DefaultBWListener {
 				workerAttacked = myUnit.getPosition();
 			}
 		}
-
+/*
 		if (bunkerBuilder == null && workers.size() > 10) {
 			bunkerBuilder = workers.get(10);
 		}
@@ -368,6 +368,9 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextMap(bunkerBuilder.getPosition(), "Reparing bunker");
 			bunkerBuilder.repair(bunker);
 		}
+		
+*/
+		
 /*
 		if (commandCenter.getTrainingQueue().isEmpty() && workers.size() < 20 && self.minerals() >= 50) {
 			commandCenter.build(UnitType.AllUnits.Terran_SCV);
@@ -383,7 +386,7 @@ public class TestBot1 extends DefaultBWListener {
 		}
 
 		searchingTimeout++;
-
+/*
 		int i = 1;
 		for (Unit worker : workers) {
 			if (worker.isGatheringMinerals() && dontBuild == false) {
@@ -409,7 +412,7 @@ public class TestBot1 extends DefaultBWListener {
 
 			i++;
 		}
-
+*/
 		/*
 		for (Unit barrack : barracks) {
 			if (barrack.getTrainingQueue().isEmpty()) {

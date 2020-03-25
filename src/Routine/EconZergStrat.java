@@ -20,12 +20,14 @@ public class EconZergStrat extends Routine {
 	
 	public void act(Blackboard blackboard) {
 		if(sequence == null) {
+			blackboard.game.drawTextScreen(150, 100, "We are generating the sequence");
 			sequence = new Sequence();
 			//TODO: add stuff to sequence
 			sequence.addRoutine(new EconZergEarly(blackboard));
 			sequence.addRoutine(new EconZergMid(blackboard));
 			sequence.addRoutine(new EconZergLate(blackboard));
 			sequence.start();
+			blackboard.game.drawTextScreen(150, 110, "We finished starting the sequence");
 			return;
 		} else if(sequence.getState() == null) {
 			sequence.start();

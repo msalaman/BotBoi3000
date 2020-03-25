@@ -47,10 +47,12 @@ public class Sequence extends Routine {
     @Override
     public void act(Blackboard blackboard) {
     	if(routine_curr == null) {
+    		blackboard.game.drawTextScreen(150, 80, "We are in sequence, going to start ourselves");
     		start();
     		return;
     	}
     	if(routine_curr.getState() == null) {
+    		blackboard.game.drawTextScreen(150, 90, "We are in sequence, going to start curr_routine");
     		routine_curr.start();
     		return;
     	}
