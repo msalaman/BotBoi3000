@@ -1,61 +1,68 @@
-package blackboard;
+package Blackboard;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import Routine.*;
+import bwapi.Game;
+import bwapi.Mirror;
+import bwapi.Player;
 import bwapi.Race;
 import bwapi.Unit;
-import node.*;
 
 public class Blackboard {
-	private List<Unit> buildings;
-	private List<Unit> workers;
-	private List<Unit> barracks;
-	private List<Unit> commandCenters;
-	private Dictionary<String, List<Unit>> army = new Hashtable<String, List<Unit>>();
-	private int minerals;
-	private int gas;
-	private int supplyUsed;
-	private int supplyTotal;
-	private List<Boolean> research;
-	private List<Unit> enemyCommandCenters;
-	private int enemyUnitCount;
-    private Boolean EconTreeCompleted;
-	private Boolean StrategyTreeCompleted;
-	private Boolean ResearchTreeCompleted;
-	private Race enemyRace;
-	private Node stratPtr; 
-	private Node econPtr;
-	private Node stratRoot;
-	private Node econRoot;
+	public Mirror mirror;
+	public Game game;
+	public Player self;
+	public List<Unit> buildings;
+	public List<Unit> workers;
+	public List<Unit> barracks;
+	public List<Unit> commandCenters;
+	public Dictionary<String, List<Unit>> army;
+	public int minerals;
+	public int gas;
+	public int supplyUsed;
+	public int supplyTotal;
+	public List<Boolean> research;
+	public List<Unit> enemyCommandCenters;
+	public int enemyUnitCount;
+    public Boolean EconTreeCompleted;
+	public Boolean StrategyTreeCompleted;
+	public Boolean ResearchTreeCompleted;
+	public Race enemyRace;
+	public Routine stratPtr; 
+	public Routine econPtr;
+	public Routine stratRoot;
+	public Routine econRoot;
 	
-  public Blackboard() {
-    List<Unit> marines = new ArrayList<>();
-    army.put("marines", marines);
-    List<Unit> firebats = new ArrayList<>();
-    army.put("firebars", firebats);
-    List<Unit> medics = new ArrayList<>();
-    army.put("medics", medics);
-    List<Unit> ghosts = new ArrayList<>();
-    army.put("ghosts", ghosts);
-    List<Unit> vultures = new ArrayList<>();
-    army.put("vultures", vultures);
-    List<Unit> siegeTanks = new ArrayList<>();
-    army.put("siegeTanks", siegeTanks);
-    List<Unit> goliaths = new ArrayList<>();
-    army.put("goliaths", goliaths);
-    List<Unit> wraiths = new ArrayList<>();
-    army.put("wraiths", wraiths);
-    List<Unit> dropships = new ArrayList<>();
-    army.put("dropships", dropships);
-    List<Unit> scienceVessels = new ArrayList<>();
-    army.put("scienceVessels", scienceVessels);
-    List<Unit> battleCruisers = new ArrayList<>();
-    army.put("battleCruisers", battleCruisers);
-    List<Unit> valkyries = new ArrayList<>();
-    army.put("valkyries", valkyries);
+	public Blackboard() {
+		army = new Hashtable<String, List<Unit>>();
+		List<Unit> marines = new ArrayList<>();
+		army.put("marines", marines);
+		List<Unit> firebats = new ArrayList<>();
+		army.put("firebars", firebats);
+		List<Unit> medics = new ArrayList<>();
+		army.put("medics", medics);
+		List<Unit> ghosts = new ArrayList<>();
+		army.put("ghosts", ghosts);
+		List<Unit> vultures = new ArrayList<>();
+		army.put("vultures", vultures);
+		List<Unit> siegeTanks = new ArrayList<>();
+		army.put("siegeTanks", siegeTanks);
+		List<Unit> goliaths = new ArrayList<>();
+		army.put("goliaths", goliaths);
+		List<Unit> wraiths = new ArrayList<>();
+		army.put("wraiths", wraiths);
+		List<Unit> dropships = new ArrayList<>();
+		army.put("dropships", dropships);
+		List<Unit> scienceVessels = new ArrayList<>();
+		army.put("scienceVessels", scienceVessels);
+		List<Unit> battleCruisers = new ArrayList<>();
+		army.put("battleCruisers", battleCruisers);
+		List<Unit> valkyries = new ArrayList<>();
+		army.put("valkyries", valkyries);
 	}
 
 	
@@ -206,28 +213,28 @@ public class Blackboard {
 	public void setEnemyRace(Race enemyRace) {
 		this.enemyRace = enemyRace;
 	}
-	public void setStratPtr(Node n) {
+	public void setStratPtr(Routine n) {
 		this.stratPtr = n;
 	}
-	public void setEconPtr(Node n) {
+	public void setEconPtr(Routine n) {
 		this.econPtr = n;
 	}
-	public Node getStratPtr() {
+	public Routine getStratPtr() {
 		return stratPtr;
 	}
-	public Node getEconPtr() {
+	public Routine getEconPtr() {
 		return econPtr;
 	}
-	public void setStratRoot(Node n) {
+	public void setStratRoot(Routine n) {
 		this.stratRoot = n;
 	}
-	public void setEconRoot(Node n) {
+	public void setEconRoot(Routine n) {
 		this.econRoot = n;
 	}
-	public Node getStratRoot() {
+	public Routine getStratRoot() {
 		return stratRoot;
 	}
-	public Node getEconRoot() {
+	public Routine getEconRoot() {
 		return econRoot;
 	}
 }
