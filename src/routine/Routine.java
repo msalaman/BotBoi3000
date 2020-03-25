@@ -6,5 +6,7 @@ import bwapi.Game;
 public abstract class Routine {
 	//private Game game;
 	//private Blackboard blackboard;
+	public Routine() {};
+	
 	public abstract int act(Game game, Blackboard blackboard);	
 }

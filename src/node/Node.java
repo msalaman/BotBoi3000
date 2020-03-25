@@ -15,6 +15,16 @@ public class Node {
 	protected Node parent;
 	protected List<Node> children = new ArrayList<Node>();
 	
+	public Node() {
+		super();
+	}
+	
+	public Node(Game game, Blackboard blackboard) {
+		super();
+		this.game = game;
+		this.blackboard = blackboard;
+	}
+	
 	public void setUp(Game game, Blackboard blackboard) {
 		this.game = game;
 		this.blackboard = blackboard;

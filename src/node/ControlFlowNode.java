@@ -5,6 +5,10 @@ import routine.Routine;
 public class ControlFlowNode extends Node {
 	public Routine logicRoutine;
 	
+	public ControlFlowNode() {
+		super();
+	}
+	
 	public void setLogic(Routine routine) {
 		//game.drawTextScreen(10, 70, "entered setLogic in cf node");
 		this.logicRoutine = routine;

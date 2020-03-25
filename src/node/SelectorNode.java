@@ -2,6 +2,10 @@ package node;
 
 public class SelectorNode extends ControlFlowNode {
 	
+	public SelectorNode() {
+		super();
+	}
+	
 	public Node select() {
 		//game.drawTextScreen(100, 170, "1This means that there is hope!");
 		int logicResult = this.checkLogic();
