@@ -67,11 +67,19 @@ public class Repeater extends Routine {
  
     @Override
     public void act(Blackboard blackboard) {
+    	if(routine == null) {
+    		blackboard.game.drawTextScreen(10, 110, "The Selector doesn't exists and we're beat");
+    	}
+    	else {
+    		blackboard.game.drawTextScreen(10, 110, "Please be a bit more Relieved");
+    	}
     	if(routine.getState() == null) {
+    		blackboard.game.drawTextScreen(10, 120, "finna call start on selector");
     		routine.start();
     		return;
     	}
         if (routine.isFailure()) {
+        	blackboard.game.drawTextScreen(10, 140, "The Selector responded with failure and returned here.");
             fail();
         } else if (routine.isSuccess()) {
             if (times == 0) {
@@ -85,7 +93,9 @@ public class Repeater extends Routine {
             }
         }
         if (routine.isRunning()) {
+        	blackboard.game.drawTextScreen(10, 130, "Finna call .act on selector");
             routine.act(blackboard);
+            blackboard.game.drawTextScreen(150, 130, "Got back from .act on selector");
         }
     }
 }

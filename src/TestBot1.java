@@ -38,6 +38,11 @@ public class TestBot1 extends DefaultBWListener {
 	private Strategy selectedStrategy = Strategy.WaitFor50;
 
 	private Set<Position> enemyBuildingMemory = new HashSet<>();
+	
+	
+	Repeater econRoot;
+	Selector econChild1;
+	
 
 	public void run() {
 		mirror.getModule().setEventListener(this);
@@ -78,6 +83,10 @@ public class TestBot1 extends DefaultBWListener {
 		BWTA.analyze();
 
 		int i = 0;
+		
+		econChild1 = new Selector();
+		econRoot = new Repeater(econChild1);
+		econRoot.start();
 	}
 
 	@Override
@@ -101,6 +110,34 @@ public class TestBot1 extends DefaultBWListener {
 		 * 2; if (x == 0) { selectedStrategy = Strategy.FindEnemy; } else {
 		 * selectedStrategy = Strategy.HugeAttack; } }
 		 */
+		
+		
+		if (econRoot == null) {
+			game.drawTextScreen(10, 90, "We are absolutely toast");
+		}
+		else {
+			game.drawTextScreen(10, 90, "Please be somewhat relieved");
+		}
+		
+		if (econRoot.isRunning()) {
+			game.drawTextScreen(10, 100, "econRoot is currently Running");
+			econRoot.act(blackboard);
+		}
+		else if (econRoot.isFailure()) {
+			game.drawTextScreen(10, 100, "econRoot has Failed");
+			econRoot.start();
+		}
+		else if (econRoot.isSuccess()) {
+			game.drawTextScreen(10, 100, "econRoot has Succeeded.");
+			econRoot.start();
+		}
+		else {
+			game.drawTextScreen(10, 100, "econRoot has no state");
+			econRoot.start();
+		}
+		
+		
+		
 
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
