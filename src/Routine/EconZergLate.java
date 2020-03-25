@@ -1,6 +1,8 @@
 package Routine;
 
 import Blackboard.Blackboard;
+import bwapi.Unit;
+import bwapi.UnitType;
 
 public class EconZergLate extends Routine {
 	@Override
@@ -21,5 +23,13 @@ public class EconZergLate extends Routine {
 			return;
 		} */
 		//TODO: Logic and exec of building stuff and troops
+		blackboard.game.drawTextScreen(100,200, "Late stage 1: Vultures and tanks");
+		blackboard.game.drawTextScreen(100,200, "This is the last stage and where the econ will stay");
+		for (Unit building : blackboard.buildings) {
+			if (building.getType() == UnitType.Terran_Factory) {
+				building.build(UnitType.AllUnits.Terran_Vulture);
+				building.build(UnitType.AllUnits.Terran_Siege_Tank_Siege_Mode);
+			}
+		}
 	}
 }
