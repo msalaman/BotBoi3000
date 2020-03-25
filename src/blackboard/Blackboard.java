@@ -13,9 +13,9 @@ public class Blackboard {
 	private List<Unit> buildings;
 	public List<Unit> workers;
 	public List<Unit> barracks;
-	private List<Unit> commandCenters;
+	public List<Unit> commandCenters;
 	public Dictionary<String, List<Unit>> army = new Hashtable<String, List<Unit>>();
-	private int minerals;
+	public int minerals;
 	private int gas;
 	private int supplyUsed;
 	private int supplyTotal;
