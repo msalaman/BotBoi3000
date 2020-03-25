@@ -41,7 +41,7 @@ public class TestBot1 extends DefaultBWListener {
 	
 	
 	Repeater econRoot;
-	Selector econChild1;
+
 	
 
 	public void run() {
@@ -83,8 +83,8 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.mirror = mirror;
 		blackboard.self = self;
 		blackboard.game = game;
-		blackboard.addCommandCenter(commandCenter);
-		blackboard.setEnemyRace(self.getRace());
+		//blackboard.addCommandCenter(commandCenter);
+		//blackboard.setEnemyRace(self.getRace());
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -93,8 +93,7 @@ public class TestBot1 extends DefaultBWListener {
 
 		int i = 0;
 		
-		econChild1 = new Selector();
-		econRoot = new Repeater(econChild1);
+		econRoot = new Repeater(new econRoot());
 		econRoot.start();
 	}
 
