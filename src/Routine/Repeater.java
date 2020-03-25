@@ -94,7 +94,7 @@ public class Repeater extends Routine {
         }
         if (routine.isRunning()) {
         	blackboard.game.drawTextScreen(10, 130, "Finna call .act on selector");
-            routine.act(blackboard);
+        	routine.act(blackboard);
             blackboard.game.drawTextScreen(150, 130, "Got back from .act on selector");
         }
     }
