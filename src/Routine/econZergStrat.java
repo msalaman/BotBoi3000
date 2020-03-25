@@ -4,7 +4,7 @@ import Blackboard.*;
 import bwapi.Race;
 
 public class econZergStrat extends Routine {
-	private Selector selector;
+	private Sequence sequence;
 	
 	public econZergStrat() {
 		super();
@@ -12,28 +12,33 @@ public class econZergStrat extends Routine {
 	
 	public void start() {
 		super.start();
-		if(selector == null) {
-			selector = new Selector();
-		}
-		//TODO: add stuff to selector
-		
 	}
 	
 	public void reset() {
-		selector = new Selector();
-		start();
+		sequence.reset();
+		sequence.start();
 	}
 	
 	public void act(Blackboard blackboard) {
-		if(1 != 1) {//blackboard.enemyRace != Race.Terran ) {
-			blackboard.game.drawTextScreen(10, 120, "This Not what should show");
-
+		if(sequence == null) {
+			sequence = new Sequence();
+			//TODO: add stuff to sequence
+			//sequence.addRoutine(new econZergEarly());
+			//sequence.addRoutine(new econZergMid());
+			//sequence.addRoutine(new econZergLate());
+			//sequence.start();
+			return;
+		} else if(sequence.getState() == null) {
+			sequence.start();
+			return;
+		} else if(sequence.isRunning()) {
+			sequence.act(blackboard);
+			return;
+		} else if(sequence.isSuccess()) {
+			this.state = sequence.state;
+		} else if(sequence.isFailure()) {
 			fail();
-		} else {
-			super.start();
-			blackboard.game.drawTextScreen(10, 120, "This is in the econZergStrat");
 		}
-		
 	}
 	
 }
