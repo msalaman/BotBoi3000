@@ -12,6 +12,7 @@ public class Selector extends Routine {
  
     public Selector() {
         super();
+        routine_curr = null;
     }
     
     public void addRoutine(Routine routine) {
