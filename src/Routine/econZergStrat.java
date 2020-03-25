@@ -26,11 +26,12 @@ public class econZergStrat extends Routine {
 	
 	public void act(Blackboard blackboard) {
 		if(1 != 1) {//blackboard.enemyRace != Race.Terran ) {
-			blackboard.game.drawTextScreen(10, 110, "This Not what should show");
+			blackboard.game.drawTextScreen(10, 120, "This Not what should show");
 
 			fail();
 		} else {
-			blackboard.game.drawTextScreen(10, 110, "This is in the econZergStrat");
+			super.start();
+			blackboard.game.drawTextScreen(10, 120, "This is in the econZergStrat");
 		}
 		
 	}
