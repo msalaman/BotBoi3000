@@ -44,4 +44,18 @@ If, however, you are inclined to compile the .jar on your own, then please proce
 1. It doesn't actually run if the bot's starting location is on the right or bottom side of the map. (Read as top left spawn location **defines** the current meta)
 2. ~~We don't actually have a Makefile, so don't try to make it.~~ We now have a Makefile. Progress.
 
+# Strategy of Behavior Tree
 
+We use two trees that repeatedly check conditions and execute every frame:
+1. The first tree is for the build order and unit economy.
+2. The second tree executes battle strategies.
+
+For the Economy tree:
+1. Root checks which type of enemy the bot is facing
+2. The strategy routine/node/branch then implements a seqence of routines to act on
+3. The sequence includes early, middle, and late game build actions. The sequence will continuously check status based on the number of units made versus the number of units able to be made. If any of the supply depots are destroyed, then the sequence will restart.
+
+For the Strategy tree:
+1. Root checks which type of enemy the bot is facing and which type of strategy to implement
+2. The strategy routine/node/branch then implements a sequence of battle movements to act on
+3. The sequence includes early scouting, moving mass amounts of troops for an attack, and a defend base warning routine when the enemy attacks
