@@ -41,7 +41,7 @@ public class TestBot1 extends DefaultBWListener {
 	
 	
 	Repeater econRoot;
-	Selector econChild1;
+
 	
 
 	public void run() {
@@ -93,8 +93,7 @@ public class TestBot1 extends DefaultBWListener {
 
 		int i = 0;
 		
-		econChild1 = new Selector();
-		econRoot = new Repeater(econChild1);
+		econRoot = new Repeater(new econRoot());
 		econRoot.start();
 	}
 
