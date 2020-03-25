@@ -59,3 +59,8 @@ For the Strategy tree:
 1. Root checks which type of enemy the bot is facing and which type of strategy to implement
 2. The strategy routine/node/branch then implements a sequence of battle movements to act on
 3. The sequence includes early scouting, moving mass amounts of troops for an attack, and a defend base warning routine when the enemy attacks
+
+# Current Functionality
+Our tree skeleton is now functioning, and it is based on this implementation: https://www.javacodegeeks.com/2014/08/game-ai-an-introduction-to-behaviour-trees.html
+
+Currently our economy tree is functioning, so our code uses a units made by units possible ratio to make decisions on what units to create. The economy is now fully dependent on this functionaility. It currently only works against Zerg opponents. Units are still moved by old Marine Hell code, but when the strategy tree is functioning, then units will be moved by our strategy tree. That is the next function we are working on.
