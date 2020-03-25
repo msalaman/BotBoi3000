@@ -11,10 +11,10 @@ import node.*;
 
 public class Blackboard {
 	private List<Unit> buildings;
-	private List<Unit> workers;
-	private List<Unit> barracks;
+	public List<Unit> workers;
+	public List<Unit> barracks;
 	private List<Unit> commandCenters;
-	private Dictionary<String, List<Unit>> army = new Hashtable<String, List<Unit>>();
+	public Dictionary<String, List<Unit>> army = new Hashtable<String, List<Unit>>();
 	private int minerals;
 	private int gas;
 	private int supplyUsed;
