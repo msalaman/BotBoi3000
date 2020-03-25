@@ -4,13 +4,13 @@ import java.util.Queue;
 import java.util.List;
 import Blackboard.*;
 
-public class Selector extends Routine {
+public class Sequence extends Routine {
 	
 	Routine routine_curr;
 	Queue<Routine> routine_q = new LinkedList<Routine>();
 	List<Routine> routine_list = new LinkedList<Routine>();
  
-    public Selector() {
+    public Sequence() {
         super();
     }
     
@@ -22,7 +22,7 @@ public class Selector extends Routine {
     public void start() {
         super.start();
         if(routine_list == null) {
-        	//TODO: this means that there is no list and the selector fails to do anything
+        	//TODO: this means that there is no list and the Sequence fails to do anything
         	fail();
         	return;
         }
@@ -56,9 +56,13 @@ public class Selector extends Routine {
         if (routine_curr.isFailure()) {
             fail();
         } else if (routine_curr.isSuccess()) {
-        	succeed();
-        }
-        if (routine_curr.isRunning()) {
+        	if(routine_q.peek() == null) {
+        		state = routine_curr.getState();
+        	} else {
+        		routine_curr = routine_q.poll();
+        		routine_curr.start();
+        	}
+        } else if (routine_curr.isRunning()) {
             routine_curr.act(blackboard);
         }
     }
