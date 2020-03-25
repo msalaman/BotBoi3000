@@ -12,6 +12,7 @@ public class Selector extends Routine {
  
     public Selector() {
         super();
+        routine_curr = null;
     }
     
     public void addRoutine(Routine routine) {
@@ -54,11 +55,15 @@ public class Selector extends Routine {
     		return;
     	}
         if (routine_curr.isFailure()) {
-            fail();
+        	if(routine_q.peek() == null) {
+        		fail();
+        	} else {
+        		routine_curr = routine_q.poll();
+        		routine_curr.start();
+        	}
         } else if (routine_curr.isSuccess()) {
         	succeed();
-        }
-        if (routine_curr.isRunning()) {
+        } else if (routine_curr.isRunning()) {
             routine_curr.act(blackboard);
         }
     }

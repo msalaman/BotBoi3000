@@ -66,16 +66,25 @@ public class TestBot1 extends DefaultBWListener {
 		timeout = 0;
 		bunkerBuilder = null;
 		searcher = null;
+		Unit commandCenter = null;
 
 		game = mirror.getGame();
 		self = game.self();
 		game.setLocalSpeed(0);
+		
+		for (Unit myUnit : self.getUnits()) {
+			if (myUnit.getType() == UnitType.Terran_Command_Center) {
+				commandCenter = myUnit;
+			}
+		}
 		
 		/*** Initialize Blackboard information ***/
 		blackboard = new Blackboard();
 		blackboard.mirror = mirror;
 		blackboard.self = self;
 		blackboard.game = game;
+		blackboard.addCommandCenter(commandCenter);
+		blackboard.setEnemyRace(self.getRace());
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -155,6 +164,17 @@ public class TestBot1 extends DefaultBWListener {
 		List<Unit> barracks = new ArrayList<>();
 		Unit commandCenter = null;
 		List<Unit> marines = new ArrayList<>();
+		List<Unit> firebats = new ArrayList<>();
+		List<Unit> medics = new ArrayList<>();
+		List<Unit> ghosts = new ArrayList<>();
+		List<Unit> vultures = new ArrayList<>();
+		List<Unit> siegeTanks = new ArrayList<>();
+		List<Unit> goliaths = new ArrayList<>();
+		List<Unit> wraiths = new ArrayList<>();
+		List<Unit> dropships = new ArrayList<>();
+		List<Unit> scienceVessels = new ArrayList<>();
+		List<Unit> battleCruisers = new ArrayList<>();
+		List<Unit> valkyries = new ArrayList<>();
 		List<BaseLocation> baseLocations = new ArrayList<>();
 		List<BaseLocation> allLocations = new ArrayList<>();
 		Unit bunker = null;
@@ -194,6 +214,39 @@ public class TestBot1 extends DefaultBWListener {
 			if (myUnit.getType() == UnitType.Terran_Marine) {
 				marines.add(myUnit);
 			}
+			if (myUnit.getType() == UnitType.Terran_Firebat) {
+				firebats.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Medic) {
+				medics.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Ghost) {
+				ghosts.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Vulture) {
+				vultures.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Siege_Tank_Siege_Mode) {
+				siegeTanks.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Goliath) {
+				goliaths.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Wraith) {
+				wraiths.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Dropship) {
+				dropships.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Science_Vessel) {
+				scienceVessels.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Battlecruiser) {
+				battleCruisers.add(myUnit);
+			}
+			if (myUnit.getType() == UnitType.Terran_Valkyrie) {
+				valkyries.add(myUnit);
+			}
 
 			if (myUnit.getType() == UnitType.Terran_Bunker && myUnit.isBeingConstructed() == false) {
 				bunker = myUnit;
@@ -206,6 +259,27 @@ public class TestBot1 extends DefaultBWListener {
 
 		}
 
+		blackboard.setBarracks(barracks);
+		blackboard.setWorkers(workers);
+		blackboard.addArmyUnits("marines", marines);
+		blackboard.addArmyUnits("firebats", firebats);
+		blackboard.addArmyUnits("medics", medics);
+		blackboard.addArmyUnits("ghosts", ghosts);
+		blackboard.addArmyUnits("vultures", vultures);
+		blackboard.addArmyUnits("siegeTanks", siegeTanks);
+		blackboard.addArmyUnits("goliaths", goliaths);
+		blackboard.addArmyUnits("wraiths", wraiths);
+		blackboard.addArmyUnits("dropships", dropships);
+		blackboard.addArmyUnits("scienceVessels", scienceVessels);
+		blackboard.addArmyUnits("battleCruisers", battleCruisers);
+		blackboard.setGas(self.gas());
+		blackboard.setMinerals(self.minerals());
+		blackboard.setSupplyUsed(self.supplyUsed());
+		blackboard.setSupplyTotal(self.supplyTotal());
+		blackboard.setEconTreeCompleted(false);
+		blackboard.setStrategyTreeCompleted(false);
+		blackboard.setResearchTreeCompleted(false);
+		
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
@@ -396,16 +470,24 @@ public class TestBot1 extends DefaultBWListener {
 
 		debugText = "Size: " + workers.size() + "; isGathering" + workers.get(7).isGatheringMinerals() + "; location: "
 				+ baseLocations.size() + "; num: " + searchingScv;
-
+		List<Unit> enemyCommandCenters = new ArrayList<>();
+		int enemyUnitCount = 0;
 		for (Unit u : game.enemy().getUnits()) {
+			enemyUnitCount++;
 			// if this unit is in fact a building
 			if (u.getType().isBuilding()) {
 				// check if we have it's position in memory and add it if we
 				// don't
+				if(u.getType() == UnitType.Terran_Command_Center || u.getType() == UnitType.Zerg_Infested_Command_Center || u.getType() == UnitType.Protoss_Nexus) {
+					enemyCommandCenters.add(u);
+				}
 				if (!enemyBuildingMemory.contains(u.getPosition()))
 					enemyBuildingMemory.add(u.getPosition());
 			}
 		}
+		blackboard.enemyBuildingMemory = enemyBuildingMemory;
+		blackboard.setEnemyCommandCenters(enemyCommandCenters);
+		blackboard.setEnemyUnitCount(enemyUnitCount);
 
 		// loop over all the positions that we remember
 		for (Position p : enemyBuildingMemory) {

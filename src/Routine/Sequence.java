@@ -12,6 +12,7 @@ public class Sequence extends Routine {
  
     public Sequence() {
         super();
+        routine_curr = null;
     }
     
     public void addRoutine(Routine routine) {
@@ -57,7 +58,7 @@ public class Sequence extends Routine {
             fail();
         } else if (routine_curr.isSuccess()) {
         	if(routine_q.peek() == null) {
-        		state = routine_curr.getState();
+        		succeed();
         	} else {
         		routine_curr = routine_q.poll();
         		routine_curr.start();

@@ -27,8 +27,9 @@ public class Blackboard {
 	public int supplyTotal;
 	public List<Boolean> research;
 	public List<Unit> enemyCommandCenters;
+	public Set<Position> enemyBuildingMemory;
 	public int enemyUnitCount;
-    public Boolean EconTreeCompleted;
+    	public Boolean EconTreeCompleted;
 	public Boolean StrategyTreeCompleted;
 	public Boolean ResearchTreeCompleted;
 	public Race enemyRace;
