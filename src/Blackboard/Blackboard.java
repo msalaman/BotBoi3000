@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import Routine.*;
 import bwapi.Game;
 import bwapi.Mirror;
 import bwapi.Player;
+import bwapi.Position;
 import bwapi.Race;
 import bwapi.Unit;
 
@@ -27,6 +29,7 @@ public class Blackboard {
 	public int supplyTotal;
 	public List<Boolean> research;
 	public List<Unit> enemyCommandCenters;
+	public Set<Position> enemyBuildingMemory;
 	public int enemyUnitCount;
     public Boolean EconTreeCompleted;
 	public Boolean StrategyTreeCompleted;
