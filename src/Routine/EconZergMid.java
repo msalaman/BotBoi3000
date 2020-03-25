@@ -29,6 +29,14 @@ public class EconZergMid extends Routine {
 		//TODO: Logic and exec of building stuff and troops
 		int supply = blackboard.getSupplyUsed();
 		if(supply < 44) {
+			Unit bunkerBuilder = blackboard.workers.get(0);
+			TilePosition buildTile = getBuildTile(blackboard.game, bunkerBuilder, UnitType.Terran_Barracks,
+					bunkerBuilder.getTilePosition());
+			if (buildTile != null) {
+				if (bunkerBuilder.exists()) {
+					bunkerBuilder.build(UnitType.Terran_Barracks, buildTile);
+				}
+			}
 			blackboard.game.drawTextScreen(100,200, "Mid stage 1: Cut SVC production. Make Medics and Marines");
 			for (Unit barrack : blackboard.barracks) {
 				if (barrack.getTrainingQueue().isEmpty()) {

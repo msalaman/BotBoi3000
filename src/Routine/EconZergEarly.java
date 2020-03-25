@@ -18,7 +18,8 @@ public class EconZergEarly extends Routine{
 	}
 	
 	public void act(Blackboard blackboard) {
-		if(blackboard.getSupplyTotal() >= 100) {
+		blackboard.game.drawTextScreen(10,200,"Early Zerg");
+		if(blackboard.getSupplyUsed() >= 39) {
 			succeed(); //TODO: change if not early
 			//If ratio wrong in early, then it means that early is completed
 			return;
@@ -26,12 +27,31 @@ public class EconZergEarly extends Routine{
 		//TODO: Logic and exec of building stuff and troops
 		int supply = blackboard.getSupplyUsed();
 		if(supply < 10) {
-			blackboard.commandCenters.get(0).build(UnitType.AllUnits.Terran_SCV);
+			blackboard.commandCenters.get(0).build(UnitType.Terran_SCV);
 		}
 		if(supply < 26 && supply > 9) {
 			for (Unit barrack : blackboard.barracks) {
 				if (barrack.getTrainingQueue().isEmpty()) {
-					barrack.build(UnitType.AllUnits.Terran_Marine);
+					barrack.build(UnitType.Terran_Marine);
+				}
+			}
+			int i=0;
+			for(Unit u : blackboard.buildings) {
+				if(u.getType() == UnitType.Terran_Supply_Depot) {
+					i++;
+				}
+			}
+			if(i<5) {
+				for (Unit worker : blackboard.workers) {
+					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
+							blackboard.game.self().getStartLocation());
+					// and, if found, send the worker to build it (and leave
+					// others
+					// alone - break;)
+					if (buildTile != null) {
+						worker.build(UnitType.Terran_Supply_Depot, buildTile);
+						break;
+					}
 				}
 			}
 		}
@@ -42,7 +62,7 @@ public class EconZergEarly extends Routine{
 					bunkerBuilder.getTilePosition());
 			if (buildTile != null) {
 				if (bunkerBuilder.exists()) {
-					bunkerBuilder.build(UnitType.Terran_Bunker, buildTile);
+					bunkerBuilder.build(UnitType.Terran_Barracks, buildTile);
 				}
 			}
 			int i = 1;
