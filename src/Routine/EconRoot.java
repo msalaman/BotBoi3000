@@ -2,10 +2,10 @@ package Routine;
 
 import Blackboard.*;
 
-public class econRoot extends Routine{
+public class EconRoot extends Routine{
 	public Selector selector;
 	
-	public econRoot() {
+	public EconRoot() {
 		super();
 	}
 	
@@ -13,7 +13,7 @@ public class econRoot extends Routine{
 		if(selector == null) {
 			selector = new Selector();
 		}
-		selector.addRoutine(new econZergStrat());
+		selector.addRoutine(new EconZergStrat());
 		/*selector.addRoutine(new econTerranStrat(blackboard));
 		selector.addRoutine(new econProtossStrat(blackboard));
 		*/

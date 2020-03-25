@@ -1,12 +1,11 @@
 package Routine;
 
 import Blackboard.*;
-import bwapi.Race;
 
-public class econZergStrat extends Routine {
+public class EconZergStrat extends Routine {
 	private Sequence sequence;
 	
-	public econZergStrat() {
+	public EconZergStrat() {
 		super();
 	}
 	
