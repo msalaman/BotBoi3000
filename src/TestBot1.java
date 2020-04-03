@@ -22,12 +22,9 @@ public class TestBot1 extends DefaultBWListener {
 	private int cyclesForSearching = 0;
 	private int maxCyclesForSearching = 0;
 	private int enemies = 0;
-	private int searchingScv = 0;
-	private int searchingTimeout = 0;
 	private boolean dontBuild = false;
 	private int timeout = 0;
 	Unit bunkerBuilder;
-	Unit searcher;
 
 	private String debugText = "";
 
@@ -61,12 +58,9 @@ public class TestBot1 extends DefaultBWListener {
 		cyclesForSearching = 0;
 		maxCyclesForSearching = 0;
 		enemies = 0;
-		searchingScv = 0;
-		searchingTimeout = 0;
 		dontBuild = false;
 		timeout = 0;
 		bunkerBuilder = null;
-		searcher = null;
 		Unit commandCenter = null;
 
 		game = mirror.getGame();
@@ -86,6 +80,9 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.game = game;
 		blackboard.addCommandCenter(commandCenter);
 		blackboard.setEnemyRace(self.getRace());
+		blackboard.searcher = null;
+		blackboard.searchingScv = 0;
+		blackboard.searchingTimeout = 0;
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -189,12 +186,12 @@ public class TestBot1 extends DefaultBWListener {
 			bunkerBuilder = null;
 		}
 
-		if (searcher != null && searcher.exists() == false) {
-			searcher = null;
+		if (blackboard.searcher != null && blackboard.searcher.exists() == false) {
+			blackboard.searcher = null;
 		}
 
-		if (searcher != null) {
-			game.drawTextMap(searcher.getPosition(), "Mr. Searcher");
+		if (blackboard.searcher != null) {
+			game.drawTextMap(blackboard.searcher.getPosition(), "Mr. Searcher");
 		}
 
 		// iterate through my units
@@ -385,7 +382,7 @@ public class TestBot1 extends DefaultBWListener {
 			return;
 		}
 
-		searchingTimeout++;
+		blackboard.searchingTimeout++;
 
 		int i = 1;
 		for (Unit worker : workers) {
@@ -423,7 +420,7 @@ public class TestBot1 extends DefaultBWListener {
 		for (BaseLocation b : BWTA.getBaseLocations()) {
 			// If this is a possible start location,
 			if (b.isStartLocation()) {
-				baseLocations.add(b);
+				blackboard.baseLocations.add(b);
 			}
 
 			allLocations.add(b);
@@ -482,18 +479,8 @@ public class TestBot1 extends DefaultBWListener {
 			}
 		}
 
-		if (workers.size() > 7 && searcher == null) {
-			searcher = workers.get(7);
-		}
-
-		if (searcher != null && searcher.isGatheringMinerals() && searchingScv < baseLocations.size()
-				&& searchingTimeout % 10 == 0) {
-			searcher.move(baseLocations.get(searchingScv).getPosition());
-			searchingScv++;
-		}
-
 		debugText = "Size: " + workers.size() + "; isGathering" + workers.get(7).isGatheringMinerals() + "; location: "
-				+ baseLocations.size() + "; num: " + searchingScv;
+				+ blackboard.baseLocations.size() + "; num: " + blackboard.searchingScv;
 		List<Unit> enemyCommandCenters = new ArrayList<>();
 		int enemyUnitCount = 0;
 		for (Unit u : game.enemy().getUnits()) {

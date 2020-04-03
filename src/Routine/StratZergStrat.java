@@ -23,6 +23,7 @@ public class StratZergStrat extends Routine {
 			sequence = new Sequence();
 			//TODO: add stuff to sequence
 			sequence.addRoutine(new StratZergDefense(blackboard));
+			sequence.addRoutine(new StratZergScout(blackboard));
 			sequence.start();
 			return;
 		} else if(sequence.getState() == null) {
