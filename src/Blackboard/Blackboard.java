@@ -14,6 +14,7 @@ import bwapi.Player;
 import bwapi.Position;
 import bwapi.Race;
 import bwapi.Unit;
+import bwta.BaseLocation;
 
 public class Blackboard {
 	public Mirror mirror;
@@ -23,14 +24,18 @@ public class Blackboard {
 	public List<Unit> workers = new ArrayList<Unit>();
 	public List<Unit> barracks = new ArrayList<Unit>();
 	public List<Unit> commandCenters = new ArrayList<Unit>();
+	public List<BaseLocation> baseLocations = new ArrayList<>();
 	public Dictionary<String, List<Unit>> army;
 	public int minerals;
 	public int gas;
 	public int supplyUsed;
 	public int supplyTotal;
+	public int searchingScv;
+	public int searchingTimeout;
 	public List<Boolean> research;
 	public List<Unit> enemyCommandCenters = new ArrayList<Unit>();
 	public Set<Position> enemyBuildingMemory = new HashSet<Position>();
+	public Unit searcher;
 	public int enemyUnitCount;
     public Boolean EconTreeCompleted;
 	public Boolean StrategyTreeCompleted;
