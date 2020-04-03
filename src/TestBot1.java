@@ -41,6 +41,7 @@ public class TestBot1 extends DefaultBWListener {
 	
 	
 	Repeater econRoot;
+	Repeater stratRoot;
 
 	
 
@@ -95,6 +96,8 @@ public class TestBot1 extends DefaultBWListener {
 		
 		econRoot = new Repeater(new EconRoot());
 		econRoot.start();
+		stratRoot = new Repeater(new StratRoot());
+		stratRoot.start();
 		
 	}
 
