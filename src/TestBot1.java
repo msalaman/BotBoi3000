@@ -28,11 +28,6 @@ public class TestBot1 extends DefaultBWListener {
 
 	private String debugText = "";
 
-	private enum Strategy {
-		WaitFor50, AttackAtAllCost
-	};
-
-	private Strategy selectedStrategy = Strategy.WaitFor50;
 
 	private Set<Position> enemyBuildingMemory = new HashSet<>();
 	
@@ -83,6 +78,7 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.searcher = null;
 		blackboard.searchingScv = 0;
 		blackboard.searchingTimeout = 0;
+		blackboard.selectedStrategy = blackboard.getStrategy("WaitFor50");
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -105,7 +101,7 @@ public class TestBot1 extends DefaultBWListener {
 		game.drawTextScreen(10, 20, "Units: " + self.getUnits().size() + "; Enemies: " + enemyBuildingMemory.size());
 		game.drawTextScreen(10, 30,
 				"Cycles for buildings: " + cyclesForSearching + "; Max cycles: " + maxCyclesForSearching);
-		game.drawTextScreen(10, 40, "Elapsed time: " + game.elapsedTime() + "; Strategy: " + selectedStrategy);
+		game.drawTextScreen(10, 40, "Elapsed time: " + game.elapsedTime() + "; Strategy: " + blackboard.selectedStrategy);
 		game.drawTextScreen(10, 50, debugText);
 		game.drawTextScreen(10, 60, "supply: " + self.supplyTotal() + " used: " + self.supplyUsed());
 		if(blackboard != null) {
@@ -178,8 +174,8 @@ public class TestBot1 extends DefaultBWListener {
 		List<Unit> valkyries = new ArrayList<>();
 		List<BaseLocation> baseLocations = new ArrayList<>();
 		List<BaseLocation> allLocations = new ArrayList<>();
-		Unit bunker = null;
-		Position workerAttacked = null;
+		blackboard.bunker = null;
+		blackboard.workerAttacked = null;
 		
 
 		if (bunkerBuilder != null && bunkerBuilder.exists() == false) {
@@ -250,7 +246,7 @@ public class TestBot1 extends DefaultBWListener {
 			}
 
 			if (myUnit.getType() == UnitType.Terran_Bunker && myUnit.isBeingConstructed() == false) {
-				bunker = myUnit;
+				blackboard.bunker = myUnit;
 			}
 
 			if (myUnit.isUnderAttack() && myUnit.canAttack()) {
@@ -305,7 +301,7 @@ public class TestBot1 extends DefaultBWListener {
 			// patch
 			if (myUnit.getType().isWorker() && myUnit.isIdle()) {
 				boolean skip = false;
-				if (bunker == null && bunkerBuilder != null && myUnit.equals(bunkerBuilder)
+				if (blackboard.bunker == null && bunkerBuilder != null && myUnit.equals(bunkerBuilder)
 						&& barracks.isEmpty() == false) {
 					skip = true;
 				}
@@ -336,7 +332,7 @@ public class TestBot1 extends DefaultBWListener {
 			}
 			
 			if (myUnit.isUnderAttack() && myUnit.isGatheringMinerals()){
-				workerAttacked = myUnit.getPosition();
+				blackboard.workerAttacked = myUnit.getPosition();
 			}
 		}
 
@@ -344,7 +340,7 @@ public class TestBot1 extends DefaultBWListener {
 			bunkerBuilder = workers.get(10);
 		}
 
-		if (bunker == null && barracks.size() >= 1 && workers.size() > 10 && dontBuild == false) {
+		if (blackboard.bunker == null && barracks.size() >= 1 && workers.size() > 10 && dontBuild == false) {
 			game.setLocalSpeed(20);
 
 			if (timeout < 200) {
@@ -364,9 +360,9 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextMap(workers.get(10).getPosition(), "He will build bunker");
 		}
 
-		if (bunker != null && bunkerBuilder != null && bunkerBuilder.isRepairing() == false) {
+		if (blackboard.bunker != null && bunkerBuilder != null && bunkerBuilder.isRepairing() == false) {
 			game.drawTextMap(bunkerBuilder.getPosition(), "Reparing bunker");
-			bunkerBuilder.repair(bunker);
+			bunkerBuilder.repair(blackboard.bunker);
 		}
 /*
 		if (commandCenter.getTrainingQueue().isEmpty() && workers.size() < 20 && self.minerals() >= 50) {
@@ -423,11 +419,11 @@ public class TestBot1 extends DefaultBWListener {
 				blackboard.baseLocations.add(b);
 			}
 
-			allLocations.add(b);
+			blackboard.allLocations.add(b);
 		}
 
 		Random random = new Random();
-		int k = 0;
+/*		int k = 0;
 		for (Unit marine : marines) {
 			if (marine.isAttacking() == false && marine.isMoving() == false) {
 				if (marines.size() > 50 || selectedStrategy == Strategy.AttackAtAllCost) {
@@ -478,6 +474,7 @@ public class TestBot1 extends DefaultBWListener {
 				marine.attack(workerAttacked);
 			}
 		}
+		*/
 
 		debugText = "Size: " + workers.size() + "; isGathering" + workers.get(7).isGatheringMinerals() + "; location: "
 				+ blackboard.baseLocations.size() + "; num: " + blackboard.searchingScv;
