@@ -159,6 +159,7 @@ public class TestBot1 extends DefaultBWListener {
 		StringBuilder units = new StringBuilder("My units:\n");
 		List<Unit> workers = new ArrayList<>();
 		List<Unit> barracks = new ArrayList<>();
+		List<Unit> supplyDepots = new ArrayList<>();
 		Unit commandCenter = null;
 		List<Unit> marines = new ArrayList<>();
 		List<Unit> firebats = new ArrayList<>();
@@ -253,6 +254,9 @@ public class TestBot1 extends DefaultBWListener {
 				game.setLocalSpeed(1);
 				myUnit.attack(myUnit.getPosition());
 			}
+			if(myUnit.getType() == UnitType.Terran_Supply_Depot) {
+				supplyDepots.add(myUnit);
+			}
 
 		}
 
@@ -276,6 +280,7 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setEconTreeCompleted(false);
 		blackboard.setStrategyTreeCompleted(false);
 		blackboard.setResearchTreeCompleted(false);
+		blackboard.setSupplyDepots(supplyDepots);
 		
 
 		if (econRoot.isRunning()) {
@@ -347,14 +352,14 @@ public class TestBot1 extends DefaultBWListener {
 				game.drawTextMap(bunkerBuilder.getPosition(), "Moving to create bunker " + timeout + "/400");
 				bunkerBuilder.move(BWTA.getNearestChokepoint(bunkerBuilder.getPosition()).getCenter());
 				timeout++;
-			} else {
+			} /*else {
 				game.drawTextMap(bunkerBuilder.getPosition(), "Buiding bunker");
 				TilePosition buildTile = getBuildTile(bunkerBuilder, UnitType.Terran_Barracks,
 						bunkerBuilder.getTilePosition());
 				if (buildTile != null) {
 					bunkerBuilder.build(UnitType.Terran_Bunker, buildTile);
 				}
-			}
+			}*/
 		} else if (workers.size() > 10) {
 			game.setLocalSpeed(10);
 			game.drawTextMap(workers.get(10).getPosition(), "He will build bunker");
@@ -383,12 +388,12 @@ public class TestBot1 extends DefaultBWListener {
 		int i = 1;
 		for (Unit worker : workers) {
 			if (worker.isGatheringMinerals() && dontBuild == false) {
-				if (self.minerals() >= 150 * i && barracks.size() < 6) {
+				/*if (self.minerals() >= 150 * i && barracks.size() < 6) {
 					TilePosition buildTile = getBuildTile(worker, UnitType.Terran_Barracks, self.getStartLocation());
 					if (buildTile != null) {
 						worker.build(UnitType.Terran_Barracks, buildTile);
 					}
-				}
+				}*/
 
 				if (self.minerals() >= i * 100 && self.supplyUsed() + (self.supplyUsed() / 3) >= self.supplyTotal()
 						&& self.supplyTotal() < 400) {

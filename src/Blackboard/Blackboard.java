@@ -25,6 +25,7 @@ public class Blackboard {
 	public List<Unit> workers = new ArrayList<Unit>();
 	public List<Unit> barracks = new ArrayList<Unit>();
 	public List<Unit> commandCenters = new ArrayList<Unit>();
+	public List<Unit> supplyDepots = new ArrayList<Unit>();
 	public List<BaseLocation> baseLocations = new ArrayList<>();
 	public List<BaseLocation> allLocations = new ArrayList<>();
 	public Dictionary<String, List<Unit>> army;
@@ -114,6 +115,14 @@ public class Blackboard {
 	
 	public void addBarrack(Unit b) {
 		barracks.add(b);
+	}
+	
+	public void setSupplyDepots(List<Unit> s) {
+		supplyDepots = s;
+	}
+	
+	public void addSupplyDepots(Unit s) {
+		supplyDepots.add(s);
 	}
 	
 	public void setCommandCenters(List<Unit> c) {

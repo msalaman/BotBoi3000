@@ -19,13 +19,87 @@ public class EconZergEarly extends Routine{
 	
 	public void act(Blackboard blackboard) {
 		blackboard.game.drawTextScreen(10,200,"Early Zerg");
-		if(blackboard.getSupplyUsed() >= 39) {
+		blackboard.game.drawTextScreen(10,140, "Supply Used: " + blackboard.getSupplyUsed());
+		blackboard.game.drawTextScreen(10,150, "Supply Total: " + blackboard.getSupplyTotal());
+		int supplyTotal = blackboard.getSupplyTotal()/2;
+		int supplyUsed = blackboard.getSupplyUsed()/2;
+		if(supplyTotal >= 39) {
+			succeed();
+			return;
+		}
+		if(supplyUsed<=10 && supplyTotal<11) {
+			blackboard.game.drawTextScreen(10, 160,"Stage 1");
+			if(blackboard.commandCenters.get(0).getTrainingQueue().isEmpty()) {
+				blackboard.commandCenters.get(0).build(UnitType.Terran_SCV);
+			}
+			if(blackboard.supplyDepots.size() == 0 && blackboard.minerals >=100) {
+				for (Unit worker : blackboard.workers) {
+					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
+							blackboard.game.self().getStartLocation());
+					if (buildTile != null) {
+						worker.build(UnitType.Terran_Supply_Depot, buildTile);
+						break;
+					}
+				}
+			}
+		} else if(supplyUsed<16){
+			blackboard.game.drawTextScreen(10, 160,"Stage 2");
+			if(blackboard.barracks.size() == 0 && blackboard.minerals >= 150) {
+				blackboard.game.drawTextScreen(10, 170,"Stage 2.1");
+				for (Unit worker : blackboard.workers) {
+					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Barracks,
+							blackboard.game.self().getStartLocation());
+					if (buildTile != null) {
+						worker.build(UnitType.Terran_Barracks, buildTile);
+						break;
+					}
+				}
+			} else if(supplyUsed < 15 && blackboard.barracks.size()>0) {
+				blackboard.game.drawTextScreen(10, 160,"Stage 3");
+				if(blackboard.barracks.get(0).getTrainingQueue().isEmpty()) {
+					blackboard.barracks.get(0).build(UnitType.Terran_Marine);
+				}
+			} else if(supplyUsed == 15 && supplyTotal < 19) {
+				
+				for (Unit worker : blackboard.workers) {
+					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
+							blackboard.game.self().getStartLocation());
+					if (buildTile != null) {
+						worker.build(UnitType.Terran_Supply_Depot, buildTile);
+						break;
+					}
+				}
+				if(blackboard.barracks.get(0).getTrainingQueue().isEmpty()) {
+					blackboard.barracks.get(0).build(UnitType.Terran_Marine);
+				}
+			} else {
+				if(blackboard.barracks.get(0).getTrainingQueue().isEmpty()) {
+					blackboard.barracks.get(0).build(UnitType.Terran_Marine);
+				}
+				return;
+			}
+			
+			return;
+		}
+		/*
+		blackboard.game.drawTextScreen(10,160, "Supply Total: " + blackboard.getSupplyTotal());
+		if(blackboard.getSupplyTotal()/2 >= 39) {
 			succeed(); //TODO: change if not early
 			//If ratio wrong in early, then it means that early is completed
 			return;
 		}
+		int ii=0;
+		for(Unit u : blackboard.buildings) {
+			if(u.getType() == UnitType.Terran_Supply_Depot) {
+				ii++;
+			}
+		}
+		if(ii>5) {
+			succeed();
+			return;
+		}
 		//TODO: Logic and exec of building stuff and troops
-		int supply = blackboard.getSupplyUsed();
+		int supply = blackboard.getSupplyTotal()/2;
 		if(supply < 10) {
 			blackboard.commandCenters.get(0).build(UnitType.Terran_SCV);
 		}
@@ -80,5 +154,6 @@ public class EconZergEarly extends Routine{
 			}
 
 		}
+		*/
 	}	
 }
