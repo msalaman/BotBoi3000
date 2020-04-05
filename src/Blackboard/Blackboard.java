@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Set;
 
 import Routine.*;
+//import TestBot1.Strategy;
 import bwapi.Game;
 import bwapi.Mirror;
 import bwapi.Player;
 import bwapi.Position;
 import bwapi.Race;
 import bwapi.Unit;
+import bwta.BaseLocation;
 
 public class Blackboard {
 	public Mirror mirror;
@@ -24,25 +26,38 @@ public class Blackboard {
 	public List<Unit> barracks = new ArrayList<Unit>();
 	public List<Unit> commandCenters = new ArrayList<Unit>();
 	public List<Unit> supplyDepots = new ArrayList<Unit>();
+	public List<BaseLocation> baseLocations = new ArrayList<>();
+	public List<BaseLocation> allLocations = new ArrayList<>();
 	public Dictionary<String, List<Unit>> army;
 	public int minerals;
 	public int gas;
 	public int supplyUsed;
 	public int supplyTotal;
+	public int searchingScv;
+	public int searchingTimeout;
 	public List<Boolean> research;
 	public List<Unit> enemyCommandCenters = new ArrayList<Unit>();
 	public Set<Position> enemyBuildingMemory = new HashSet<Position>();
+	public Unit searcher;
+	public Unit bunker;
 	public int enemyUnitCount;
     public Boolean EconTreeCompleted;
 	public Boolean StrategyTreeCompleted;
 	public Boolean ResearchTreeCompleted;
 	public Race enemyRace;
+	public Position workerAttacked;
 	public Routine stratPtr; 
 	public Routine econPtr;
 	public Routine stratRoot;
 	public Routine econRoot;
+	public enum Strategy {
+		WaitFor50, AttackAtAllCost
+	};
+	public Strategy selectedStrategy;
+	
 	
 	public Blackboard() {
+		
 		army = new Hashtable<String, List<Unit>>();
 		List<Unit> marines = new ArrayList<>();
 		army.put("marines", marines);
@@ -77,6 +92,9 @@ public class Blackboard {
 	
 	public List<Unit> getBuildings() {
 		return buildings;
+	}
+	public Strategy getStrategy(String strat) {
+		return Strategy.valueOf(strat);
 	}
 	
 	public void addBuilding(Unit b) {
