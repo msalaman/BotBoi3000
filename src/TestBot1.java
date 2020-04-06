@@ -160,6 +160,8 @@ public class TestBot1 extends DefaultBWListener {
 		List<Unit> workers = new ArrayList<>();
 		List<Unit> barracks = new ArrayList<>();
 		List<Unit> supplyDepots = new ArrayList<>();
+		List<Unit> academies = new ArrayList<>();
+		List<Unit> refineries = new ArrayList<>();
 		Unit commandCenter = null;
 		List<Unit> marines = new ArrayList<>();
 		List<Unit> firebats = new ArrayList<>();
@@ -257,6 +259,12 @@ public class TestBot1 extends DefaultBWListener {
 			if(myUnit.getType() == UnitType.Terran_Supply_Depot) {
 				supplyDepots.add(myUnit);
 			}
+			if(myUnit.getType() == UnitType.Terran_Academy) {
+				academies.add(myUnit);
+			}
+			if(myUnit.getType() == UnitType.Terran_Refinery) {
+				refineries.add(myUnit);
+			}
 
 		}
 
@@ -281,6 +289,8 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setStrategyTreeCompleted(false);
 		blackboard.setResearchTreeCompleted(false);
 		blackboard.setSupplyDepots(supplyDepots);
+		blackboard.setAcademies(academies);
+		blackboard.setRefineries(refineries);
 		
 
 		if (econRoot.isRunning()) {
