@@ -79,6 +79,8 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.searchingScv = 0;
 		blackboard.searchingTimeout = 0;
 		blackboard.selectedStrategy = blackboard.getStrategy("WaitFor50");
+		List<Unit> enemyCommandCenters = new ArrayList<>();
+		blackboard.setEnemyCommandCenters(enemyCommandCenters);
 		// Use BWTA to analyze map
 		// This may take a few minutes if the map is processed first time!
 
@@ -104,6 +106,7 @@ public class TestBot1 extends DefaultBWListener {
 		game.drawTextScreen(10, 40, "Elapsed time: " + game.elapsedTime() + "; Strategy: " + blackboard.selectedStrategy);
 		game.drawTextScreen(10, 50, debugText);
 		game.drawTextScreen(10, 60, "supply: " + self.supplyTotal() + " used: " + self.supplyUsed());
+		game.drawTextScreen(100, 60, "enemyCommandCenters Count: " + blackboard.enemyCommandCenters.size());
 		if(blackboard != null) {
 			game.drawTextScreen(10, 70, "There is a blackboard");
 			if(blackboard.self != null) {
@@ -356,7 +359,6 @@ public class TestBot1 extends DefaultBWListener {
 		
 		debugText = "Size: " + workers.size() + "; isGathering" + workers.get(7).isGatheringMinerals() + "; location: "
 				+ blackboard.baseLocations.size() + "; num: " + blackboard.searchingScv;
-		List<Unit> enemyCommandCenters = new ArrayList<>();
 		int enemyUnitCount = 0;
 		for (Unit u : game.enemy().getUnits()) {
 			enemyUnitCount++;
@@ -365,14 +367,17 @@ public class TestBot1 extends DefaultBWListener {
 				// check if we have it's position in memory and add it if we
 				// don't
 				if(u.getType() == UnitType.Terran_Command_Center || u.getType() == UnitType.Zerg_Infested_Command_Center || u.getType() == UnitType.Protoss_Nexus) {
-					enemyCommandCenters.add(u);
+					for(Unit e : blackboard.enemyCommandCenters) {
+						if(e.getID() != u.getID()) {
+							blackboard.addEnemyCommandCenter(u);
+						}
+					}
 				}
 				if (!enemyBuildingMemory.contains(u.getPosition()))
 					enemyBuildingMemory.add(u.getPosition());
 			}
 		}
 		blackboard.enemyBuildingMemory = enemyBuildingMemory;
-		blackboard.setEnemyCommandCenters(enemyCommandCenters);
 		blackboard.setEnemyUnitCount(enemyUnitCount);
 
 		// loop over all the positions that we remember
