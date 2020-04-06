@@ -18,14 +18,15 @@ public class EconZergLate extends Routine {
 	}
 	
 	public void act(Blackboard blackboard) {
-		if(blackboard.getSupplyTotal() < 120) {
+		blackboard.game.drawTextScreen(100,200, "Late stage 1: Vultures and tanks");
+		blackboard.game.drawTextScreen(100,200, "This is the last stage and where the econ will stay");
+		if(blackboard.getSupplyTotal()/2 < 200 || blackboard.getSupplyUsed()/2 < 100) {
 			fail(); //TODO: change if not early
 			//If ratio wrong in early, then it means that we shouldn't be in late stage
 			return;
 		}
 		//TODO: Logic and exec of building stuff and troops
-		blackboard.game.drawTextScreen(100,200, "Late stage 1: Vultures and tanks");
-		blackboard.game.drawTextScreen(100,200, "This is the last stage and where the econ will stay");
+		
 		for (Unit building : blackboard.buildings) {
 			
 			//if (building.getType() == UnitType.Terran_Factory) {

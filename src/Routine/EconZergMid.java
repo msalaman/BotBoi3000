@@ -19,11 +19,12 @@ public class EconZergMid extends Routine {
 	}
 
 	public void act(Blackboard blackboard) {
-		if (blackboard.getSupplyTotal() / 2 >= 300) {
+		blackboard.game.drawTextScreen(100, 200, "Mid stage 1: Cut SVC production. Make Medics and Marines");
+		if (blackboard.getSupplyTotal() / 2 >= 200) {
 			succeed(); // TODO: change if not mid
 			// If ratio wrong in mid, then it means that mid is completed
 			return;
-		} else if (blackboard.getSupplyTotal() / 2 < 16) {
+		} else if (blackboard.getSupplyTotal() / 2 < 34) {
 			fail();
 			// This means that the supply depots were destroyed and econ must start again
 		}
@@ -60,7 +61,7 @@ public class EconZergMid extends Routine {
 					bunkerBuilder.build(UnitType.Terran_Barracks, buildTile);
 				}
 			}
-			blackboard.game.drawTextScreen(100, 200, "Mid stage 1: Cut SVC production. Make Medics and Marines");
+			
 			for (Unit barrack : blackboard.barracks) {
 				if (barrack.getTrainingQueue().isEmpty()) {
 					if (blackboard.army.get("medics").size() < 7 && blackboard.academies.size() > 0) {
@@ -72,12 +73,12 @@ public class EconZergMid extends Routine {
 				}
 			}
 		}
-		if (supplyUsed < 300 && supplyUsed > 43) {
+		if (supplyUsed < 200 && supplyUsed > 43) {
 			Unit bunkerBuilder = blackboard.workers.get(0);
 			
 			blackboard.game.drawTextScreen(100, 200, "Mid stage 2: Build turrets and another sim city");
 			blackboard.game.drawTextScreen(100, 210, "Marines:" + blackboard.getArmyUnits("marines").size());
-			if (bunkerBuilder.exists() && blackboard.supplyDepots.size() < 13) {
+			if (bunkerBuilder.exists() && supplyTotal < 200) {
 				TilePosition buildTile = getBuildTile(blackboard.game, bunkerBuilder, UnitType.Terran_Supply_Depot,
 						bunkerBuilder.getTilePosition());
 				if (buildTile != null) {
