@@ -57,7 +57,6 @@ public class Blackboard {
 	
 	
 	public Blackboard() {
-		
 		army = new Hashtable<String, List<Unit>>();
 		List<Unit> marines = new ArrayList<>();
 		army.put("marines", marines);

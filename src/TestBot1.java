@@ -110,41 +110,7 @@ public class TestBot1 extends DefaultBWListener {
 				game.drawTextScreen(10, 80, "There is a blackboard.self");
 			}
 		}
-		/*
-		 * if (game.elapsedTime() > 2001) { int x = (game.elapsedTime() / 500) %
-		 * 2; if (x == 0) { selectedStrategy = Strategy.FindEnemy; } else {
-		 * selectedStrategy = Strategy.HugeAttack; } }
-		 */
 		
-		
-		if (econRoot == null) {
-			game.drawTextScreen(10, 90, "We are absolutely toast");
-		}
-		else {
-			game.drawTextScreen(10, 90, "Please be somewhat relieved");
-		}
-		
-		/*
-		if (econRoot.isRunning()) {
-			game.drawTextScreen(10, 100, "econRoot is currently Running");
-			econRoot.act(blackboard);
-		}
-		else if (econRoot.isFailure()) {
-			game.drawTextScreen(10, 100, "econRoot has Failed");
-			econRoot.start();
-		}
-		else if (econRoot.isSuccess()) {
-			game.drawTextScreen(10, 100, "econRoot has Succeeded.");
-			econRoot.start();
-		}
-		else {
-			game.drawTextScreen(10, 100, "econRoot has no state");
-			econRoot.start();
-		}
-		*/
-		
-		
-
 		if (maxCyclesForSearching > 300000) {
 			dontBuild = true;
 		}
@@ -200,63 +166,65 @@ public class TestBot1 extends DefaultBWListener {
 				workers.add(myUnit);
 			}
 
-			// if there's enough minerals, train an SCV
-			if (myUnit.getType() == UnitType.Terran_Command_Center) {
+			else if (myUnit.getType() == UnitType.Terran_Command_Center) {
 				commandCenter = myUnit;
 			}
 
-			if (myUnit.getType() == UnitType.Terran_Barracks && myUnit.isBeingConstructed() == false) {
+			else if (myUnit.getType() == UnitType.Terran_Barracks && myUnit.isBeingConstructed() == false) {
 				barracks.add(myUnit);
 			}
 
-			if (myUnit.getType() == UnitType.Terran_Marine) {
+			else if (myUnit.getType() == UnitType.Terran_Marine) {
 				marines.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Firebat) {
+			else if (myUnit.getType() == UnitType.Terran_Firebat) {
 				firebats.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Medic) {
+			else if (myUnit.getType() == UnitType.Terran_Medic) {
 				medics.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Ghost) {
+			else if (myUnit.getType() == UnitType.Terran_Ghost) {
 				ghosts.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Vulture) {
+			else if (myUnit.getType() == UnitType.Terran_Vulture) {
 				vultures.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Siege_Tank_Siege_Mode) {
+			else if (myUnit.getType() == UnitType.Terran_Siege_Tank_Siege_Mode) {
 				siegeTanks.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Goliath) {
+			else if (myUnit.getType() == UnitType.Terran_Goliath) {
 				goliaths.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Wraith) {
+			else if (myUnit.getType() == UnitType.Terran_Wraith) {
 				wraiths.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Dropship) {
+			else if (myUnit.getType() == UnitType.Terran_Dropship) {
 				dropships.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Science_Vessel) {
+			else if (myUnit.getType() == UnitType.Terran_Science_Vessel) {
 				scienceVessels.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Battlecruiser) {
+			else if (myUnit.getType() == UnitType.Terran_Battlecruiser) {
 				battleCruisers.add(myUnit);
 			}
-			if (myUnit.getType() == UnitType.Terran_Valkyrie) {
+			else if (myUnit.getType() == UnitType.Terran_Valkyrie) {
 				valkyries.add(myUnit);
 			}
 
-			if (myUnit.getType() == UnitType.Terran_Bunker && myUnit.isBeingConstructed() == false) {
+			else if (myUnit.getType() == UnitType.Terran_Bunker && myUnit.isBeingConstructed() == false) {
 				blackboard.bunker = myUnit;
 			}
-
+			
+			else if(myUnit.getType() == UnitType.Terran_Supply_Depot) {
+				supplyDepots.add(myUnit);
+			}
+			
+			
 			if (myUnit.isUnderAttack() && myUnit.canAttack()) {
 				game.setLocalSpeed(1);
 				myUnit.attack(myUnit.getPosition());
 			}
-			if(myUnit.getType() == UnitType.Terran_Supply_Depot) {
-				supplyDepots.add(myUnit);
-			}
+
 
 		}
 
@@ -282,7 +250,6 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setResearchTreeCompleted(false);
 		blackboard.setSupplyDepots(supplyDepots);
 		
-
 		if (econRoot.isRunning()) {
 			game.drawTextScreen(10, 100, "econRoot is currently Running");
 			econRoot.act(blackboard);
@@ -299,18 +266,28 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextScreen(10, 100, "econRoot has no state");
 			econRoot.start();
 		}
-		
+		if (stratRoot.isRunning()) {
+			game.drawTextScreen(75, 100, "stratRoot is currently Running");
+			stratRoot.act(blackboard);
+		}
+		else if (econRoot.isFailure()) {
+			game.drawTextScreen(75, 100, "stratRoot has Failed");
+			stratRoot.start();
+		}
+		else if (econRoot.isSuccess()) {
+			game.drawTextScreen(75, 100, "stratRoot has Succeeded.");
+			stratRoot.start();
+		}
+		else {
+			game.drawTextScreen(75, 100, "stratRoot has no state");
+			stratRoot.start();
+		}
 		
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
 			if (myUnit.getType().isWorker() && myUnit.isIdle()) {
 				boolean skip = false;
-				if (blackboard.bunker == null && bunkerBuilder != null && myUnit.equals(bunkerBuilder)
-						&& barracks.isEmpty() == false) {
-					skip = true;
-				}
-
 				Unit closestMineral = null;
 
 				// find the closest mineral
@@ -341,39 +318,6 @@ public class TestBot1 extends DefaultBWListener {
 			}
 		}
 
-		if (bunkerBuilder == null && workers.size() > 10) {
-			bunkerBuilder = workers.get(10);
-		}
-
-		if (blackboard.bunker == null && barracks.size() >= 1 && workers.size() > 10 && dontBuild == false) {
-			game.setLocalSpeed(20);
-
-			if (timeout < 200) {
-				game.drawTextMap(bunkerBuilder.getPosition(), "Moving to create bunker " + timeout + "/400");
-				bunkerBuilder.move(BWTA.getNearestChokepoint(bunkerBuilder.getPosition()).getCenter());
-				timeout++;
-			} /*else {
-				game.drawTextMap(bunkerBuilder.getPosition(), "Buiding bunker");
-				TilePosition buildTile = getBuildTile(bunkerBuilder, UnitType.Terran_Barracks,
-						bunkerBuilder.getTilePosition());
-				if (buildTile != null) {
-					bunkerBuilder.build(UnitType.Terran_Bunker, buildTile);
-				}
-			}*/
-		} else if (workers.size() > 10) {
-			game.setLocalSpeed(10);
-			game.drawTextMap(workers.get(10).getPosition(), "He will build bunker");
-		}
-
-		if (blackboard.bunker != null && bunkerBuilder != null && bunkerBuilder.isRepairing() == false) {
-			game.drawTextMap(bunkerBuilder.getPosition(), "Reparing bunker");
-			bunkerBuilder.repair(blackboard.bunker);
-		}
-/*
-		if (commandCenter.getTrainingQueue().isEmpty() && workers.size() < 20 && self.minerals() >= 50) {
-			commandCenter.build(UnitType.AllUnits.Terran_SCV);
-		}
-*/
 		frameskip++;
 		if (frameskip == 20) {
 			frameskip = 0;
@@ -385,39 +329,6 @@ public class TestBot1 extends DefaultBWListener {
 
 		blackboard.searchingTimeout++;
 
-		int i = 1;
-		for (Unit worker : workers) {
-			if (worker.isGatheringMinerals() && dontBuild == false) {
-				/*if (self.minerals() >= 150 * i && barracks.size() < 6) {
-					TilePosition buildTile = getBuildTile(worker, UnitType.Terran_Barracks, self.getStartLocation());
-					if (buildTile != null) {
-						worker.build(UnitType.Terran_Barracks, buildTile);
-					}
-				}*/
-
-				if (self.minerals() >= i * 100 && self.supplyUsed() + (self.supplyUsed() / 3) >= self.supplyTotal()
-						&& self.supplyTotal() < 400) {
-					TilePosition buildTile = getBuildTile(worker, UnitType.Terran_Supply_Depot,
-							self.getStartLocation());
-					// and, if found, send the worker to build it (and leave
-					// others
-					// alone - break;)
-					if (buildTile != null) {
-						worker.build(UnitType.Terran_Supply_Depot, buildTile);
-					}
-				}
-			}
-
-			i++;
-		}
-
-		/*
-		for (Unit barrack : barracks) {
-			if (barrack.getTrainingQueue().isEmpty()) {
-				barrack.build(UnitType.AllUnits.Terran_Marine);
-			}
-		}
-*/
 		for (BaseLocation b : BWTA.getBaseLocations()) {
 			// If this is a possible start location,
 			if (b.isStartLocation()) {
@@ -426,61 +337,7 @@ public class TestBot1 extends DefaultBWListener {
 
 			blackboard.allLocations.add(b);
 		}
-
-		Random random = new Random();
-/*		int k = 0;
-		for (Unit marine : marines) {
-			if (marine.isAttacking() == false && marine.isMoving() == false) {
-				if (marines.size() > 50 || selectedStrategy == Strategy.AttackAtAllCost) {
-					if (marines.size() > 40) {
-						selectedStrategy = Strategy.AttackAtAllCost;
-					} else {
-						selectedStrategy = Strategy.WaitFor50;
-					}
-					if (enemyBuildingMemory.isEmpty()) {
-						marine.attack(allLocations.get(k % allLocations.size()).getPosition());
-					} else {
-						for (Position p : enemyBuildingMemory) {
-							marine.attack(p);
-						}
-					}
-
-					if (marines.size() > 70) {
-						if (k < allLocations.size()) {
-							marine.attack(allLocations.get(k).getPosition());
-						}
-					}
-				} else {
-					Position newPos;
-
-					if (bunker != null) {
-						List<TilePosition> path = BWTA.getShortestPath(bunker.getTilePosition(),
-								BWTA.getStartLocation(game.self()).getTilePosition());
-
-						if (path.size() > 1) {
-							newPos = path.get(1).toPosition();
-						} else {
-							newPos = BWTA.getNearestChokepoint(marine.getPosition()).getCenter();
-						}
-					} else {
-						newPos = BWTA.getNearestChokepoint(marine.getPosition()).getCenter();
-					}
-
-					marine.attack(newPos);
-				}
-			}
-			k++;
-
-			if (bunker != null && bunker.getLoadedUnits().size() < 4 && k < 5) {
-				marine.load(bunker);
-			}
-			
-			if (workerAttacked != null){
-				marine.attack(workerAttacked);
-			}
-		}
-		*/
-
+		
 		debugText = "Size: " + workers.size() + "; isGathering" + workers.get(7).isGatheringMinerals() + "; location: "
 				+ blackboard.baseLocations.size() + "; num: " + blackboard.searchingScv;
 		List<Unit> enemyCommandCenters = new ArrayList<>();
