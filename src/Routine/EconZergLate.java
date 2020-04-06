@@ -20,7 +20,7 @@ public class EconZergLate extends Routine {
 	public void act(Blackboard blackboard) {
 		blackboard.game.drawTextScreen(100,200, "Late stage 1: Vultures and tanks");
 		blackboard.game.drawTextScreen(100,200, "This is the last stage and where the econ will stay");
-		if(blackboard.getSupplyTotal()/2 < 200 || blackboard.getSupplyUsed()/2 < 100) {
+		if(blackboard.getSupplyTotal()/2 < 200) {
 			fail(); //TODO: change if not early
 			//If ratio wrong in early, then it means that we shouldn't be in late stage
 			return;
