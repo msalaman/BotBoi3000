@@ -93,6 +93,7 @@ public class EconZergEarly extends Routine{
 					break;
 				}
 			}
+
 			for(Unit barrack : blackboard.barracks) {
 				if(barrack.getTrainingQueue().isEmpty() && blackboard.minerals >= 50) {
 					barrack.build(UnitType.Terran_Marine);
@@ -103,6 +104,7 @@ public class EconZergEarly extends Routine{
 					commandCenter.build(UnitType.Terran_SCV);
 				}
 			}
+
 			blackboard.game.drawTextScreen(10, 170,"Stage 4 end");
 		} else if(supplyUsed < 34){
 			blackboard.game.drawTextScreen(10, 160,"Stage 5");
@@ -111,6 +113,7 @@ public class EconZergEarly extends Routine{
 					barrack.build(UnitType.Terran_Marine);
 				}
 			}
+
 			for(Unit commandCenter : blackboard.commandCenters) {
 				if(commandCenter.getTrainingQueue().isEmpty() && blackboard.minerals >= 50) {
 					commandCenter.build(UnitType.Terran_SCV);

@@ -126,6 +126,8 @@ public class TestBot1 extends DefaultBWListener {
 		List<Unit> workers = new ArrayList<>();
 		List<Unit> barracks = new ArrayList<>();
 		List<Unit> supplyDepots = new ArrayList<>();
+		List<Unit> academies = new ArrayList<>();
+		List<Unit> refineries = new ArrayList<>();
 		Unit commandCenter = null;
 		List<Unit> marines = new ArrayList<>();
 		List<Unit> firebats = new ArrayList<>();
@@ -219,12 +221,17 @@ public class TestBot1 extends DefaultBWListener {
 				supplyDepots.add(myUnit);
 			}
 			
+			else if(myUnit.getType() == UnitType.Terran_Academy) {
+				academies.add(myUnit);
+			}
+			else if(myUnit.getType() == UnitType.Terran_Refinery) {
+				refineries.add(myUnit);
+			}
 			
 			if (myUnit.isUnderAttack() && myUnit.canAttack()) {
 				game.setLocalSpeed(1);
 				myUnit.attack(myUnit.getPosition());
 			}
-
 
 		}
 
@@ -249,6 +256,8 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.setStrategyTreeCompleted(false);
 		blackboard.setResearchTreeCompleted(false);
 		blackboard.setSupplyDepots(supplyDepots);
+		blackboard.setAcademies(academies);
+		blackboard.setRefineries(refineries);
 		
 		if (econRoot.isRunning()) {
 			game.drawTextScreen(10, 100, "econRoot is currently Running");

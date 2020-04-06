@@ -26,6 +26,8 @@ public class Blackboard {
 	public List<Unit> barracks = new ArrayList<Unit>();
 	public List<Unit> commandCenters = new ArrayList<Unit>();
 	public List<Unit> supplyDepots = new ArrayList<Unit>();
+	public List<Unit> academies = new ArrayList<Unit>();
+	public List<Unit> refineries = new ArrayList<Unit>();
 	public List<BaseLocation> baseLocations = new ArrayList<>();
 	public List<BaseLocation> allLocations = new ArrayList<>();
 	public Dictionary<String, List<Unit>> army;
@@ -122,6 +124,22 @@ public class Blackboard {
 	
 	public void addSupplyDepots(Unit s) {
 		supplyDepots.add(s);
+	}
+	
+	public void setRefineries(List<Unit> r) {
+		refineries = r;
+	}
+	
+	public void addRefineries(Unit r) {
+		refineries.add(r);
+	}
+	
+	public void setAcademies(List<Unit> a) {
+		academies = a;
+	}
+	
+	public void addSupplyAcademy(Unit a) {
+		academies.add(a);
 	}
 	
 	public void setCommandCenters(List<Unit> c) {
@@ -267,4 +285,5 @@ public class Blackboard {
 	public Routine getEconRoot() {
 		return econRoot;
 	}
+
 }
