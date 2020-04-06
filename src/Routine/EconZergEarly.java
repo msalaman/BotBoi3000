@@ -99,11 +99,24 @@ public class EconZergEarly extends Routine{
 			return;
 		}
 		//TODO: Logic and exec of building stuff and troops
+
 		int supply = blackboard.getSupplyTotal()/2;
 		if(supply < 10) {
+
 			blackboard.commandCenters.get(0).build(UnitType.Terran_SCV);
 		}
-		if(supply < 26 && supply > 9) {
+		if(supply < 51 && supply > 19) {
+			blackboard.game.drawTextScreen(100,200, "Early stage 2: build Barracks, Marines and Supply Depots");
+			
+			Unit bunkerBuilder = blackboard.workers.get(0);
+			TilePosition buildTile = getBuildTile(blackboard.game, bunkerBuilder, UnitType.Terran_Barracks,
+					bunkerBuilder.getTilePosition());
+			if (buildTile != null) {
+				if (bunkerBuilder.exists()) {
+					bunkerBuilder.build(UnitType.Terran_Barracks, buildTile);
+				}
+			}
+			
 			for (Unit barrack : blackboard.barracks) {
 				if (barrack.getTrainingQueue().isEmpty()) {
 					barrack.build(UnitType.Terran_Marine);
@@ -117,7 +130,7 @@ public class EconZergEarly extends Routine{
 			}
 			if(i<5) {
 				for (Unit worker : blackboard.workers) {
-					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
+					buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
 							blackboard.game.self().getStartLocation());
 					// and, if found, send the worker to build it (and leave
 					// others
@@ -129,7 +142,7 @@ public class EconZergEarly extends Routine{
 				}
 			}
 		}
-		if(supply > 25 && supply < 39) {
+		if(supply > 50 && supply < 79) {
 			blackboard.game.drawTextScreen(100,200, "Early stage 3: build up Barraks and Refinery");
 			Unit bunkerBuilder = blackboard.workers.get(0);
 			TilePosition buildTile = getBuildTile(blackboard.game, bunkerBuilder, UnitType.Terran_Barracks,
