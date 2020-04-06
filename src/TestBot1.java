@@ -128,6 +128,7 @@ public class TestBot1 extends DefaultBWListener {
 		List<Unit> supplyDepots = new ArrayList<>();
 		List<Unit> academies = new ArrayList<>();
 		List<Unit> refineries = new ArrayList<>();
+		List<Unit> buildings  = new ArrayList<>();
 		Unit commandCenter = null;
 		List<Unit> marines = new ArrayList<>();
 		List<Unit> firebats = new ArrayList<>();
@@ -169,10 +170,12 @@ public class TestBot1 extends DefaultBWListener {
 			}
 
 			else if (myUnit.getType() == UnitType.Terran_Command_Center) {
+				buildings.add(myUnit);
 				commandCenter = myUnit;
 			}
 
 			else if (myUnit.getType() == UnitType.Terran_Barracks && myUnit.isBeingConstructed() == false) {
+				buildings.add(myUnit);
 				barracks.add(myUnit);
 			}
 
@@ -214,17 +217,21 @@ public class TestBot1 extends DefaultBWListener {
 			}
 
 			else if (myUnit.getType() == UnitType.Terran_Bunker && myUnit.isBeingConstructed() == false) {
+				buildings.add(myUnit);
 				blackboard.bunker = myUnit;
 			}
 			
 			else if(myUnit.getType() == UnitType.Terran_Supply_Depot) {
+				buildings.add(myUnit);
 				supplyDepots.add(myUnit);
 			}
 			
 			else if(myUnit.getType() == UnitType.Terran_Academy) {
+				buildings.add(myUnit);
 				academies.add(myUnit);
 			}
 			else if(myUnit.getType() == UnitType.Terran_Refinery) {
+				buildings.add(myUnit);
 				refineries.add(myUnit);
 			}
 			
@@ -234,7 +241,7 @@ public class TestBot1 extends DefaultBWListener {
 			}
 
 		}
-
+		blackboard.setBuildings(buildings);
 		blackboard.setBarracks(barracks);
 		blackboard.setWorkers(workers);
 		blackboard.addArmyUnits("marines", marines);
