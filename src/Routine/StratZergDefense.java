@@ -18,16 +18,19 @@ public class StratZergDefense extends Routine{
 	
 	public void reset() { }
 	
-	public StratZergDefense(Blackboard blackboard) {
+	public StratZergDefense() {
 		super();
 	}
 	
 	public void act(Blackboard blackboard) {
 		blackboard.game.drawTextScreen(10,210,"Defense Zerg");
-		succeed();
 		List<Unit> buildings = blackboard.getBuildings();
+		if(buildings.size() > 1) {
+			blackboard.game.drawTextScreen(10,240,"Defense Zerg FAIL");
+			fail();
+		}
 		if(buildings.size() == 1) { // Only one building
-			blackboard.game.drawTextScreen(100,200, "There is only one building!");
+			blackboard.game.drawTextScreen(100,220, "There is only one building!");
 		
 			if(blackboard.getBuildings().get(0).isUnderAttack()) { // Our one building is under attack
 				blackboard.game.drawTextScreen(100,200, "Our last building is underattack");
@@ -44,6 +47,8 @@ public class StratZergDefense extends Routine{
 			        }
 				}
 			}
+			succeed();
+			/*
 			else { //Our one building is not under attack
 				if(!buildings.isEmpty()) { //send idle troops to patrol last building
 			        Enumeration<String> e = blackboard.army.keys();
@@ -58,7 +63,7 @@ public class StratZergDefense extends Routine{
 			        }
 				}
 				succeed();
-			}
+			}*/
 		}
 	}
 }

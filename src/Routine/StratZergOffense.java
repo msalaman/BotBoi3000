@@ -19,14 +19,17 @@ public class StratZergOffense extends Routine{
 	
 	public void reset() { }
 	
-	public StratZergOffense(Blackboard blackboard) {
+	public StratZergOffense() {
 		super();
 	}
 	
 	public void act(Blackboard blackboard) {
-		blackboard.game.drawTextScreen(10,200,"Offense against Zerg");
+		blackboard.game.drawTextScreen(10,210,"Offense against Zerg");
 		List<Unit> marines = blackboard.getArmyUnits("marines");
 		int k = 0;
+		if(marines.size() < 40) {
+			fail();
+		}
 		for (Unit marine : marines) {
 			if (marine.isAttacking() == false && marine.isMoving() == false) {
 				if (marines.size() > 50 || blackboard.selectedStrategy == blackboard.getStrategy("AttackAtAllCost")) {

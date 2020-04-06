@@ -3,41 +3,58 @@ package Routine;
 import Blackboard.*;
 
 public class StratZergStrat extends Routine {
-	private Sequence sequence;
+	private Selector selector;
 	
 	public StratZergStrat() {
 		super();
 	}
 	
 	public void start() {
+		if(selector == null) {
+			selector = new Selector();
+		}
+		selector.addRoutine(new StratZergDefense());
+		selector.addRoutine(new StratZergOffense());
+		selector.addRoutine(new StratZergScout());
 		super.start();
 	}
 	
 	public void reset() {
-		sequence.reset();
-		sequence.start();
+		this.state = null;
+		this.selector = null;
+		super.start();
 	}
 	
+	@Override
 	public void act(Blackboard blackboard) {
-		if(sequence == null) {
-			sequence = new Sequence();
-			//TODO: add stuff to sequence
-			sequence.addRoutine(new StratZergDefense(blackboard));
-			sequence.addRoutine(new StratZergScout(blackboard));
-			sequence.addRoutine(new StratZergOffense(blackboard));
-			sequence.start();
+		if(selector == null) {
+			this.start();
 			return;
-		} else if(sequence.getState() == null) {
-			sequence.start();
-			return;
-		} else if(sequence.isRunning()) {
-			sequence.act(blackboard);
-			return;
-		} else if(sequence.isSuccess()) {
-			this.state = sequence.state;
-		} else if(sequence.isFailure()) {
-			fail();
 		}
+		if(selector.getState() == null) {
+			this.start();
+			selector.start();
+			return;
+		}
+		if(selector.isFailure()) {
+			fail();
+			this.reset();
+			return;
+		}
+		if(selector.isRunning()) {
+			if(!blackboard.game.isInGame()) {
+				blackboard.game.drawTextScreen(10, 150, "StratZergStrat selector not in game..?");
+				fail();
+			}
+			else {
+				selector.act(blackboard);
+				return;
+			}
+		}
+		if(this.selector.isSuccess()) {
+			succeed();
+			this.reset();
+		} 
 	}
 	
 }

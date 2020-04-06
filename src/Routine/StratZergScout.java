@@ -18,13 +18,16 @@ public class StratZergScout extends Routine{
 	
 	public void reset() { }
 	
-	public StratZergScout(Blackboard blackboard) {
+	public StratZergScout() {
 		super();
 	}
 	
 	public void act(Blackboard blackboard) {
 		blackboard.game.drawTextScreen(10,210,"Scouting");
 		List<Unit> workers = blackboard.workers;
+		if(workers.size()<=7) {
+			fail();
+		}
 		if (workers.size() > 7 && blackboard.searcher == null) {
 			blackboard.searcher = workers.get(7);
 		}
@@ -33,6 +36,9 @@ public class StratZergScout extends Routine{
 				&& blackboard.searchingTimeout % 10 == 0) {
 			blackboard.searcher.move(blackboard.baseLocations.get(blackboard.searchingScv).getPosition());
 			blackboard.searchingScv++;
+		}
+		if (blackboard.enemyCommandCenters.size()>0) {
+			succeed();
 		}
 	}
 }
