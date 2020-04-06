@@ -23,7 +23,8 @@ public class StratZergDefense extends Routine{
 	}
 	
 	public void act(Blackboard blackboard) {
-		blackboard.game.drawTextScreen(10,200,"Defense Zerg");
+		blackboard.game.drawTextScreen(10,210,"Defense Zerg");
+		succeed();
 		List<Unit> buildings = blackboard.getBuildings();
 		if(buildings.size() == 1) { // Only one building
 			blackboard.game.drawTextScreen(100,200, "There is only one building!");
@@ -56,6 +57,7 @@ public class StratZergDefense extends Routine{
 			    		}
 			        }
 				}
+				succeed();
 			}
 		}
 	}

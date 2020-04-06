@@ -23,7 +23,7 @@ public class StratZergScout extends Routine{
 	}
 	
 	public void act(Blackboard blackboard) {
-		blackboard.game.drawTextScreen(10,200,"Scouting");
+		blackboard.game.drawTextScreen(10,210,"Scouting");
 		List<Unit> workers = blackboard.workers;
 		if (workers.size() > 7 && blackboard.searcher == null) {
 			blackboard.searcher = workers.get(7);
