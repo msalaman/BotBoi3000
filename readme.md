@@ -63,4 +63,10 @@ For the Strategy tree:
 # Current Functionality
 Our tree skeleton is now functioning, and it is based on this implementation: https://www.javacodegeeks.com/2014/08/game-ai-an-introduction-to-behaviour-trees.html
 
-Currently our economy tree is functioning, so our code uses a units made by units possible ratio to make decisions on what units to create. The economy is now fully dependent on this functionaility. It currently only works against Zerg opponents. Units are still moved by old Marine Hell code, but when the strategy tree is functioning, then units will be moved by our strategy tree. That is the next function we are working on.
+Currently our economy tree is functioning, so our code uses a units made by units possible ratio to make decisions on what units to create. The economy is now fully dependent on this functionaility. It currently only works against Zerg opponents. 
+
+Also, now our strategy tree is functioning, so now our troop movement is fully dependent on this functionality as well.
+
+# Expert Knowledge
+
+In terms of expert knowledge, we base our economy on a strategy that relies on our resource supply used and supply total values. This ensures that we strategically build the right things at the right time. We also implement scouting strategy to help us spot enemy buildings. Such information will help us make successful attacks against our enemy later in the game. Lastly, we have a survival strategies where we move our troops patrol/defend a building if it is our last one standing. This helps us do all we can to avoid a lose scenario when we are standing on our last leg.
