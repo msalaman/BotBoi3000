@@ -78,6 +78,7 @@ public class TestBot1 extends DefaultBWListener {
 		blackboard.searcher = null;
 		blackboard.searchingScv = 0;
 		blackboard.searchingTimeout = 0;
+		blackboard.patrolCount = 0;
 		blackboard.selectedStrategy = blackboard.getStrategy("WaitFor50");
 		List<Unit> enemyCommandCenters = new ArrayList<>();
 		blackboard.setEnemyCommandCenters(enemyCommandCenters);

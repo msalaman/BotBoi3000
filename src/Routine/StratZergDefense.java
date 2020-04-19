@@ -46,9 +46,10 @@ public class StratZergDefense extends Routine{
 			    		}
 			        }
 				}
+				succeed();
 			}
-			succeed();
-			/*
+
+			
 			else { //Our one building is not under attack
 				if(!buildings.isEmpty()) { //send idle troops to patrol last building
 			        Enumeration<String> e = blackboard.army.keys();
@@ -57,13 +58,15 @@ public class StratZergDefense extends Routine{
 			            String k = e.nextElement();
 			            List<Unit> troops = blackboard.army.get(k);
 			        	for (Unit troop : troops) {
-			        		if(troop.isIdle())
-			        		troop.move(pos);
+			        		if(troop.isIdle() && blackboard.patrolCount < 6) {
+			        			troop.move(pos);
+				        		blackboard.patrolCount++;
+			        		}
 			    		}
 			        }
 				}
 				succeed();
-			}*/
+			}
 		}
 	}
 }
