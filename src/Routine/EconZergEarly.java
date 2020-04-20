@@ -54,14 +54,16 @@ public class EconZergEarly extends Routine{
 						break;
 					}
 				}
-			} else if(supplyUsed < 15 && blackboard.barracks.size()>0) {
+			}
+			if(blackboard.barracks.size()>0) {
 				blackboard.game.drawTextScreen(10, 170,"Stage 2.2");
 				for(Unit barrack : blackboard.barracks) {
 					if(barrack.getTrainingQueue().isEmpty() && blackboard.minerals >= 50) {
 						barrack.build(UnitType.Terran_Marine);
 					}
 				}
-			} else if(supplyUsed >= 15 && supplyTotal < 26) {
+			}
+		} else if(supplyUsed >= 15 && supplyTotal < 26) {
 				blackboard.game.drawTextScreen(10, 160,"Stage 2.3");
 				for (Unit worker : blackboard.workers) {
 					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
@@ -82,7 +84,6 @@ public class EconZergEarly extends Routine{
 					}
 				}
 				blackboard.game.drawTextScreen(10, 170,"Stage 3 end");
-			}
 		} else if(supplyUsed >= 16 && supplyTotal <58) {
 			blackboard.game.drawTextScreen(10, 160,"Stage 4");
 			for (Unit worker : blackboard.workers) {

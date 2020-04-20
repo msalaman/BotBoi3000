@@ -54,7 +54,7 @@ public class EconZergMid extends Routine {
 				if (buildTile != null) {
 					bunkerBuilder.build(UnitType.Terran_Academy, buildTile);
 				}
-			} else if (bunkerBuilder.exists() && blackboard.barracks.size() < 6) {
+			} else if (bunkerBuilder.exists() && blackboard.barracks.size() < 4) {
 				TilePosition buildTile = getBuildTile(blackboard.game, bunkerBuilder, UnitType.Terran_Barracks,
 						bunkerBuilder.getTilePosition());
 				if (buildTile != null) {
