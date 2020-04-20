@@ -53,6 +53,7 @@ public class Blackboard {
 	public Routine econPtr;
 	public Routine stratRoot;
 	public Routine econRoot;
+	public int Academy;
 	public enum Strategy {
 		WaitFor50, AttackAtAllCost
 	};
@@ -60,6 +61,7 @@ public class Blackboard {
 	
 	
 	public Blackboard() {
+		Academy = 0;
 		army = new Hashtable<String, List<Unit>>();
 		List<Unit> marines = new ArrayList<>();
 		army.put("marines", marines);
