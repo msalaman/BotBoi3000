@@ -71,6 +71,13 @@ Also, now our strategy tree is functioning, so now our troop movement is fully d
 
 In terms of expert knowledge, we base our economy on a strategy that relies on our resource supply used and supply total values. This ensures that we strategically build the right things at the right time. We also implement scouting strategy to help us spot enemy buildings. Such information will help us make successful attacks against our enemy later in the game. Lastly, we have a survival strategies where we move our troops patrol/defend a building if it is our last one standing. This helps us do all we can to avoid a lose scenario when we are standing on our last leg.
 
+# Important Variables
+
+A couple of important variables that impact bot behavior are supplyUsed(number of units alive) and supplyTotal(the number of units that can be made). The econonmy tree relies on these variables heavily to determine when it is appropriate to build something. 
+
+patrolCount is another important variable for defense purposes. This variable keeps track of how many troops have been sent to patrol a building, and the strategy tree uses it to determine whether to put more troops on patrol (as you don't want to use too many of your troops to patrol.
+
+
 
 # Features that can be added
 
