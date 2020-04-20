@@ -24,17 +24,17 @@ public class EconZergMid extends Routine {
 			succeed(); // TODO: change if not mid
 			// If ratio wrong in mid, then it means that mid is completed
 			return;
-		} else if (blackboard.getSupplyTotal() / 2 < 34) {
+		} else if (blackboard.getSupplyTotal() / 2 < 58) {
 			fail();
 			// This means that the supply depots were destroyed and econ must start again
 		}
 		// TODO: Logic and exec of building stuff and troops
 		int supplyTotal = blackboard.getSupplyTotal()/2;
 		int supplyUsed = blackboard.getSupplyUsed() / 2;
-		if (supplyUsed < 44) {
+		if (supplyUsed < 58) {
 			Unit bunkerBuilder = blackboard.workers.get(0);
 			
-			if (bunkerBuilder.exists() && blackboard.supplyDepots.size() < 5) {
+			if (bunkerBuilder.exists() && blackboard.supplyDepots.size() < 7) {
 				TilePosition buildTile = getBuildTile(blackboard.game, bunkerBuilder, UnitType.Terran_Supply_Depot,
 						bunkerBuilder.getTilePosition());
 				if (buildTile != null) {
@@ -73,7 +73,7 @@ public class EconZergMid extends Routine {
 				}
 			}
 		}
-		if (supplyUsed < 200 && supplyUsed > 43) {
+		if (supplyUsed < 200 && supplyUsed > 57) {
 			Unit bunkerBuilder = blackboard.workers.get(0);
 			
 			blackboard.game.drawTextScreen(100, 200, "Mid stage 2: Build turrets and another sim city");

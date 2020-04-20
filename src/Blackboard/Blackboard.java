@@ -37,6 +37,7 @@ public class Blackboard {
 	public int supplyTotal;
 	public int searchingScv;
 	public int searchingTimeout;
+	public int patrolCount;
 	public List<Boolean> research;
 	public List<Unit> enemyCommandCenters = new ArrayList<Unit>();
 	public Set<Position> enemyBuildingMemory = new HashSet<Position>();

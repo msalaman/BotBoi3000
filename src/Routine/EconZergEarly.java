@@ -44,7 +44,7 @@ public class EconZergEarly extends Routine{
 			}
 		} else if(supplyUsed<16 && supplyUsed >10){
 			blackboard.game.drawTextScreen(10, 160,"Stage 2");
-			if(blackboard.barracks.size() == 0 && blackboard.minerals >= 150) {
+			if(blackboard.barracks.size() < 3 && blackboard.minerals >= 150) {
 				blackboard.game.drawTextScreen(10, 170,"Stage 2.1");
 				for (Unit worker : blackboard.workers) {
 					TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Barracks,
@@ -83,7 +83,7 @@ public class EconZergEarly extends Routine{
 				}
 				blackboard.game.drawTextScreen(10, 170,"Stage 3 end");
 			}
-		} else if(supplyUsed >= 16 && supplyTotal <34) {
+		} else if(supplyUsed >= 16 && supplyTotal <58) {
 			blackboard.game.drawTextScreen(10, 160,"Stage 4");
 			for (Unit worker : blackboard.workers) {
 				TilePosition buildTile = getBuildTile(blackboard.game, worker, UnitType.Terran_Supply_Depot,
