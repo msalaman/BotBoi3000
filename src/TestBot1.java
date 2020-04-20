@@ -191,6 +191,7 @@ public class TestBot1 extends DefaultBWListener {
 			}
 			else if (myUnit.getType() == UnitType.Terran_Medic) {
 				medics.add(myUnit);
+				marines.add(myUnit);
 			}
 			else if (myUnit.getType() == UnitType.Terran_Ghost) {
 				ghosts.add(myUnit);
@@ -302,32 +303,45 @@ public class TestBot1 extends DefaultBWListener {
 			game.drawTextScreen(75, 100, "stratRoot has no state");
 			stratRoot.start();
 		}
-		
+		boolean gasguy = false;
 		for (Unit myUnit : workers) {
 			// if it's a worker and it's idle, send it to the closest mineral
 			// patch
 			if (myUnit.getType().isWorker() && myUnit.isIdle()) {
 				boolean skip = false;
 				Unit closestMineral = null;
-
+				Unit closestGas = null;
 				// find the closest mineral
-				for (Unit neutralUnit : game.neutral().getUnits()) {
-					if (neutralUnit.getType().isMineralField()) {
-						if (closestMineral == null
-								|| myUnit.getDistance(neutralUnit) < myUnit.getDistance(closestMineral)) {
-							closestMineral = neutralUnit;
+				if(!gasguy && refineries.size()>0) {
+					for(Unit nUnit : game.neutral().getUnits()) {
+						if(nUnit.getType() == UnitType.Resource_Vespene_Geyser && myUnit.canGather(nUnit) && myUnit.getDistance(nUnit) < myUnit.getDistance(closestGas)) {
+							closestGas = refineries.get(0);
+						}
+					}
+					if(closestGas != null) {
+						if(skip == false) {
+							myUnit.gather(closestGas, false);
+						}
+					}
+					gasguy=true;
+				} else {
+					for (Unit neutralUnit : game.neutral().getUnits()) {
+						if (neutralUnit.getType().isMineralField()) {
+							if (closestMineral == null
+									|| myUnit.getDistance(neutralUnit) < myUnit.getDistance(closestMineral)) {
+								closestMineral = neutralUnit;
+							}
+						}
+					}
+	
+					// if a mineral patch was found, send the worker to gather it
+					if (closestMineral != null) {
+						if (skip == false) {
+							myUnit.gather(closestMineral, false);
 						}
 					}
 				}
-
-				// if a mineral patch was found, send the worker to gather it
-				if (closestMineral != null) {
-					if (skip == false) {
-						myUnit.gather(closestMineral, false);
-					}
-				}
 			}
-			
 			if (myUnit.isUnderAttack() && myUnit.canAttack()) {
 				game.setLocalSpeed(1);
 				myUnit.attack(myUnit.getPosition());
