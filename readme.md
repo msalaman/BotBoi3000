@@ -70,3 +70,8 @@ Also, now our strategy tree is functioning, so now our troop movement is fully d
 # Expert Knowledge
 
 In terms of expert knowledge, we base our economy on a strategy that relies on our resource supply used and supply total values. This ensures that we strategically build the right things at the right time. We also implement scouting strategy to help us spot enemy buildings. Such information will help us make successful attacks against our enemy later in the game. Lastly, we have a survival strategies where we move our troops patrol/defend a building if it is our last one standing. This helps us do all we can to avoid a lose scenario when we are standing on our last leg.
+
+
+# Features that can be added
+
+Currently the bot's behavior is not dependent on the enemy species. Originally we envisioned our bot's behavior trees to consist of three subtrees (one for each possible species the bot would be facing). For the purposes of completing our class project, we figured it would make more sense to further develop quality behavior trees than attempt to make three mediocre subtrees for each different behavior. That is why our code only goes through the Zerg subtree regardless of the opponent race (the routines representing the starting point of the other subtrees have been commented out). Future contributors can build up the subtrees for the other races (terran and protoss) and modify the code in StratRoot.java and EconRoot.java so that the currect subtree is selected based on the opponent species. Contributor should look at how the Zerg subtrees were built up as guidance for how to build up the other subtrees.
