@@ -58,7 +58,7 @@ public class StratZergDefense extends Routine{
 			            String k = e.nextElement();
 			            List<Unit> troops = blackboard.army.get(k);
 			        	for (Unit troop : troops) {
-			        		if(troop.isIdle() && blackboard.patrolCount < 6) {
+			        		if(troop.isIdle() && blackboard.patrolCount < 10) {
 			        			troop.move(pos);
 				        		blackboard.patrolCount++;
 			        		}
@@ -67,6 +67,34 @@ public class StratZergDefense extends Routine{
 				}
 				succeed();
 			}
+		}
+		else {
+			if(!(buildings.isEmpty())) {
+		        Enumeration<String> e = blackboard.army.keys();
+		        String k = e.nextElement();
+		        boolean movedTroop = false;
+		        Position pos;
+		        for (Unit building : buildings) {
+		        	movedTroop = false;
+		        	pos = building.getPosition();
+			        while(e.hasMoreElements() && movedTroop == false) {
+			            List<Unit> troops = blackboard.army.get(k);
+			        	for (Unit troop : troops) {
+			        		if(troop.isIdle() && blackboard.patrolCount < (buildings.size()*3)) {
+			        			troop.move(pos);
+				        		blackboard.patrolCount++;
+				        		movedTroop = true;
+				        		break;
+			        		}
+			    		}
+			        	if(movedTroop == false && e.hasMoreElements()) {
+			        		k = e.nextElement();
+			        	}
+			        }
+			        
+		        }
+			}
+			succeed();
 		}
 	}
 }
