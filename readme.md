@@ -84,3 +84,9 @@ patrolCount is another important variable for defense purposes. This variable ke
 Currently the bot's behavior is not dependent on the enemy species. Originally we envisioned our bot's behavior trees to consist of three subtrees (one for each possible species the bot would be facing). For the purposes of completing our class project, we figured it would make more sense to further develop quality behavior trees than attempt to make three mediocre subtrees for each different behavior. That is why our code only goes through the Zerg subtree regardless of the opponent race (the routines representing the starting point of the other subtrees have been commented out). Future contributors can build up the subtrees for the other races (terran and protoss) and modify the code in StratRoot.java and EconRoot.java so that the currect subtree is selected based on the opponent species. Contributor should look at how the Zerg subtrees were built up as guidance for how to build up the other subtrees.
 
 Currently the bot doesn't vary too much in the types of troops it produces, but the blackboard is setup to accomodate creation of any type of terran troop. Contributors can add to bot by editing econ trees to create a more diverse set of troops (if doing so strategically would improve performance). Make sure you have the proper buildings with the proper upgrades to build the troops you see fit, using the bwapi build function. To give the troops you made specific directions, look to also editing the strat trees.
+
+# Known Bugs
+
+We don't really have any known bugs (if something wasn't working we either fixed it or scrapped it from our bot). The gameplay screen does get messy with all the text that is written to it to show what bot tasks are being implemented, so a contributor could work on cleaning that up.
+
+
